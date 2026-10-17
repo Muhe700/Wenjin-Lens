@@ -1,0 +1,11 @@
+# 文津·选刊助手 (Wenjin-Lens) 核心生产依赖清单
+# ==========================================
+
+# 1. 办公文档处理 (Word 目录解析与带样式 Excel 追踪表导出)
+openpyxl>=3.0.0
+python-docx>=0.8.11
+
+# 2. Web 网页服务与 RESTful API (高性能异步驱动)
+fastapi>=0.100.0
+uvicorn[standard]>=0.20.0
+pydantic>=2.0.0

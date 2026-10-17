@@ -1,0 +1,151 @@
+/* ==========================================================================
+   Wenjin-Lens (文津·选刊助手) — 学术设计系统 Design Tokens
+   Design Philosophy: Warm Canvas Editorial & Scholarly Precision
+   Conforms to VoltAgent/awesome-design-md and DESIGN.md
+   ========================================================================== */
+/* 优先采用原生高保真学术字体栈，杜绝境外 Google Fonts 外部网络阻塞 */
+
+:root {
+  /* 品牌核心主色 (松烟墨青 & 陶土暖褐) */
+  --brand-primary: #1b4942;
+  --brand-primary-hover: #133732;
+  --brand-primary-subtle: #edf5f3;
+  --brand-primary-border: #93c0b8;
+
+  --brand-coral: #cc785c;
+  --brand-coral-hover: #b86246;
+  --brand-coral-subtle: #fdf3ef;
+  --brand-coral-border: #f3d2c7;
+
+  --brand-amber: #c4841d;
+  --brand-amber-subtle: #fdf8ee;
+  --brand-amber-border: #f8e7be;
+
+  --brand-emerald: #2d7a46;
+  --brand-emerald-subtle: #edf7ed;
+  --brand-emerald-border: #cbe6cb;
+
+  --brand-slate: #23689b;
+  --brand-slate-subtle: #eef6fc;
+  --brand-slate-border: #cde3f5;
+
+  /* 文字颜色体系 (墨阶层级) */
+  --text-ink: #141413;
+  --text-body: #3d3d3a;
+  --text-muted: #6c6a64;
+  --text-placeholder: #9c9a92;
+  --text-light: #b4b2a8;
+
+  /* 背景底色体系 (Warm Canvas 宣纸温润白) */
+  --bg-canvas: #faf9f5;
+  --bg-canvas-soft: #f4f2eb;
+  --bg-surface: #ffffff;
+  --bg-surface-hover: #fcfbf9;
+  --bg-overlay: #ffffff;
+  --bg-glass: rgba(250, 249, 245, 0.92);
+
+  /* 边线与发丝微线 (Hairline Borders) */
+  --border-hairline: #e8e4dc;
+  --border-soft: #f0ece4;
+  --border-subtle: #f7f5f0;
+
+  /* 评价等级低饱和素雅色 (广中医 A1~B 分级，Notion 属性胶囊美学) */
+  --badge-a1-bg: #fdf2ed;
+  --badge-a1-text: #b84729;
+  --badge-a1-border: #f6cebe;
+
+  --badge-a2-bg: #fdf8ee;
+  --badge-a2-text: #9e6b0a;
+  --badge-a2-border: #f8e7be;
+
+  --badge-a3-bg: #eef6fc;
+  --badge-a3-text: #23689b;
+  --badge-a3-border: #cde3f5;
+
+  --badge-a4-bg: #edf7ed;
+  --badge-a4-text: #2d7a46;
+  --badge-a4-border: #cbe6cb;
+
+  --badge-b-bg: #f5f5f7;
+  --badge-b-text: #55555c;
+  --badge-b-border: #e1e1e6;
+
+  /* 字体排印 */
+  --font-serif: 'Noto Serif SC', 'Songti SC', 'Tiempos Headline', 'SimSun', serif;
+  --font-sans: 'Plus Jakarta Sans', 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "PingFang SC", "Microsoft YaHei", sans-serif;
+  --font-mono: 'JetBrains Mono', 'Fira Code', Menlo, Monaco, Consolas, monospace;
+
+  /* 漫射环境光阴影 (Diffuse Ambient Shadows) */
+  --shadow-ambient: 0 1px 3px rgba(20, 20, 19, 0.02), 0 4px 16px rgba(20, 20, 19, 0.025);
+  --shadow-card: 0 2px 8px rgba(20, 20, 19, 0.03), 0 8px 24px -4px rgba(20, 20, 19, 0.04);
+  --shadow-card-hover: 0 4px 12px rgba(20, 20, 19, 0.04), 0 12px 32px -4px rgba(20, 20, 19, 0.07);
+  --shadow-float: 0 12px 40px rgba(20, 20, 19, 0.08);
+
+  /* 布局度量标准 */
+  --max-content-width: 1160px;
+  --radius-xs: 4px;
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+  --radius-xl: 20px;
+  --radius-full: 9999px;
+}
+
+/* 深色模式变量适配 (深墨雅夜模式) */
+html.dark, [data-theme="dark"] {
+  --brand-primary: #4e9b8f;
+  --brand-primary-hover: #63b3a7;
+  --brand-primary-subtle: rgba(78, 155, 143, 0.16);
+  --brand-primary-border: #3d7d74;
+
+  --brand-coral: #df8a6f;
+  --brand-coral-hover: #ec9e85;
+  --brand-coral-subtle: rgba(223, 138, 111, 0.15);
+  --brand-coral-border: rgba(223, 138, 111, 0.35);
+
+  --brand-amber: #d99a38;
+  --brand-amber-subtle: rgba(217, 154, 56, 0.15);
+  --brand-amber-border: rgba(217, 154, 56, 0.35);
+
+  --text-ink: #f5f4ef;
+  --text-body: #d5d3ca;
+  --text-muted: #949186;
+  --text-placeholder: #6e6b61;
+  --text-light: #524f47;
+
+  --bg-canvas: #121312;
+  --bg-canvas-soft: #181917;
+  --bg-surface: #1a1b19;
+  --bg-surface-hover: #222320;
+  --bg-overlay: #1e201d;
+  --bg-glass: rgba(18, 19, 18, 0.92);
+
+  --border-hairline: #2d2f2b;
+  --border-soft: #252623;
+  --border-subtle: #1e1f1c;
+
+  --badge-a1-bg: rgba(223, 138, 111, 0.18);
+  --badge-a1-text: #f09b82;
+  --badge-a1-border: rgba(223, 138, 111, 0.35);
+
+  --badge-a2-bg: rgba(217, 154, 56, 0.18);
+  --badge-a2-text: #f3b14e;
+  --badge-a2-border: rgba(217, 154, 56, 0.35);
+
+  --badge-a3-bg: rgba(35, 104, 155, 0.2);
+  --badge-a3-text: #62aee6;
+  --badge-a3-border: rgba(35, 104, 155, 0.4);
+
+  --badge-a4-bg: rgba(45, 122, 70, 0.2);
+  --badge-a4-text: #68c786;
+  --badge-a4-border: rgba(45, 122, 70, 0.4);
+
+  --badge-b-bg: rgba(100, 100, 105, 0.2);
+  --badge-b-text: #b8b8c0;
+  --badge-b-border: rgba(100, 100, 105, 0.35);
+
+  --shadow-ambient: 0 1px 3px rgba(0, 0, 0, 0.35), 0 4px 16px rgba(0, 0, 0, 0.25);
+  --shadow-card: 0 2px 8px rgba(0, 0, 0, 0.4), 0 8px 24px rgba(0, 0, 0, 0.45);
+  --shadow-card-hover: 0 4px 12px rgba(0, 0, 0, 0.5), 0 12px 32px rgba(0, 0, 0, 0.6);
+  --shadow-float: 0 12px 40px rgba(0, 0, 0, 0.7);
+}

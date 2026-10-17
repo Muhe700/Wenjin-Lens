@@ -1,0 +1,246 @@
+/* ==========================================================================
+   Wenjin-Lens (文津·选刊助手) — 布局系统样式 (Layout & Structure)
+   Golden Reading Width: 1160px, Breathing Whitespace, Responsive Grid
+   Conforms to VoltAgent/awesome-design-md
+   ========================================================================== */
+
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+html {
+  overflow-x: hidden;
+  max-width: 100vw;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  max-width: 100vw;
+  overflow-x: hidden;
+  background-color: var(--bg-canvas);
+  background-image: 
+    radial-gradient(ellipse 80% 50% at 50% -20%, rgba(27, 73, 66, 0.05) 0%, transparent 70%),
+    radial-gradient(circle at 100% 100%, rgba(204, 120, 92, 0.02) 0%, transparent 40%);
+  color: var(--text-body);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  line-height: 1.7;
+  transition: background-color 0.25s cubic-bezier(0.16, 1, 0.3, 1), color 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  min-height: 100vh;
+}
+
+html.dark body, [data-theme="dark"] body {
+  background-image: 
+    radial-gradient(ellipse 80% 50% at 50% -20%, rgba(78, 155, 143, 0.08) 0%, transparent 70%),
+    radial-gradient(circle at 100% 100%, rgba(223, 138, 111, 0.03) 0%, transparent 40%);
+}
+
+#app {
+  min-height: 100vh;
+  width: 100%;
+  max-width: 100vw;
+  overflow-x: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+/* 顶部浮动磨砂导航 Header */
+.app-header {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  height: 68px !important;
+  background: var(--bg-glass);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-bottom: 1px solid var(--border-hairline);
+  box-shadow: var(--shadow-ambient);
+  padding: 0 28px;
+  display: flex;
+  align-items: center;
+  box-sizing: border-box;
+  width: 100%;
+}
+
+.header-container {
+  max-width: var(--max-content-width);
+  width: 100%;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  min-width: 0;
+}
+
+/* 品牌区徽标与标题 */
+.brand-box {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  cursor: pointer;
+  user-select: none;
+  transition: opacity 0.2s ease;
+}
+
+.brand-box:hover {
+  opacity: 0.9;
+}
+
+.brand-crest {
+  width: 40px;
+  height: 40px;
+  border-radius: var(--radius-md);
+  background: linear-gradient(135deg, var(--brand-primary) 0%, #112d28 100%);
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-serif);
+  font-size: 22px;
+  font-weight: 700;
+  box-shadow: 0 4px 12px rgba(27, 73, 66, 0.22);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  flex-shrink: 0;
+  position: relative;
+  overflow: hidden;
+}
+
+.brand-crest img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: var(--radius-md);
+}
+
+.brand-title-wrap {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.brand-title-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.brand-title {
+  font-family: var(--font-serif);
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--text-ink);
+  letter-spacing: -0.4px;
+  line-height: 1.2;
+}
+
+.brand-badge {
+  font-size: 11px !important;
+  font-weight: 600 !important;
+  letter-spacing: 0.4px;
+  background: var(--bg-surface-soft) !important;
+  color: var(--text-muted) !important;
+  border: 1px solid var(--border-hairline) !important;
+  border-radius: var(--radius-full) !important;
+  padding: 2px 8px !important;
+  height: auto !important;
+  line-height: 1.4 !important;
+}
+
+.brand-sub {
+  font-size: 12px;
+  color: var(--text-muted);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 3px;
+}
+
+.status-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: var(--radius-full);
+  background: var(--brand-emerald);
+  box-shadow: 0 0 0 2px var(--brand-emerald-subtle);
+  animation: pulse-dot 2.5s infinite;
+}
+
+@keyframes pulse-dot {
+  0% { transform: scale(0.95); opacity: 0.8; }
+  50% { transform: scale(1.15); opacity: 1; }
+  100% { transform: scale(0.95); opacity: 0.8; }
+}
+
+/* 主体阅读区 */
+.app-main {
+  flex: 1;
+  max-width: var(--max-content-width);
+  width: 100%;
+  margin: 0 auto;
+  box-sizing: border-box;
+  padding: 32px 24px 64px;
+}
+
+/* 底部 Footer */
+.app-footer {
+  border-top: 1px solid var(--border-hairline);
+  background: var(--bg-surface);
+  padding: 32px 24px;
+  color: var(--text-muted);
+  font-size: 13px;
+}
+
+.footer-inner {
+  max-width: var(--max-content-width);
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  text-align: center;
+  line-height: 1.7;
+}
+
+/* 响应式调整 (平板与移动端适配) */
+@media (max-width: 900px) {
+  .app-header {
+    height: auto !important;
+    padding: 12px 16px;
+    position: relative;
+  }
+  .header-container {
+    flex-direction: column;
+    gap: 12px;
+    align-items: stretch;
+    width: 100%;
+  }
+  .app-main {
+    padding: 18px 12px 40px;
+    width: 100%;
+  }
+}
+
+@media (max-width: 480px) {
+  .app-header {
+    padding: 10px 12px;
+  }
+  .brand-title {
+    font-size: 17px;
+  }
+  .brand-crest {
+    width: 34px;
+    height: 34px;
+  }
+  .brand-badge {
+    display: none !important; /* 超小屏隐藏副标签，避免挤压顶栏 */
+  }
+  .app-main {
+    padding: 12px 8px 32px;
+  }
+  .app-footer {
+    padding: 24px 12px;
+  }
+}

@@ -1,0 +1,7 @@
+name = "wenjin-gemini-proxy"
+main = "worker.js"
+compatibility_date = "2024-01-01"
+
+# 允许外部调用
+[placement]
+mode = "smart"

@@ -1,0 +1,2882 @@
+{
+  "meta": {
+    "document": "广州中医药大学重要期刊目录（试行）",
+    "document_no": "广中医校办〔2020〕308号",
+    "issued_by": "广州中医药大学",
+    "issued_date": "2020-12-08",
+    "scope": "本期刊目录仅作为职称评审使用",
+    "generated_from": "广中医重要期刊目录.docx",
+    "generated_at": "2026-10-15",
+    "notes": [
+      "1.本表中所列刊物如进入更高级别，则按高级别期刊认定。",
+      "2.SCIE收录期刊分区是指中国科学院文献情报中心期刊分区（大类小类均予认定），以论文正式发表当年版本为准。若因特殊原因未提供分区，以可查年限中最近年份分区情况为准。",
+      "3.根据SSCI收录期刊分区情况，2020年12月31日前发表论文分区按科睿唯安执行，2021年1月1日起发表文章分区按中国科学院文献情报中心期刊分区（大类小类均予认定）执行。期刊分区情况以论文发表当年版本为准。",
+      "4.发表在本单位期刊《新中医》、《广州中医药大学学报》、《中医肿瘤学杂志》的论文，每人每次职称申报时仅可使用1篇作为有效业绩。",
+      "5.本期刊目录仅作为职称评审使用。"
+    ]
+  },
+  "categories": [
+    {
+      "level": "A1",
+      "name": "A类1级",
+      "items": [
+        {
+          "serial": "1",
+          "name": "科学通报（中英文版）",
+          "publisher": "中国科学院、国家自然科学基金委员会",
+          "remark": "中文版：ISSN：0023-074X CN：11-1784/N 英文版：ISSN：2095-9273 CN：10-1298/N"
+        },
+        {
+          "serial": "2",
+          "name": "中国社会科学（中英文版）",
+          "publisher": "中国社会科学院",
+          "remark": "中文版：ISSN：1002-4921 CN：11-1211/C 英文版：ISSN：0252-9203 CN：11-1335/C"
+        },
+        {
+          "serial": "3",
+          "name": "《求是》(1500字左右理论文章)",
+          "publisher": "中共中央",
+          "remark": "ISSN：1002-4980 CN：11-1000/D"
+        },
+        {
+          "serial": "4",
+          "name": "《科学引文索引（扩展版）》（SCIE）中科院1区收录期刊",
+          "publisher": "美国科学情报研究所",
+          "remark": "详见表格下方标注"
+        },
+        {
+          "serial": "5",
+          "name": "《社会科学引文索引》（SSCI）1区收录期刊",
+          "publisher": "美国科学情报研究所",
+          "remark": "详见表格下方标注"
+        }
+      ]
+    },
+    {
+      "level": "A2",
+      "name": "A类2级",
+      "items": [
+        {
+          "serial": "1",
+          "name": "《中国科学引文数据库(CSCD)》核心版",
+          "publisher": "中国科学院文献情报中心",
+          "remark": ""
+        },
+        {
+          "serial": "2",
+          "name": "《中文社会科学引文索引（CSSCI）》核心版",
+          "publisher": "南京大学中国社会科学研究评价中心",
+          "remark": ""
+        },
+        {
+          "serial": "3",
+          "name": "《艺术与人文科学索引》（A&HCI）收录期刊",
+          "publisher": "美国科学情报研究所",
+          "remark": ""
+        },
+        {
+          "serial": "4",
+          "name": "《科学引文索引（扩展版）》（SCIE）中科院2区收录期刊",
+          "publisher": "美国科学情报研究所",
+          "remark": "详见表格下方标注"
+        },
+        {
+          "serial": "5",
+          "name": "《社会科学引文索引》（SSCI）2区收录期刊",
+          "publisher": "美国科学情报研究所",
+          "remark": "详见表格下方标注"
+        },
+        {
+          "serial": "6",
+          "name": "《新华文摘》全文转载（论文）",
+          "publisher": "人民出版社",
+          "remark": "CN：11-1187/Z"
+        }
+      ]
+    },
+    {
+      "level": "A3",
+      "name": "A类3级",
+      "items": [
+        {
+          "serial": "1",
+          "name": "《中文核心期刊要目总览》",
+          "publisher": "北京大学出版社",
+          "remark": ""
+        },
+        {
+          "serial": "2",
+          "name": "《中国人文社会科学核心期刊要览》",
+          "publisher": "中国社会科学院文献信息中心",
+          "remark": ""
+        },
+        {
+          "serial": "3",
+          "name": "《中文社会科学引文索引（CSSCI）》扩展版",
+          "publisher": "南京大学中国社会科学研究评价中心",
+          "remark": ""
+        },
+        {
+          "serial": "4",
+          "name": "《科学引文索引（扩展版）》（SCIE）中科院3区收录期刊",
+          "publisher": "美国科学情报研究所",
+          "remark": "详见表格下方标注"
+        },
+        {
+          "serial": "5",
+          "name": "《社会科学引文索引》（SSCI）3区收录期刊",
+          "publisher": "美国科学情报研究所",
+          "remark": "详见表格下方标注"
+        },
+        {
+          "serial": "6",
+          "name": "《人民日报》（理论版）全文转载",
+          "publisher": "中国共产党中央委员会",
+          "remark": "CN：11-0065"
+        },
+        {
+          "serial": "7",
+          "name": "《光明日报》（理论版）全文转载",
+          "publisher": "中央宣传部",
+          "remark": "CN：11-0026"
+        },
+        {
+          "serial": "8",
+          "name": "《解放军报》（1500字以上理论文章）",
+          "publisher": "总政治部",
+          "remark": "CN：81-0001/(J)"
+        }
+      ]
+    },
+    {
+      "level": "A4",
+      "name": "A类4级",
+      "items": [
+        {
+          "serial": "1",
+          "name": "《中国科学引文数据库(CSCD)》扩展版",
+          "publisher": "中国科学院文献情报中心",
+          "remark": ""
+        },
+        {
+          "serial": "2",
+          "name": "《科学引文索引（拓展版）》（SCIE）中科院4区收录期刊",
+          "publisher": "美国科学情报研究所",
+          "remark": "详见表格下方标注"
+        },
+        {
+          "serial": "3",
+          "name": "《社会科学引文索引》（SSCI）4区收录期刊",
+          "publisher": "美国科学情报研究所",
+          "remark": "详见表格下方标注"
+        },
+        {
+          "serial": "4",
+          "name": "EI Compendex（工程索引核心版）收录的期刊",
+          "publisher": "美国工程信息中心",
+          "remark": ""
+        },
+        {
+          "serial": "5",
+          "name": "CPCI-SSH（原ISSHP，社会科学及人文科学会议录索引）",
+          "publisher": "美国科技信息所",
+          "remark": ""
+        },
+        {
+          "serial": "6",
+          "name": "CPCI-S（原ISTP，科学技术会议录索引）",
+          "publisher": "美国科技信息所",
+          "remark": ""
+        },
+        {
+          "serial": "7",
+          "name": "ISR（科学评论索引）",
+          "publisher": "美国科学情报研究所",
+          "remark": ""
+        },
+        {
+          "serial": "8",
+          "name": "《经济日报》（1500字以上理论文章）",
+          "publisher": "经济日报社",
+          "remark": "CN：11-0014"
+        },
+        {
+          "serial": "9",
+          "name": "《人大复印报刊资料》全文转载（3000字以上）",
+          "publisher": "中国人民大学书报资料中心",
+          "remark": "不含“文摘”系列期刊、“报刊资料索引”系列期刊和中国人民大学书报资料中心编辑出版的原发性期刊"
+        },
+        {
+          "serial": "10",
+          "name": "《南方日报理论版》",
+          "publisher": "南方报业集团",
+          "remark": "CN：44-0001"
+        }
+      ]
+    },
+    {
+      "level": "B",
+      "name": "B类（校内限定期刊）",
+      "items": [
+        {
+          "serial": "1",
+          "name": "中华中医药杂志",
+          "publisher": "中华中医药学会",
+          "remark": "ISSN：1673-1727 CN：11-5334/R"
+        },
+        {
+          "serial": "2",
+          "name": "中药新药与临床药理",
+          "publisher": "广州中医药大学、中华中医药学会",
+          "remark": "ISSN：1003-9783 CN：44-1308/R"
+        },
+        {
+          "serial": "3",
+          "name": "中医肿瘤学杂志",
+          "publisher": "广州中医药大学第一附属医院",
+          "remark": "ISSN：2096-6628 CN：44-1743/R73"
+        },
+        {
+          "serial": "4",
+          "name": "中国优生与遗传杂志",
+          "publisher": "中国优生科学协会",
+          "remark": "ISSN：1006-9534 CN：11-3743/R"
+        },
+        {
+          "serial": "5",
+          "name": "医学研究杂志",
+          "publisher": "中国医学科学院",
+          "remark": "ISSN：1673-548X CN：11-5453/R"
+        },
+        {
+          "serial": "6",
+          "name": "广西医学",
+          "publisher": "广西壮族自治区医学科学信息研究所",
+          "remark": "ISSN：0253-4304 CN：45-1122/R"
+        },
+        {
+          "serial": "7",
+          "name": "临床内科杂志",
+          "publisher": "湖北省医学会",
+          "remark": "ISSN：1001-9057 CN：42-1139/R"
+        },
+        {
+          "serial": "8",
+          "name": "实用医学杂志",
+          "publisher": "广东省医学学术交流中心（广东省医学情报研究所）",
+          "remark": "ISSN：1006-5725 CN：44-1193/R"
+        },
+        {
+          "serial": "9",
+          "name": "现代医学",
+          "publisher": "东南大学",
+          "remark": "ISSN：1671-7562 CN：32-1659/R"
+        },
+        {
+          "serial": "10",
+          "name": "临床超声医学杂志",
+          "publisher": "重庆医科大学附二院",
+          "remark": "ISSN：1008-6978 CN：50-1116/R"
+        },
+        {
+          "serial": "11",
+          "name": "影像诊断与介入放射学",
+          "publisher": "中山大学",
+          "remark": "ISSN：1005-8001 CN：44-1391/R"
+        },
+        {
+          "serial": "12",
+          "name": "临床输血与检验",
+          "publisher": "安徽省输血协会",
+          "remark": "ISSN：1671-2587 CN：34-1239/R"
+        },
+        {
+          "serial": "13",
+          "name": "护理学报",
+          "publisher": "南方医科大学",
+          "remark": "ISSN：1008-9969 CN：44-1631/R"
+        },
+        {
+          "serial": "14",
+          "name": "中华普通外科学文献（电子版）",
+          "publisher": "中华医学会",
+          "remark": "ISSN：1674-0793 CN：11-9148/R"
+        },
+        {
+          "serial": "15",
+          "name": "中华腔镜外科杂志（电子版）",
+          "publisher": "中华医学会",
+          "remark": "ISSN：1674-6899 CN：11-9296/R"
+        },
+        {
+          "serial": "16",
+          "name": "国际妇产科学杂志",
+          "publisher": "天津市医学科学技术信息研究所",
+          "remark": "ISSN：1674-1870 CN：12-1399/R"
+        },
+        {
+          "serial": "17",
+          "name": "中华生殖与避孕杂志",
+          "publisher": "中华医学学会、上海市计划生育科学研究所、复旦大学附属妇科医院",
+          "remark": "ISSN：2096-2916 CN：10-1441/R"
+        },
+        {
+          "serial": "18",
+          "name": "眼科",
+          "publisher": "中日友好医院、北京同仁医院、北京市眼科研究所",
+          "remark": "ISSN：1004-4469 CN：11-3025/R"
+        },
+        {
+          "serial": "19",
+          "name": "中华眼视光学与视觉科学杂志",
+          "publisher": "中华医学会",
+          "remark": "ISSN：1674-845X CN：11-5909/R"
+        },
+        {
+          "serial": "20",
+          "name": "广东医学",
+          "publisher": "广东省医学学术交流中心 （广东省医学情报研究所）",
+          "remark": "ISSN：1001-9448 CN：44-1192/R"
+        },
+        {
+          "serial": "21",
+          "name": "实用肿瘤学杂志",
+          "publisher": "黑龙江省肿瘤医院",
+          "remark": "ISSN：1002-3070 CN：23-1212/R"
+        },
+        {
+          "serial": "22",
+          "name": "肿瘤防治研究",
+          "publisher": "湖北省卫生厅、中国抗癌协会、湖北省肿瘤医院",
+          "remark": "ISSN：1000-8578 CN：42-1241/R"
+        },
+        {
+          "serial": "23",
+          "name": "中华医学教育杂志",
+          "publisher": "中华医学会",
+          "remark": "ISSN：1673-677X CN：11-5259/R"
+        },
+        {
+          "serial": "24",
+          "name": "康复学报",
+          "publisher": "福建中医药大学、中国科技出版传媒股份有限公司",
+          "remark": "ISSN：2096-0328 CN：35-1329/R"
+        },
+        {
+          "serial": "25",
+          "name": "中国听力语言康复科学杂志",
+          "publisher": "中国听力语言康复研究中心",
+          "remark": "ISSN：1672-4933 CN：11-5138/R"
+        },
+        {
+          "serial": "26",
+          "name": "中华骨科杂志",
+          "publisher": "中华医学会主办、天津医院承办",
+          "remark": "ISSN：0253-2352 CN：12-1113/R"
+        },
+        {
+          "serial": "27",
+          "name": "中国骨与关节损伤杂志",
+          "publisher": "中华预防医学会、中国人民解放军第一七五医院",
+          "remark": "ISSN：1672-9935 CN：11-5265/R"
+        },
+        {
+          "serial": "28",
+          "name": "中山大学学报（医学科学版）",
+          "publisher": "中山大学",
+          "remark": "ISSN：1672-3554 CN：44-1575/R"
+        },
+        {
+          "serial": "29",
+          "name": "新医学",
+          "publisher": "中山大学",
+          "remark": "ISSN：0253-9802 CN：44-1211/R"
+        },
+        {
+          "serial": "30",
+          "name": "中国中西医结合急救杂志",
+          "publisher": "中国中西医结合学会、中国中医科学院、天津市第一中心医院、天津中医药大学",
+          "remark": "ISSN：1008-9691 CN：12-1312/R"
+        },
+        {
+          "serial": "31",
+          "name": "内科急危重症杂志",
+          "publisher": "华中科技大学同济医学院",
+          "remark": "ISSN：1007-1024 CN：42-1394/R"
+        },
+        {
+          "serial": "32",
+          "name": "临床急诊杂志",
+          "publisher": "华中科技大学同济医学院",
+          "remark": "ISSN：1009-5918 CN：42-1607/R"
+        },
+        {
+          "serial": "33",
+          "name": "北京口腔医学",
+          "publisher": "首都医科大附属北京口腔医院",
+          "remark": "ISSN：1006-673X CN：11-3639/R"
+        },
+        {
+          "serial": "34",
+          "name": "上海口腔医学",
+          "publisher": "上海交通大学医学院附属第九人民医院",
+          "remark": "ISSN：1006-7248 CN：31-1705/R"
+        },
+        {
+          "serial": "35",
+          "name": "现代口腔医学杂志",
+          "publisher": "河北医科大学口腔医学院",
+          "remark": "ISSN：1003-7632 CN：13-1070/R"
+        },
+        {
+          "serial": "36",
+          "name": "中国医药",
+          "publisher": "中国医师协会",
+          "remark": "ISSN：1673-4777 CN：11-5451/R"
+        },
+        {
+          "serial": "37",
+          "name": "国际中医中药杂志",
+          "publisher": "中华医学会、中国中医科学院中医药信息研究所",
+          "remark": "ISSN：1673-4246 CN：11-5398/R"
+        },
+        {
+          "serial": "38",
+          "name": "环球中医药",
+          "publisher": "中华国际医学交流基金会",
+          "remark": "ISSN：1674-1749 CN：11-5652/R"
+        },
+        {
+          "serial": "39",
+          "name": "江苏中医药",
+          "publisher": "江苏省中医药学会、江苏省中西医结合学会、江苏省针灸学会",
+          "remark": "ISSN：1672-397X CN：32-1630/R"
+        },
+        {
+          "serial": "40",
+          "name": "上海中医药大学学报",
+          "publisher": "上海中医药大学、上海市中医药研究院",
+          "remark": "ISSN：1008-861X CN：31-1788/R"
+        },
+        {
+          "serial": "41",
+          "name": "西北药学杂志",
+          "publisher": "西安交通大学、陕西省药学会",
+          "remark": "ISSN：1004-2407 CN：61-1108/R"
+        },
+        {
+          "serial": "42",
+          "name": "湖南中医药大学学报",
+          "publisher": "湖南中医药大学",
+          "remark": "ISSN：1674-070X CN：43-1472/R"
+        },
+        {
+          "serial": "43",
+          "name": "中国临床医学影像杂志",
+          "publisher": "中国医学影像技术研究会、中国医科大学",
+          "remark": "ISSN：1008-1062 CN：21-1381/R"
+        },
+        {
+          "serial": "44",
+          "name": "临床检验杂志",
+          "publisher": "江苏省医学会",
+          "remark": "ISSN：1001-764X CN：32-1204/R"
+        },
+        {
+          "serial": "45",
+          "name": "国际麻醉学与复苏杂志",
+          "publisher": "中华医学会、徐州医科大学",
+          "remark": "ISSN：1673-4378 CN：32-1761/R"
+        },
+        {
+          "serial": "46",
+          "name": "中华口腔医学研究杂志（电子版）",
+          "publisher": "中华医学会",
+          "remark": "ISSN：1674-1366 CN：11-9285/R"
+        },
+        {
+          "serial": "47",
+          "name": "国际口腔医学杂志",
+          "publisher": "四川大学",
+          "remark": "ISSN：1673-5749 CN：51-1698/R"
+        },
+        {
+          "serial": "48",
+          "name": "临床口腔医学杂志",
+          "publisher": "华中科技大学同济医学院附属同济医院、中华医学会武汉分会、中华口腔医学会口腔黏膜病专业委员会",
+          "remark": "ISSN：1003-1634 CN：42-1182/R"
+        },
+        {
+          "serial": "49",
+          "name": "广州中医药大学学报",
+          "publisher": "广州中医药大学",
+          "remark": "ISSN：1007-3213 CN：44-1425/R"
+        },
+        {
+          "serial": "50",
+          "name": "公共卫生与预防医学",
+          "publisher": "湖北省预防医学会、湖北省预防医学科学院、湖北省疾病预防控制中心",
+          "remark": "ISSN：1006-2483 CN： 42-1734/R"
+        },
+        {
+          "serial": "51",
+          "name": "天津中医药",
+          "publisher": "天津中医药大学、天津中医药学会、天津中西医结合学会",
+          "remark": "ISSN：1672-1519 CN：12-1349/R"
+        },
+        {
+          "serial": "52",
+          "name": "中国中西医结合皮肤性病学杂志",
+          "publisher": "中国中西医结合学会、天津市中西医结合皮肤性病研究所",
+          "remark": "ISSN：1672-0709 CN：12-1380/R"
+        },
+        {
+          "serial": "53",
+          "name": "护士进修杂志",
+          "publisher": "省医药卫生学会办公室",
+          "remark": "ISSN：1002-6975 CN：52-1063/R"
+        },
+        {
+          "serial": "54",
+          "name": "中华现代护理杂志",
+          "publisher": "中华医学会",
+          "remark": "ISSN：1674-2907 CN：11-5682/R"
+        },
+        {
+          "serial": "55",
+          "name": "上海中医药杂志",
+          "publisher": "上海中医药大学、上海市中医药学会",
+          "remark": "ISSN：1007-1334 CN：31-1276/R"
+        },
+        {
+          "serial": "56",
+          "name": "浙江中医药大学学报",
+          "publisher": "浙江中医药大学",
+          "remark": "ISSN：1005-5509 CN：33-1349/R"
+        },
+        {
+          "serial": "57",
+          "name": "辽宁中医杂志",
+          "publisher": "辽宁中医药大学",
+          "remark": "ISSN：1000-1719 CN：21-1128/R"
+        },
+        {
+          "serial": "58",
+          "name": "中医药导报",
+          "publisher": "湖南省中医药学会、湖南省中医管理局",
+          "remark": "ISSN：1672-951X CN：43-1446/R"
+        },
+        {
+          "serial": "59",
+          "name": "中国中医急症",
+          "publisher": "中华中医药学会、重庆市中医研究院",
+          "remark": "ISSN：1004-745X CN：50-1102/R"
+        },
+        {
+          "serial": "60",
+          "name": "中国内镜杂志",
+          "publisher": "中南大学、中南大学湘雅学院",
+          "remark": "ISSN：1007-1989 CN：43-1256/R"
+        },
+        {
+          "serial": "61",
+          "name": "临床泌尿外科杂志",
+          "publisher": "华中科技大学协和医院、同济医院",
+          "remark": "ISSN：1001-1420 CN：42-1131/R"
+        },
+        {
+          "serial": "62",
+          "name": "中华乳腺病杂志（电子版）",
+          "publisher": "中华医学会",
+          "remark": "ISSN：1674-0807 CN：11-9146/R"
+        },
+        {
+          "serial": "63",
+          "name": "中国中医骨伤科杂志",
+          "publisher": "中华中医药学会、湖北省中医药研究院",
+          "remark": "ISSN：1005-0205 CN：42-1340/R"
+        },
+        {
+          "serial": "64",
+          "name": "中国骨伤",
+          "publisher": "中国中西医结合学会、中国中医科学院",
+          "remark": "ISSN：1003-0034 CN：11-2483/R"
+        },
+        {
+          "serial": "65",
+          "name": "中华骨与关节外科杂志",
+          "publisher": "中国医学科学院",
+          "remark": "ISSN：2095-9958 CN： 10-1316/R"
+        },
+        {
+          "serial": "66",
+          "name": "中国计划生育和妇产科",
+          "publisher": "中国医师协会、四川省卫生健康政策和医学情报研究所",
+          "remark": "ISSN：1674-4020 CN：51-1708/R"
+        },
+        {
+          "serial": "67",
+          "name": "中国计划生育学杂志",
+          "publisher": "国家卫生计生委科学技术研究所",
+          "remark": "ISSN：1004-8189 CN：11-4550/R"
+        },
+        {
+          "serial": "68",
+          "name": "生殖医学杂志",
+          "publisher": "国家卫生计生委科学技术研究所、中国医学科学院北京协和医院",
+          "remark": "ISSN：1004-3845 CN：11-4645/R"
+        },
+        {
+          "serial": "69",
+          "name": "四川中医",
+          "publisher": "四川省中医药学会、四川省中西医结合学会、四川省针灸学会、四川省中医药科学院",
+          "remark": "ISSN：1000-3649 CN：51-1186/R"
+        },
+        {
+          "serial": "70",
+          "name": "中国中西医结合耳鼻咽喉科杂志",
+          "publisher": "中国中西医结合学会",
+          "remark": "ISSN：1007-4856 CN：34-1159/R"
+        },
+        {
+          "serial": "71",
+          "name": "中国耳鼻咽喉颅底外科杂志",
+          "publisher": "中南大学、中南大学湘雅医院",
+          "remark": "ISSN：1007-1520 CN：43-1241/R"
+        },
+        {
+          "serial": "72",
+          "name": "中国中医眼科杂志",
+          "publisher": "中国中医科学院",
+          "remark": "ISSN：1002-4379 CN：11-2849/R"
+        },
+        {
+          "serial": "73",
+          "name": "上海针灸杂志",
+          "publisher": "上海市针灸学会、上海市中医药研究院",
+          "remark": "ISSN：1005-0957 CN：31-1317/R"
+        },
+        {
+          "serial": "74",
+          "name": "针灸临床杂志",
+          "publisher": "黑龙江中医学院",
+          "remark": "ISSN：1005-0779 CN：23-1354/R"
+        },
+        {
+          "serial": "75",
+          "name": "颈腰痛杂志",
+          "publisher": "安徽医科大学解放军105医院",
+          "remark": "ISSN：1005-7234 CN：34-1117/R"
+        },
+        {
+          "serial": "76",
+          "name": "世界中西医结合杂志",
+          "publisher": "中华中医药学会",
+          "remark": "ISSN：1673-6613 CN：11-5511/R"
+        },
+        {
+          "serial": "77",
+          "name": "中国中西医结合消化杂志",
+          "publisher": "华中科技大学同济医学院、中华中医药学会脾胃病分会、中国中西医结合学会消化系统疾病专业委员会",
+          "remark": "ISSN：1671-038X CN：42-1612/R"
+        },
+        {
+          "serial": "78",
+          "name": "中国眼耳鼻喉科杂志",
+          "publisher": "复旦大学、复旦大学附属眼耳鼻喉科医院",
+          "remark": "ISSN：1671-2420 CN：31-1875/R"
+        },
+        {
+          "serial": "79",
+          "name": "中国中西医结合肾病杂志",
+          "publisher": "中国中西医结合学会、中国中西医结合学会肾病专业委员会",
+          "remark": "ISSN：1009-587X CN：14-1277/R"
+        },
+        {
+          "serial": "80",
+          "name": "中西医结合心脑血管病杂志",
+          "publisher": "山西医科大学第一医院",
+          "remark": "ISSN：1672-1349 CN：14-1312/R"
+        },
+        {
+          "serial": "81",
+          "name": "临床肾脏病杂志",
+          "publisher": "中华医学会武汉分会、湖北省微循环学会",
+          "remark": "ISSN：1671-2390 CN：42-1637/R"
+        },
+        {
+          "serial": "82",
+          "name": "中国现代中药",
+          "publisher": "中国中药协会、中国医药集团有限公司、中国中药有限公司",
+          "remark": "ISSN：1673-4890 CN：11-5442/R"
+        },
+        {
+          "serial": "83",
+          "name": "辽宁中医药大学学报",
+          "publisher": "辽宁中医药大学",
+          "remark": "ISSN：1673-842X CN：21-1543/R"
+        },
+        {
+          "serial": "84",
+          "name": "中国药师",
+          "publisher": "国家药品监督管理局培训中心、武汉医药(集团)股份有限公司",
+          "remark": "ISSN：1008-049X CN：42-1626/R"
+        },
+        {
+          "serial": "85",
+          "name": "中国药物警戒",
+          "publisher": "国家食品药品监督管理总局药品评价中心、国家药品不良反应监测中心",
+          "remark": "ISSN：1672-8629 CN：11-5219/R"
+        },
+        {
+          "serial": "86",
+          "name": "国际检验医学杂志",
+          "publisher": "重庆市卫生信息中心",
+          "remark": "ISSN：1673-4130 CN：50-1176/R"
+        },
+        {
+          "serial": "87",
+          "name": "药学实践杂志",
+          "publisher": "第二军医大学、中国药学会药事管理专业委员会",
+          "remark": "ISSN：1006-0111 CN：31-1685/R"
+        },
+        {
+          "serial": "88",
+          "name": "中国医院用药评价与分析",
+          "publisher": "中国医药生物技术协会、重庆大学附属肿瘤医院",
+          "remark": "ISSN：1672-2124 CN：11-4975/R"
+        },
+        {
+          "serial": "89",
+          "name": "中国药业",
+          "publisher": "重庆市药品监督管理局",
+          "remark": "ISSN：1006-4931 CN：50-1054/R"
+        },
+        {
+          "serial": "90",
+          "name": "中国中医药信息杂志",
+          "publisher": "中国中医科学院中医药信息研究所",
+          "remark": "ISSN：1005-5304 CN：11-3519/R"
+        },
+        {
+          "serial": "91",
+          "name": "吉林中医药",
+          "publisher": "长春中医药大学",
+          "remark": "ISSN：1003-5699 CN：22-1119/R"
+        },
+        {
+          "serial": "92",
+          "name": "中医学报",
+          "publisher": "河南中医大学、中华中医药学会",
+          "remark": "ISSN：1674-8999 CN：41-1411/R"
+        },
+        {
+          "serial": "93",
+          "name": "西部中医药",
+          "publisher": "甘肃省中医药研究院、中华中医药学会",
+          "remark": "ISSN：1004-6852 CN：62-1204/R"
+        },
+        {
+          "serial": "94",
+          "name": "现代临床护理",
+          "publisher": "中山大学",
+          "remark": "ISSN：1671-8283 CN：44-1570/R"
+        },
+        {
+          "serial": "95",
+          "name": "中国实用护理杂志",
+          "publisher": "中华医学会、大连理论医学研究所",
+          "remark": "ISSN：1672-7088 CN：21-1501/R"
+        },
+        {
+          "serial": "96",
+          "name": "世界科学技术——中医药现代化",
+          "publisher": "中国科学院科技政策与管理科学研究所",
+          "remark": "ISSN：1674-3849 CN：11-5699/R"
+        },
+        {
+          "serial": "97",
+          "name": "新中医",
+          "publisher": "广州中医药大学、中华中医药学会",
+          "remark": "ISSN：0256-7415 CN：44-1231/R"
+        },
+        {
+          "serial": "98",
+          "name": "中华医史杂志",
+          "publisher": "中华医学会",
+          "remark": "ISSN：0255-7053 CN：11-2155/R"
+        },
+        {
+          "serial": "99",
+          "name": "中医文献杂志",
+          "publisher": "上海市中医文献馆、中华中医药学会",
+          "remark": "ISSN：1006-4737 CN：31-1682/R"
+        },
+        {
+          "serial": "100",
+          "name": "中国社会医学杂志",
+          "publisher": "华中科技大学同济医学院",
+          "remark": "ISSN：1673-5625 CN：42-1758/R"
+        },
+        {
+          "serial": "101",
+          "name": "医学与哲学 （对应曾用名人文社会医学版）",
+          "publisher": "中国自然辩证法研究会",
+          "remark": "ISSN：1002-0772 CN：21-1093/R"
+        },
+        {
+          "serial": "102",
+          "name": "医学与法学",
+          "publisher": "西南医科大学、中国卫生法学会",
+          "remark": "ISSN：1674-7526 CN：51-1721/R"
+        },
+        {
+          "serial": "103",
+          "name": "中国农村卫生事业管理",
+          "publisher": "中华预防医学会",
+          "remark": "ISSN：1006-5916 CN：11-5269/R"
+        },
+        {
+          "serial": "104",
+          "name": "中华健康管理学",
+          "publisher": "中华医学会",
+          "remark": "ISSN：1674-0815 CN：11-5624/R"
+        },
+        {
+          "serial": "105",
+          "name": "卫生软科学",
+          "publisher": "云南省卫生厅、中国经济卫生学会、中国卫生软科学杂志社",
+          "remark": "ISSN：1003-2800 CN：53-1083/R"
+        },
+        {
+          "serial": "106",
+          "name": "生产力研究",
+          "publisher": "山西社会科学报刊社",
+          "remark": "ISSN：1004-2768 CN：14-1145/F"
+        },
+        {
+          "serial": "107",
+          "name": "中国医疗保险",
+          "publisher": "中国医疗保险研究会",
+          "remark": "ISSN：1674-3830 CN：11-5708/R"
+        },
+        {
+          "serial": "108",
+          "name": "岭南学刊",
+          "publisher": "中共广东省委党校",
+          "remark": "ISSN：1003-7462 CN：44-1005/C"
+        },
+        {
+          "serial": "109",
+          "name": "上海保险",
+          "publisher": "上海《上海保险》杂志社",
+          "remark": "ISSN：1006-1320 CN：31-1226/F"
+        },
+        {
+          "serial": "110",
+          "name": "中国健康心理学杂志",
+          "publisher": "中国心理卫生协会",
+          "remark": "ISSN：2096-4811 CN：11-5257/R"
+        },
+        {
+          "serial": "111",
+          "name": "心理技术与应用",
+          "publisher": "开明出版社、中央财经大学",
+          "remark": "ISSN：2095-5588 CN：10-1104/R"
+        },
+        {
+          "serial": "112",
+          "name": "心理研究",
+          "publisher": "河南大学",
+          "remark": "ISSN：2095-1159 CN：41-1393/B"
+        },
+        {
+          "serial": "113",
+          "name": "应用心理学",
+          "publisher": "浙江省心理学会、浙江大学",
+          "remark": "ISSN：1006-6020 CN：33-1012/B"
+        },
+        {
+          "serial": "114",
+          "name": "中国中医药图书情报杂志",
+          "publisher": "中国中医科学院中医药信息研究所",
+          "remark": "ISSN：2095-5707 CN：10-1113/R"
+        },
+        {
+          "serial": "115",
+          "name": "医学信息学杂志",
+          "publisher": "中国医学科学院",
+          "remark": "ISSN：1673-6036 CN：11-5447/R"
+        },
+        {
+          "serial": "116",
+          "name": "中华医学图书情报杂志",
+          "publisher": "解放军医学图书馆",
+          "remark": "ISSN：1671-3982 CN：11-4745/R"
+        },
+        {
+          "serial": "117",
+          "name": "广东外语外贸大学学报",
+          "publisher": "广东外语外贸大学",
+          "remark": "ISSN：1672-0962 CN：44-1554/Z"
+        },
+        {
+          "serial": "118",
+          "name": "东方翻译",
+          "publisher": "上海市文艺期刊中心",
+          "remark": "ISSN：1674-6686 CN：31-2025/H"
+        },
+        {
+          "serial": "119",
+          "name": "中华医学教育探索杂志",
+          "publisher": "中华医学会",
+          "remark": "ISSN：2095-1485 CN：11-6021/R"
+        },
+        {
+          "serial": "120",
+          "name": "天津外国语大学报",
+          "publisher": "天津外国语学院",
+          "remark": "ISSN：1008-665X CN：12-1422/H"
+        },
+        {
+          "serial": "121",
+          "name": "山东外语教学",
+          "publisher": "山东师范大学",
+          "remark": "ISSN：1002-2643 CN：37-1026/G4"
+        },
+        {
+          "serial": "122",
+          "name": "高校辅导员",
+          "publisher": "山东大学",
+          "remark": "ISSN：1674-9618 CN：37-1471/C"
+        },
+        {
+          "serial": "123",
+          "name": "成都中医药大学学报（教育科学版）",
+          "publisher": "成都中医药大学",
+          "remark": "ISSN：1008-8288 CN：51-1576/G4"
+        },
+        {
+          "serial": "124",
+          "name": "医学教育研究与实践",
+          "publisher": "西安交通大学、陕西省医学会",
+          "remark": "ISSN：2096-3181 CN：61-1507/G4"
+        },
+        {
+          "serial": "125",
+          "name": "中医教育",
+          "publisher": "北京中医药大学",
+          "remark": "ISSN：1003-305X CN：11-1349/R"
+        },
+        {
+          "serial": "126",
+          "name": "计算机与现代化",
+          "publisher": "江西省计算机学会",
+          "remark": "ISSN：1006-2475 CN：36-1137/TP"
+        },
+        {
+          "serial": "127",
+          "name": "中国医学物理学杂志",
+          "publisher": "南方医科大学、中国医学物理学会",
+          "remark": "ISSN：1005-202X CN：44-1351/R"
+        },
+        {
+          "serial": "128",
+          "name": "中国数字医学",
+          "publisher": "国家卫生计生委医院管理研究所",
+          "remark": "ISSN：1673-7571 CN：11-5550/R"
+        },
+        {
+          "serial": "129",
+          "name": "中国康复医学杂志",
+          "publisher": "中国康复医学会",
+          "remark": "ISSN：1001-1242 CN：11-2540/R"
+        },
+        {
+          "serial": "130",
+          "name": "中国康复",
+          "publisher": "华中科技大学同济医学院、中国残疾人康复协会",
+          "remark": "ISSN：1001-2001 CN：42-1251/R"
+        },
+        {
+          "serial": "131",
+          "name": "中国康复理论与实践",
+          "publisher": "中国残疾人康复协会、中国医师协会、中国康复研究中心",
+          "remark": "ISSN：1006-9771 CN：11-3759/R"
+        },
+        {
+          "serial": "132",
+          "name": "中国医学伦理学",
+          "publisher": "西安交通大学",
+          "remark": "ISSN：1001-8565 CN：61-1203/R"
+        },
+        {
+          "serial": "133",
+          "name": "广东党史与文献研究",
+          "publisher": "中共广东省委党史研究室",
+          "remark": "ISSN：2096-6644 CN：44-1744/K2"
+        },
+        {
+          "serial": "134",
+          "name": "现代教育论丛",
+          "publisher": "广东省教育科学研究所",
+          "remark": "ISSN：2095-6762 CN：44-1361/G4"
+        }
+      ]
+    }
+  ],
+  "journals": [
+    {
+      "name": "科学通报（中英文版）",
+      "aliases": [],
+      "type": "journal",
+      "level": "A1",
+      "category": "A类1级",
+      "publisher": "中国科学院、国家自然科学基金委员会",
+      "issn": "0023-074X",
+      "cn": "11-1784/N",
+      "remark": "中文版：ISSN：0023-074X CN：11-1784/N 英文版：ISSN：2095-9273 CN：10-1298/N",
+      "source": "A类1级 直接列名"
+    },
+    {
+      "name": "中国社会科学（中英文版）",
+      "aliases": [],
+      "type": "journal",
+      "level": "A1",
+      "category": "A类1级",
+      "publisher": "中国社会科学院",
+      "issn": "1002-4921",
+      "cn": "11-1211/C",
+      "remark": "中文版：ISSN：1002-4921 CN：11-1211/C 英文版：ISSN：0252-9203 CN：11-1335/C",
+      "source": "A类1级 直接列名"
+    },
+    {
+      "name": "中华中医药杂志",
+      "aliases": [],
+      "type": "journal",
+      "level": "B",
+      "category": "B类（校内限定期刊）",
+      "publisher": "中华中医药学会",
+      "issn": "1673-1727",
+      "cn": "11-5334/R",
+      "remark": "ISSN：1673-1727 CN：11-5334/R",
+      "source": "B类（校内限定期刊）"
+    },
+    {
+      "name": "中药新药与临床药理",
+      "aliases": [],
+      "type": "journal",
+      "level": "B",
+      "category": "B类（校内限定期刊）",
+      "publisher": "广州中医药大学、中华中医药学会",
+      "issn": "1003-9783",
+      "cn": "44-1308/R",
+      "remark": "ISSN：1003-9783 CN：44-1308/R",
+      "source": "B类（校内限定期刊）"
+    },
+    {
+      "name": "中医肿瘤学杂志",
+      "aliases": [],
+      "type": "journal",
+      "level": "B",
+      "category": "B类（校内限定期刊）",
+      "publisher": "广州中医药大学第一附属医院",
+      "issn": "2096-6628",
+      "cn": "44-1743/R73",
+      "remark": "ISSN：2096-6628 CN：44-1743/R73",
+      "source": "B类（校内限定期刊）"
+    },
+    {
+      "name": "中国优生与遗传杂志",
+      "aliases": [],
+      "type": "journal",
+      "level": "B",
+      "category": "B类（校内限定期刊）",
+      "publisher": "中国优生科学协会",
+      "issn": "1006-9534",
+      "cn": "11-3743/R",
+      "remark": "ISSN：1006-9534 CN：11-3743/R",
+      "source": "B类（校内限定期刊）"
+    },
+    {
+      "name": "医学研究杂志",
+      "aliases": [],
+      "type": "journal",
+      "level": "B",
+      "category": "B类（校内限定期刊）",
+      "publisher": "中国医学科学院",
+      "issn": "1673-548X",
+      "cn": "11-5453/R",
+      "remark": "ISSN：1673-548X CN：11-5453/R",
+      "source": "B类（校内限定期刊）"
+    },
+    {
+      "name": "广西医学",
+      "aliases": [],
+      "type": "journal",
+      "level": "B",
+      "category": "B类（校内限定期刊）",
+      "publisher": "广西壮族自治区医学科学信息研究所",
+      "issn": "0253-4304",
+      "cn": "45-1122/R",
+      "remark": "ISSN：0253-4304 CN：45-1122/R",
+      "source": "B类（校内限定期刊）"
+    },
+    {
+      "name": "临床内科杂志",
+      "aliases": [],
+      "type": "journal",
+      "level": "B",
+      "category": "B类（校内限定期刊）",
+      "publisher": "湖北省医学会",
+      "issn": "1001-9057",
+      "cn": "42-1139/R",
+      "remark": "ISSN：1001-9057 CN：42-1139/R",
+      "source": "B类（校内限定期刊）"
+    },
+    {
+      "name": "实用医学杂志",
+      "aliases": [],
+      "type": "journal",
+      "level": "B",
+      "category": "B类（校内限定期刊）",
+      "publisher": "广东省医学学术交流中心（广东省医学情报研究所）",
+      "issn": "1006-5725",
+      "cn": "44-1193/R",
+      "remark": "ISSN：1006-5725 CN：44-1193/R",
+      "source": "B类（校内限定期刊）"
+    },
+    {
+      "name": "现代医学",
+      "aliases": [],
+      "type": "journal",
+      "level": "B",
+      "category": "B类（校内限定期刊）",
+      "publisher": "东南大学",
+      "issn": "1671-7562",
+      "cn": "32-1659/R",
+      "remark": "ISSN：1671-7562 CN：32-1659/R",
+      "source": "B类（校内限定期刊）"
+    },
+    {
+      "name": "临床超声医学杂志",
+      "aliases": [],
+      "type": "journal",
+      "level": "B",
+      "category": "B类（校内限定期刊）",
+      "publisher": "重庆医科大学附二院",
+      "issn": "1008-6978",
+      "cn": "50-1116/R",
+      "remark": "ISSN：1008-6978 CN：50-1116/R",
+      "source": "B类（校内限定期刊）"
+    },
+    {
+      "name": "影像诊断与介入放射学",
+      "aliases": [],
+      "type": "journal",
+      "level": "B",
+      "category": "B类（校内限定期刊）",
+      "publisher": "中山大学",
+      "issn": "1005-8001",
+      "cn": "44-1391/R",
+      "remark": "ISSN：1005-8001 CN：44-1391/R",
+      "source": "B类（校内限定期刊）"
+    },
+    {
+      "name": "临床输血与检验",
+      "aliases": [],
+      "type": "journal",
+      "level": "B",
+      "category": "B类（校内限定期刊）",
+      "publisher": "安徽省输血协会",
+      "issn": "1671-2587",
+      "cn": "34-1239/R",
+      "remark": "ISSN：1671-2587 CN：34-1239/R",
+      "source": "B类（校内限定期刊）"
+    },
+    {
+      "name": "护理学报",
+      "aliases": [],
+      "type": "journal",
+      "level": "B",
+      "category": "B类（校内限定期刊）",
+      "publisher": "南方医科大学",
+      "issn": "1008-9969",
+      "cn": "44-1631/R",
+      "remark": "ISSN：1008-9969 CN：44-1631/R",
+      "source": "B类（校内限定期刊）"
+    },
+    {
+      "name": "中华普通外科学文献（电子版）",
+      "aliases": [],
+      "type": "journal",
+      "level": "B",
+      "category": "B类（校内限定期刊）",
+      "publisher": "中华医学会",
+      "issn": "1674-0793",
+      "cn": "11-9148/R",
+      "remark": "ISSN：1674-0793 CN：11-9148/R",
+      "source": "B类（校内限定期刊）"
+    },
+    {
+      "name": "中华腔镜外科杂志（电子版）",
+      "aliases": [],
+      "type": "journal",
+      "level": "B",
+      "category": "B类（校内限定期刊）",
+      "publisher": "中华医学会",
+      "issn": "1674-6899",
+      "cn": "11-9296/R",
+      "remark": "ISSN：1674-6899 CN：11-9296/R",
+      "source": "B类（校内限定期刊）"
+    },
+    {
+      "name": "国际妇产科学杂志",
+      "aliases": [],
+      "type": "journal",
+      "level": "B",
+      "category": "B类（校内限定期刊）",
+      "publisher": "天津市医学科学技术信息研究所",
+      "issn": "1674-1870",
+      "cn": "12-1399/R",
+      "remark": "ISSN：1674-1870 CN：12-1399/R",
+      "source": "B类（校内限定期刊）"
+    },
+    {
+      "name": "中华生殖与避孕杂志",
+      "aliases": [],
+      "type": "journal",
+      "level": "B",
+      "category": "B类（校内限定期刊）",
+      "publisher": "中华医学学会、上海市计划生育科学研究所、复旦大学附属妇科医院",
+      "issn": "2096-2916",
+      "cn": "10-1441/R",
+      "remark": "ISSN：2096-2916 CN：10-1441/R",
+      "source": "B类（校内限定期刊）"
+    },
+    {
+      "name": "眼科",
+      "aliases": [],
+      "type": "journal",
+      "level": "B",
+      "category": "B类（校内限定期刊）",
+      "publisher": "中日友好医院、北京同仁医院、北京市眼科研究所",
+      "issn": "1004-4469",
+      "cn": "11-3025/R",
+      "remark": "ISSN：1004-4469 CN：11-3025/R",
+      "source": "B类（校内限定期刊）"
+    },
+    {
+      "name": "中华眼视光学与视觉科学杂志",
+      "aliases": [],
+      "type": "journal",
+      "level": "B",
+      "category": "B类（校内限定期刊）",
+      "publisher": "中华医学会",
+      "issn": "1674-845X",
+      "cn": "11-5909/R",
+      "remark": "ISSN：1674-845X CN：11-5909/R",
+      "source": "B类（校内限定期刊）"
+    },
+    {
+      "name": "广东医学",
+      "aliases": [],
+      "type": "journal",
+      "level": "B",
+      "category": "B类（校内限定期刊）",
+      "publisher": "广东省医学学术交流中心 （广东省医学情报研究所）",
+      "issn": "1001-9448",
+      "cn": "44-1192/R",
+      "remark": "ISSN：1001-9448 CN：44-1192/R",
+      "source": "B类（校内限定期刊）"
+    },
+    {
+      "name": "实用肿瘤学杂志",
+      "aliases": [],
+      "type": "journal",
+      "level": "B",
+      "category": "B类（校内限定期刊）",
+      "publisher": "黑龙江省肿瘤医院",
+      "issn": "1002-3070",
+      "cn": "23-1212/R",
+      "remark": "ISSN：1002-3070 CN：23-1212/R",
+      "source": "B类（校内限定期刊）"
+    },
+    {
+      "name": "肿瘤防治研究",
+      "aliases": [],
+      "type": "journal",
+      "level": "B",
+      "category": "B类（校内限定期刊）",
+      "publisher": "湖北省卫生厅、中国抗癌协会、湖北省肿瘤医院",
+      "issn": "1000-8578",
+      "cn": "42-1241/R",
+      "remark": "ISSN：1000-8578 CN：42-1241/R",
+      "source": "B类（校内限定期刊）"
+    },
+    {
+      "name": "中华医学教育杂志",
+      "aliases": [],
+      "type": "journal",
+      "level": "B",
+      "category": "B类（校内限定期刊）",
+      "publisher": "中华医学会",
+      "issn": "1673-677X",
+      "cn": "11-5259/R",
+      "remark": "ISSN：1673-677X CN：11-5259/R",
+      "source": "B类（校内限定期刊）"
+    },
+    {
+      "name": "康复学报",
+      "aliases": [],
+      "type": "journal",
+      "level": "B",
+      "category": "B类（校内限定期刊）",
+      "publisher": "福建中医药大学、中国科技出版传媒股份有限公司",
+      "issn": "2096-0328",
+      "cn": "35-1329/R",
+      "remark": "ISSN：2096-0328 CN：35-1329/R",
+      "source": "B类（校内限定期刊）"
+    },
+    {
+      "name": "中国听力语言康复科学杂志",
+      "aliases": [],
+      "type": "journal",
+      "level": "B",
+      "category": "B类（校内限定期刊）",
+      "publisher": "中国听力语言康复研究中心",
+      "issn": "1672-4933",
+      "cn": "11-5138/R",
+      "remark": "ISSN：1672-4933 CN：11-5138/R",
+      "source": "B类（校内限定期刊）"
+    },
+    {
+      "name": "中华骨科杂志",
+      "aliases": [],
+      "type": "journal",
+      "level": "B",
+      "category": "B类（校内限定期刊）",
+      "publisher": "中华医学会主办、天津医院承办",
+      "issn": "0253-2352",
+      "cn": "12-1113/R",
+      "remark": "ISSN：0253-2352 CN：12-1113/R",
+      "source": "B类（校内限定期刊）"
+    },
+    {
+      "name": "中国骨与关节损伤杂志",
+      "aliases": [],
+      "type": "journal",
+      "level": "B",
+      "category": "B类（校内限定期刊）",
+      "publisher": "中华预防医学会、中国人民解放军第一七五医院",
+      "issn": "1672-9935",
+      "cn": "11-5265/R",
+      "remark": "ISSN：1672-9935 CN：11-5265/R",
+      "source": "B类（校内限定期刊）"
+    },
+    {
+      "name": "中山大学学报（医学科学版）",
+      "aliases": [],
+      "type": "journal",
+      "level": "B",
+      "category": "B类（校内限定期刊）",
+      "publisher": "中山大学",
+      "issn": "1672-3554",
+      "cn": "44-1575/R",
+      "remark": "ISSN：1672-3554 CN：44-1575/R",
+      "source": "B类（校内限定期刊）"
+    },
+    {
+      "name": "新医学",
+      "aliases": [],
+      "type": "journal",
+      "level": "B",
+      "category": "B类（校内限定期刊）",
+      "publisher": "中山大学",
+      "issn": "0253-9802",
+      "cn": "44-1211/R",
+      "remark": "ISSN：0253-9802 CN：44-1211/R",
+      "source": "B类（校内限定期刊）"
+    },
+    {
+      "name": "中国中西医结合急救杂志",
+      "aliases": [],
+      "type": "journal",
+      "level": "B",
+      "category": "B类（校内限定期刊）",
+      "publisher": "中国中西医结合学会、中国中医科学院、天津市第一中心医院、天津中医药大学",
+      "issn": "1008-9691",
+      "cn": "12-1312/R",
+      "remark": "ISSN：1008-9691 CN：12-1312/R",
+      "source": "B类（校内限定期刊）"
+    },
+    {
+      "name": "内科急危重症杂志",
+      "aliases": [],
+      "type": "journal",
+      "level": "B",
+      "category": "B类（校内限定期刊）",
+      "publisher": "华中科技大学同济医学院",
+      "issn": "1007-1024",
+      "cn": "42-1394/R",
+      "remark": "ISSN：1007-1024 CN：42-1394/R",
+      "source": "B类（校内限定期刊）"
+    },
+    {
+      "name": "临床急诊杂志",
+      "aliases": [],
+      "type": "journal",
+      "level": "B",
+      "category": "B类（校内限定期刊）",
+      "publisher": "华中科技大学同济医学院",
+      "issn": "1009-5918",
+      "cn": "42-1607/R",
+      "remark": "ISSN：1009-5918 CN：42-1607/R",
+      "source": "B类（校内限定期刊）"
+    },
+    {
+      "name": "北京口腔医学",
+      "aliases": [],
+      "type": "journal",
+      "level": "B",
+      "category": "B类（校内限定期刊）",
+      "publisher": "首都医科大附属北京口腔医院",
+      "issn": "1006-673X",
+      "cn": "11-3639/R",
+      "remark": "ISSN：1006-673X CN：11-3639/R",
+      "source": "B类（校内限定期刊）"
+    },
+    {
+      "name": "上海口腔医学",
+      "aliases": [],
+      "type": "journal",
+      "level": "B",
+      "category": "B类（校内限定期刊）",
+      "publisher": "上海交通大学医学院附属第九人民医院",
+      "issn": "1006-7248",
+      "cn": "31-1705/R",
+      "remark": "ISSN：1006-7248 CN：31-1705/R",
+      "source": "B类（校内限定期刊）"
+    },
+    {
+      "name": "现代口腔医学杂志",
+      "aliases": [],
+      "type": "journal",
+      "level": "B",
+      "category": "B类（校内限定期刊）",
+      "publisher": "河北医科大学口腔医学院",
+      "issn": "1003-7632",
+      "cn": "13-1070/R",
+      "remark": "ISSN：1003-7632 CN：13-1070/R",
+      "source": "B类（校内限定期刊）"
+    },
+    {
+      "name": "中国医药",
+      "aliases": [],
+      "type": "journal",
+      "level": "B",
+      "category": "B类（校内限定期刊）",
+      "publisher": "中国医师协会",
+      "issn": "1673-4777",
+      "cn": "11-5451/R",
+      "remark": "ISSN：1673-4777 CN：11-5451/R",
+      "source": "B类（校内限定期刊）"
+    },
+    {
+      "name": "国际中医中药杂志",
+      "aliases": [],
+      "type": "journal",
+      "level": "B",
+      "category": "B类（校内限定期刊）",
+      "publisher": "中华医学会、中国中医科学院中医药信息研究所",
+      "issn": "1673-4246",
+      "cn": "11-5398/R",
+      "remark": "ISSN：1673-4246 CN：11-5398/R",
+      "source": "B类（校内限定期刊）"
+    },
+    {
+      "name": "环球中医药",
+      "aliases": [],
+      "type": "journal",
+      "level": "B",
+      "category": "B类（校内限定期刊）",
+      "publisher": "中华国际医学交流基金会",
+      "issn": "1674-1749",
+      "cn": "11-5652/R",
+      "remark": "ISSN：1674-1749 CN：11-5652/R",
+      "source": "B类（校内限定期刊）"
+    },
+    {
+      "name": "江苏中医药",
+      "aliases": [],
+      "type": "journal",
+      "level": "B",
+      "category": "B类（校内限定期刊）",
+      "publisher": "江苏省中医药学会、江苏省中西医结合学会、江苏省针灸学会",
+      "issn": "1672-397X",
+      "cn": "32-1630/R",
+      "remark": "ISSN：1672-397X CN：32-1630/R",
+      "source": "B类（校内限定期刊）"
+    },
+    {
+      "name": "上海中医药大学学报",
+      "aliases": [],
+      "type": "journal",
+      "level": "B",
+      "category": "B类（校内限定期刊）",
+      "publisher": "上海中医药大学、上海市中医药研究院",
+      "issn": "1008-861X",
+      "cn": "31-1788/R",
+      "remark": "ISSN：1008-861X CN：31-1788/R",
+      "source": "B类（校内限定期刊）"
+    },
+    {
+      "name": "西北药学杂志",
+      "aliases": [],
+      "type": "journal",
+      "level": "B",
+      "category": "B类（校内限定期刊）",
+      "publisher": "西安交通大学、陕西省药学会",
+      "issn": "1004-2407",
+      "cn": "61-1108/R",
+      "remark": "ISSN：1004-2407 CN：61-1108/R",
+      "source": "B类（校内限定期刊）"
+    },
+    {
+      "name": "湖南中医药大学学报",
+      "aliases": [],
+      "type": "journal",
+      "level": "B",
+      "category": "B类（校内限定期刊）",
+      "publisher": "湖南中医药大学",
+      "issn": "1674-070X",
+      "cn": "43-1472/R",
+      "remark": "ISSN：1674-070X CN：43-1472/R",
+      "source": "B类（校内限定期刊）"
+    },
+    {
+      "name": "中国临床医学影像杂志",
+      "aliases": [],
+      "type": "journal",
+      "level": "B",
+      "category": "B类（校内限定期刊）",
+      "publisher": "中国医学影像技术研究会、中国医科大学",
+      "issn": "1008-1062",
+      "cn": "21-1381/R",
+      "remark": "ISSN：1008-1062 CN：21-1381/R",
+      "source": "B类（校内限定期刊）"
+    },
+    {
+      "name": "临床检验杂志",
+      "aliases": [],
+      "type": "journal",
+      "level": "B",
+      "category": "B类（校内限定期刊）",
+      "publisher": "江苏省医学会",
+      "issn": "1001-764X",
+      "cn": "32-1204/R",
+      "remark": "ISSN：1001-764X CN：32-1204/R",
+      "source": "B类（校内限定期刊）"
+    },
+    {
+      "name": "国际麻醉学与复苏杂志",
+      "aliases": [],
+      "type": "journal",
+      "level": "B",
+      "category": "B类（校内限定期刊）",
+      "publisher": "中华医学会、徐州医科大学",
+      "issn": "1673-4378",
+      "cn": "32-1761/R",
+      "remark": "ISSN：1673-4378 CN：32-1761/R",
+      "source": "B类（校内限定期刊）"
+    },
+    {
+      "name": "中华口腔医学研究杂志（电子版）",
+      "aliases": [],
+      "type": "journal",
+      "level": "B",
+      "category": "B类（校内限定期刊）",
+      "publisher": "中华医学会",
+      "issn": "1674-1366",
+      "cn": "11-9285/R",
+      "remark": "ISSN：1674-1366 CN：11-9285/R",
+      "source": "B类（校内限定期刊）"
+    },
+    {
+      "name": "国际口腔医学杂志",
+      "aliases": [],
+      "type": "journal",
+      "level": "B",
+      "category": "B类（校内限定期刊）",
+      "publisher": "四川大学",
+      "issn": "1673-5749",
+      "cn": "51-1698/R",
+      "remark": "ISSN：1673-5749 CN：51-1698/R",
+      "source": "B类（校内限定期刊）"
+    },
+    {
+      "name": "临床口腔医学杂志",
+      "aliases": [],
+      "type": "journal",
+      "level": "B",
+      "category": "B类（校内限定期刊）",
+      "publisher": "华中科技大学同济医学院附属同济医院、中华医学会武汉分会、中华口腔医学会口腔黏膜病专业委员会",
+      "issn": "1003-1634",
+      "cn": "42-1182/R",
+      "remark": "ISSN：1003-1634 CN：42-1182/R",
+      "source": "B类（校内限定期刊）"
+    },
+    {
+      "name": "广州中医药大学学报",
+      "aliases": [],
+      "type": "journal",
+      "level": "B",
+      "category": "B类（校内限定期刊）",
+      "publisher": "广州中医药大学",
+      "issn": "1007-3213",
+      "cn": "44-1425/R",
+      "remark": "ISSN：1007-3213 CN：44-1425/R",
+      "source": "B类（校内限定期刊）"
+    },
+    {
+      "name": "公共卫生与预防医学",
+      "aliases": [],
+      "type": "journal",
+      "level": "B",
+      "category": "B类（校内限定期刊）",
+      "publisher": "湖北省预防医学会、湖北省预防医学科学院、湖北省疾病预防控制中心",
+      "issn": "1006-2483",
+      "cn": "42-1734/R",
+      "remark": "ISSN：1006-2483 CN： 42-1734/R",
+      "source": "B类（校内限定期刊）"
+    },
+    {
+      "name": "天津中医药",
+      "aliases": [],
+      "type": "journal",
+      "level": "B",
+      "category": "B类（校内限定期刊）",
+      "publisher": "天津中医药大学、天津中医药学会、天津中西医结合学会",
+      "issn": "1672-1519",
+      "cn": "12-1349/R",
+      "remark": "ISSN：1672-1519 CN：12-1349/R",
+      "source": "B类（校内限定期刊）"
+    },
+    {
+      "name": "中国中西医结合皮肤性病学杂志",
+      "aliases": [],
+      "type": "journal",
+      "level": "B",
+      "category": "B类（校内限定期刊）",
+      "publisher": "中国中西医结合学会、天津市中西医结合皮肤性病研究所",
+      "issn": "1672-0709",
+      "cn": "12-1380/R",
+      "remark": "ISSN：1672-0709 CN：12-1380/R",
+      "source": "B类（校内限定期刊）"
+    },
+    {
+      "name": "护士进修杂志",
+      "aliases": [],
+      "type": "journal",
+      "level": "B",
+      "category": "B类（校内限定期刊）",
+      "publisher": "省医药卫生学会办公室",
+      "issn": "1002-6975",
+      "cn": "52-1063/R",
+      "remark": "ISSN：1002-6975 CN：52-1063/R",
+      "source": "B类（校内限定期刊）"
+    },
+    {
+      "name": "中华现代护理杂志",
+      "aliases": [],
+      "type": "journal",
+      "level": "B",
+      "category": "B类（校内限定期刊）",
+      "publisher": "中华医学会",
+      "issn": "1674-2907",
+      "cn": "11-5682/R",
+      "remark": "ISSN：1674-2907 CN：11-5682/R",
+      "source": "B类（校内限定期刊）"
+    },
+    {
+      "name": "上海中医药杂志",
+      "aliases": [],
+      "type": "journal",
+      "level": "B",
+      "category": "B类（校内限定期刊）",
+      "publisher": "上海中医药大学、上海市中医药学会",
+      "issn": "1007-1334",
+      "cn": "31-1276/R",
+      "remark": "ISSN：1007-1334 CN：31-1276/R",
+      "source": "B类（校内限定期刊）"
+    },
+    {
+      "name": "浙江中医药大学学报",
+      "aliases": [],
+      "type": "journal",
+      "level": "B",
+      "category": "B类（校内限定期刊）",
+      "publisher": "浙江中医药大学",
+      "issn": "1005-5509",
+      "cn": "33-1349/R",
+      "remark": "ISSN：1005-5509 CN：33-1349/R",
+      "source": "B类（校内限定期刊）"
+    },
+    {
+      "name": "辽宁中医杂志",
+      "aliases": [],
+      "type": "journal",
+      "level": "B",
+      "category": "B类（校内限定期刊）",
+      "publisher": "辽宁中医药大学",
+      "issn": "1000-1719",
+      "cn": "21-1128/R",
+      "remark": "ISSN：1000-1719 CN：21-1128/R",
+      "source": "B类（校内限定期刊）"
+    },
+    {
+      "name": "中医药导报",
+      "aliases": [],
+      "type": "journal",
+      "level": "B",
+      "category": "B类（校内限定期刊）",
+      "publisher": "湖南省中医药学会、湖南省中医管理局",
+      "issn": "1672-951X",
+      "cn": "43-1446/R",
+      "remark": "ISSN：1672-951X CN：43-1446/R",
+      "source": "B类（校内限定期刊）"
+    },
+    {
+      "name": "中国中医急症",
+      "aliases": [],
+      "type": "journal",
+      "level": "B",
+      "category": "B类（校内限定期刊）",
+      "publisher": "中华中医药学会、重庆市中医研究院",
+      "issn": "1004-745X",
+      "cn": "50-1102/R",
+      "remark": "ISSN：1004-745X CN：50-1102/R",
+      "source": "B类（校内限定期刊）"
+    },
+    {
+      "name": "中国内镜杂志",
+      "aliases": [],
+      "type": "journal",
+      "level": "B",
+      "category": "B类（校内限定期刊）",
+      "publisher": "中南大学、中南大学湘雅学院",
+      "issn": "1007-1989",
+      "cn": "43-1256/R",
+      "remark": "ISSN：1007-1989 CN：43-1256/R",
+      "source": "B类（校内限定期刊）"
+    },
+    {
+      "name": "临床泌尿外科杂志",
+      "aliases": [],
+      "type": "journal",
+      "level": "B",
+      "category": "B类（校内限定期刊）",
+      "publisher": "华中科技大学协和医院、同济医院",
+      "issn": "1001-1420",
+      "cn": "42-1131/R",
+      "remark": "ISSN：1001-1420 CN：42-1131/R",
+      "source": "B类（校内限定期刊）"
+    },
+    {
+      "name": "中华乳腺病杂志（电子版）",
+      "aliases": [],
+      "type": "journal",
+      "level": "B",
+      "category": "B类（校内限定期刊）",
+      "publisher": "中华医学会",
+      "issn": "1674-0807",
+      "cn": "11-9146/R",
+      "remark": "ISSN：1674-0807 CN：11-9146/R",
+      "source": "B类（校内限定期刊）"
+    },
+    {
+      "name": "中国中医骨伤科杂志",
+      "aliases": [],
+      "type": "journal",
+      "level": "B",
+      "category": "B类（校内限定期刊）",
+      "publisher": "中华中医药学会、湖北省中医药研究院",
+      "issn": "1005-0205",
+      "cn": "42-1340/R",
+      "remark": "ISSN：1005-0205 CN：42-1340/R",
+      "source": "B类（校内限定期刊）"
+    },
+    {
+      "name": "中国骨伤",
+      "aliases": [],
+      "type": "journal",
+      "level": "B",
+      "category": "B类（校内限定期刊）",
+      "publisher": "中国中西医结合学会、中国中医科学院",
+      "issn": "1003-0034",
+      "cn": "11-2483/R",
+      "remark": "ISSN：1003-0034 CN：11-2483/R",
+      "source": "B类（校内限定期刊）"
+    },
+    {
+      "name": "中华骨与关节外科杂志",
+      "aliases": [],
+      "type": "journal",
+      "level": "B",
+      "category": "B类（校内限定期刊）",
+      "publisher": "中国医学科学院",
+      "issn": "2095-9958",
+      "cn": "10-1316/R",
+      "remark": "ISSN：2095-9958 CN： 10-1316/R",
+      "source": "B类（校内限定期刊）"
+    },
+    {
+      "name": "中国计划生育和妇产科",
+      "aliases": [],
+      "type": "journal",
+      "level": "B",
+      "category": "B类（校内限定期刊）",
+      "publisher": "中国医师协会、四川省卫生健康政策和医学情报研究所",
+      "issn": "1674-4020",
+      "cn": "51-1708/R",
+      "remark": "ISSN：1674-4020 CN：51-1708/R",
+      "source": "B类（校内限定期刊）"
+    },
+    {
+      "name": "中国计划生育学杂志",
+      "aliases": [],
+      "type": "journal",
+      "level": "B",
+      "category": "B类（校内限定期刊）",
+      "publisher": "国家卫生计生委科学技术研究所",
+      "issn": "1004-8189",
+      "cn": "11-4550/R",
+      "remark": "ISSN：1004-8189 CN：11-4550/R",
+      "source": "B类（校内限定期刊）"
+    },
+    {
+      "name": "生殖医学杂志",
+      "aliases": [],
+      "type": "journal",
+      "level": "B",
+      "category": "B类（校内限定期刊）",
+      "publisher": "国家卫生计生委科学技术研究所、中国医学科学院北京协和医院",
+      "issn": "1004-3845",
+      "cn": "11-4645/R",
+      "remark": "ISSN：1004-3845 CN：11-4645/R",
+      "source": "B类（校内限定期刊）"
+    },
+    {
+      "name": "四川中医",
+      "aliases": [],
+      "type": "journal",
+      "level": "B",
+      "category": "B类（校内限定期刊）",
+      "publisher": "四川省中医药学会、四川省中西医结合学会、四川省针灸学会、四川省中医药科学院",
+      "issn": "1000-3649",
+      "cn": "51-1186/R",
+      "remark": "ISSN：1000-3649 CN：51-1186/R",
+      "source": "B类（校内限定期刊）"
+    },
+    {
+      "name": "中国中西医结合耳鼻咽喉科杂志",
+      "aliases": [],
+      "type": "journal",
+      "level": "B",
+      "category": "B类（校内限定期刊）",
+      "publisher": "中国中西医结合学会",
+      "issn": "1007-4856",
+      "cn": "34-1159/R",
+      "remark": "ISSN：1007-4856 CN：34-1159/R",
+      "source": "B类（校内限定期刊）"
+    },
+    {
+      "name": "中国耳鼻咽喉颅底外科杂志",
+      "aliases": [],
+      "type": "journal",
+      "level": "B",
+      "category": "B类（校内限定期刊）",
+      "publisher": "中南大学、中南大学湘雅医院",
+      "issn": "1007-1520",
+      "cn": "43-1241/R",
+      "remark": "ISSN：1007-1520 CN：43-1241/R",
+      "source": "B类（校内限定期刊）"
+    },
+    {
+      "name": "中国中医眼科杂志",
+      "aliases": [],
+      "type": "journal",
+      "level": "B",
+      "category": "B类（校内限定期刊）",
+      "publisher": "中国中医科学院",
+      "issn": "1002-4379",
+      "cn": "11-2849/R",
+      "remark": "ISSN：1002-4379 CN：11-2849/R",
+      "source": "B类（校内限定期刊）"
+    },
+    {
+      "name": "上海针灸杂志",
+      "aliases": [],
+      "type": "journal",
+      "level": "B",
+      "category": "B类（校内限定期刊）",
+      "publisher": "上海市针灸学会、上海市中医药研究院",
+      "issn": "1005-0957",
+      "cn": "31-1317/R",
+      "remark": "ISSN：1005-0957 CN：31-1317/R",
+      "source": "B类（校内限定期刊）"
+    },
+    {
+      "name": "针灸临床杂志",
+      "aliases": [],
+      "type": "journal",
+      "level": "B",
+      "category": "B类（校内限定期刊）",
+      "publisher": "黑龙江中医学院",
+      "issn": "1005-0779",
+      "cn": "23-1354/R",
+      "remark": "ISSN：1005-0779 CN：23-1354/R",
+      "source": "B类（校内限定期刊）"
+    },
+    {
+      "name": "颈腰痛杂志",
+      "aliases": [],
+      "type": "journal",
+      "level": "B",
+      "category": "B类（校内限定期刊）",
+      "publisher": "安徽医科大学解放军105医院",
+      "issn": "1005-7234",
+      "cn": "34-1117/R",
+      "remark": "ISSN：1005-7234 CN：34-1117/R",
+      "source": "B类（校内限定期刊）"
+    },
+    {
+      "name": "世界中西医结合杂志",
+      "aliases": [],
+      "type": "journal",
+      "level": "B",
+      "category": "B类（校内限定期刊）",
+      "publisher": "中华中医药学会",
+      "issn": "1673-6613",
+      "cn": "11-5511/R",
+      "remark": "ISSN：1673-6613 CN：11-5511/R",
+      "source": "B类（校内限定期刊）"
+    },
+    {
+      "name": "中国中西医结合消化杂志",
+      "aliases": [],
+      "type": "journal",
+      "level": "B",
+      "category": "B类（校内限定期刊）",
+      "publisher": "华中科技大学同济医学院、中华中医药学会脾胃病分会、中国中西医结合学会消化系统疾病专业委员会",
+      "issn": "1671-038X",
+      "cn": "42-1612/R",
+      "remark": "ISSN：1671-038X CN：42-1612/R",
+      "source": "B类（校内限定期刊）"
+    },
+    {
+      "name": "中国眼耳鼻喉科杂志",
+      "aliases": [],
+      "type": "journal",
+      "level": "B",
+      "category": "B类（校内限定期刊）",
+      "publisher": "复旦大学、复旦大学附属眼耳鼻喉科医院",
+      "issn": "1671-2420",
+      "cn": "31-1875/R",
+      "remark": "ISSN：1671-2420 CN：31-1875/R",
+      "source": "B类（校内限定期刊）"
+    },
+    {
+      "name": "中国中西医结合肾病杂志",
+      "aliases": [],
+      "type": "journal",
+      "level": "B",
+      "category": "B类（校内限定期刊）",
+      "publisher": "中国中西医结合学会、中国中西医结合学会肾病专业委员会",
+      "issn": "1009-587X",
+      "cn": "14-1277/R",
+      "remark": "ISSN：1009-587X CN：14-1277/R",
+      "source": "B类（校内限定期刊）"
+    },
+    {
+      "name": "中西医结合心脑血管病杂志",
+      "aliases": [],
+      "type": "journal",
+      "level": "B",
+      "category": "B类（校内限定期刊）",
+      "publisher": "山西医科大学第一医院",
+      "issn": "1672-1349",
+      "cn": "14-1312/R",
+      "remark": "ISSN：1672-1349 CN：14-1312/R",
+      "source": "B类（校内限定期刊）"
+    },
+    {
+      "name": "临床肾脏病杂志",
+      "aliases": [],
+      "type": "journal",
+      "level": "B",
+      "category": "B类（校内限定期刊）",
+      "publisher": "中华医学会武汉分会、湖北省微循环学会",
+      "issn": "1671-2390",
+      "cn": "42-1637/R",
+      "remark": "ISSN：1671-2390 CN：42-1637/R",
+      "source": "B类（校内限定期刊）"
+    },
+    {
+      "name": "中国现代中药",
+      "aliases": [],
+      "type": "journal",
+      "level": "B",
+      "category": "B类（校内限定期刊）",
+      "publisher": "中国中药协会、中国医药集团有限公司、中国中药有限公司",
+      "issn": "1673-4890",
+      "cn": "11-5442/R",
+      "remark": "ISSN：1673-4890 CN：11-5442/R",
+      "source": "B类（校内限定期刊）"
+    },
+    {
+      "name": "辽宁中医药大学学报",
+      "aliases": [],
+      "type": "journal",
+      "level": "B",
+      "category": "B类（校内限定期刊）",
+      "publisher": "辽宁中医药大学",
+      "issn": "1673-842X",
+      "cn": "21-1543/R",
+      "remark": "ISSN：1673-842X CN：21-1543/R",
+      "source": "B类（校内限定期刊）"
+    },
+    {
+      "name": "中国药师",
+      "aliases": [],
+      "type": "journal",
+      "level": "B",
+      "category": "B类（校内限定期刊）",
+      "publisher": "国家药品监督管理局培训中心、武汉医药(集团)股份有限公司",
+      "issn": "1008-049X",
+      "cn": "42-1626/R",
+      "remark": "ISSN：1008-049X CN：42-1626/R",
+      "source": "B类（校内限定期刊）"
+    },
+    {
+      "name": "中国药物警戒",
+      "aliases": [],
+      "type": "journal",
+      "level": "B",
+      "category": "B类（校内限定期刊）",
+      "publisher": "国家食品药品监督管理总局药品评价中心、国家药品不良反应监测中心",
+      "issn": "1672-8629",
+      "cn": "11-5219/R",
+      "remark": "ISSN：1672-8629 CN：11-5219/R",
+      "source": "B类（校内限定期刊）"
+    },
+    {
+      "name": "国际检验医学杂志",
+      "aliases": [],
+      "type": "journal",
+      "level": "B",
+      "category": "B类（校内限定期刊）",
+      "publisher": "重庆市卫生信息中心",
+      "issn": "1673-4130",
+      "cn": "50-1176/R",
+      "remark": "ISSN：1673-4130 CN：50-1176/R",
+      "source": "B类（校内限定期刊）"
+    },
+    {
+      "name": "药学实践杂志",
+      "aliases": [],
+      "type": "journal",
+      "level": "B",
+      "category": "B类（校内限定期刊）",
+      "publisher": "第二军医大学、中国药学会药事管理专业委员会",
+      "issn": "1006-0111",
+      "cn": "31-1685/R",
+      "remark": "ISSN：1006-0111 CN：31-1685/R",
+      "source": "B类（校内限定期刊）"
+    },
+    {
+      "name": "中国医院用药评价与分析",
+      "aliases": [],
+      "type": "journal",
+      "level": "B",
+      "category": "B类（校内限定期刊）",
+      "publisher": "中国医药生物技术协会、重庆大学附属肿瘤医院",
+      "issn": "1672-2124",
+      "cn": "11-4975/R",
+      "remark": "ISSN：1672-2124 CN：11-4975/R",
+      "source": "B类（校内限定期刊）"
+    },
+    {
+      "name": "中国药业",
+      "aliases": [],
+      "type": "journal",
+      "level": "B",
+      "category": "B类（校内限定期刊）",
+      "publisher": "重庆市药品监督管理局",
+      "issn": "1006-4931",
+      "cn": "50-1054/R",
+      "remark": "ISSN：1006-4931 CN：50-1054/R",
+      "source": "B类（校内限定期刊）"
+    },
+    {
+      "name": "中国中医药信息杂志",
+      "aliases": [],
+      "type": "journal",
+      "level": "B",
+      "category": "B类（校内限定期刊）",
+      "publisher": "中国中医科学院中医药信息研究所",
+      "issn": "1005-5304",
+      "cn": "11-3519/R",
+      "remark": "ISSN：1005-5304 CN：11-3519/R",
+      "source": "B类（校内限定期刊）"
+    },
+    {
+      "name": "吉林中医药",
+      "aliases": [],
+      "type": "journal",
+      "level": "B",
+      "category": "B类（校内限定期刊）",
+      "publisher": "长春中医药大学",
+      "issn": "1003-5699",
+      "cn": "22-1119/R",
+      "remark": "ISSN：1003-5699 CN：22-1119/R",
+      "source": "B类（校内限定期刊）"
+    },
+    {
+      "name": "中医学报",
+      "aliases": [],
+      "type": "journal",
+      "level": "B",
+      "category": "B类（校内限定期刊）",
+      "publisher": "河南中医大学、中华中医药学会",
+      "issn": "1674-8999",
+      "cn": "41-1411/R",
+      "remark": "ISSN：1674-8999 CN：41-1411/R",
+      "source": "B类（校内限定期刊）"
+    },
+    {
+      "name": "西部中医药",
+      "aliases": [],
+      "type": "journal",
+      "level": "B",
+      "category": "B类（校内限定期刊）",
+      "publisher": "甘肃省中医药研究院、中华中医药学会",
+      "issn": "1004-6852",
+      "cn": "62-1204/R",
+      "remark": "ISSN：1004-6852 CN：62-1204/R",
+      "source": "B类（校内限定期刊）"
+    },
+    {
+      "name": "现代临床护理",
+      "aliases": [],
+      "type": "journal",
+      "level": "B",
+      "category": "B类（校内限定期刊）",
+      "publisher": "中山大学",
+      "issn": "1671-8283",
+      "cn": "44-1570/R",
+      "remark": "ISSN：1671-8283 CN：44-1570/R",
+      "source": "B类（校内限定期刊）"
+    },
+    {
+      "name": "中国实用护理杂志",
+      "aliases": [],
+      "type": "journal",
+      "level": "B",
+      "category": "B类（校内限定期刊）",
+      "publisher": "中华医学会、大连理论医学研究所",
+      "issn": "1672-7088",
+      "cn": "21-1501/R",
+      "remark": "ISSN：1672-7088 CN：21-1501/R",
+      "source": "B类（校内限定期刊）"
+    },
+    {
+      "name": "世界科学技术——中医药现代化",
+      "aliases": [],
+      "type": "journal",
+      "level": "B",
+      "category": "B类（校内限定期刊）",
+      "publisher": "中国科学院科技政策与管理科学研究所",
+      "issn": "1674-3849",
+      "cn": "11-5699/R",
+      "remark": "ISSN：1674-3849 CN：11-5699/R",
+      "source": "B类（校内限定期刊）"
+    },
+    {
+      "name": "新中医",
+      "aliases": [],
+      "type": "journal",
+      "level": "B",
+      "category": "B类（校内限定期刊）",
+      "publisher": "广州中医药大学、中华中医药学会",
+      "issn": "0256-7415",
+      "cn": "44-1231/R",
+      "remark": "ISSN：0256-7415 CN：44-1231/R",
+      "source": "B类（校内限定期刊）"
+    },
+    {
+      "name": "中华医史杂志",
+      "aliases": [],
+      "type": "journal",
+      "level": "B",
+      "category": "B类（校内限定期刊）",
+      "publisher": "中华医学会",
+      "issn": "0255-7053",
+      "cn": "11-2155/R",
+      "remark": "ISSN：0255-7053 CN：11-2155/R",
+      "source": "B类（校内限定期刊）"
+    },
+    {
+      "name": "中医文献杂志",
+      "aliases": [],
+      "type": "journal",
+      "level": "B",
+      "category": "B类（校内限定期刊）",
+      "publisher": "上海市中医文献馆、中华中医药学会",
+      "issn": "1006-4737",
+      "cn": "31-1682/R",
+      "remark": "ISSN：1006-4737 CN：31-1682/R",
+      "source": "B类（校内限定期刊）"
+    },
+    {
+      "name": "中国社会医学杂志",
+      "aliases": [],
+      "type": "journal",
+      "level": "B",
+      "category": "B类（校内限定期刊）",
+      "publisher": "华中科技大学同济医学院",
+      "issn": "1673-5625",
+      "cn": "42-1758/R",
+      "remark": "ISSN：1673-5625 CN：42-1758/R",
+      "source": "B类（校内限定期刊）"
+    },
+    {
+      "name": "医学与哲学 （对应曾用名人文社会医学版）",
+      "aliases": [
+        "对应曾用名人文社会医学版"
+      ],
+      "type": "journal",
+      "level": "B",
+      "category": "B类（校内限定期刊）",
+      "publisher": "中国自然辩证法研究会",
+      "issn": "1002-0772",
+      "cn": "21-1093/R",
+      "remark": "ISSN：1002-0772 CN：21-1093/R",
+      "source": "B类（校内限定期刊）"
+    },
+    {
+      "name": "医学与法学",
+      "aliases": [],
+      "type": "journal",
+      "level": "B",
+      "category": "B类（校内限定期刊）",
+      "publisher": "西南医科大学、中国卫生法学会",
+      "issn": "1674-7526",
+      "cn": "51-1721/R",
+      "remark": "ISSN：1674-7526 CN：51-1721/R",
+      "source": "B类（校内限定期刊）"
+    },
+    {
+      "name": "中国农村卫生事业管理",
+      "aliases": [],
+      "type": "journal",
+      "level": "B",
+      "category": "B类（校内限定期刊）",
+      "publisher": "中华预防医学会",
+      "issn": "1006-5916",
+      "cn": "11-5269/R",
+      "remark": "ISSN：1006-5916 CN：11-5269/R",
+      "source": "B类（校内限定期刊）"
+    },
+    {
+      "name": "中华健康管理学",
+      "aliases": [],
+      "type": "journal",
+      "level": "B",
+      "category": "B类（校内限定期刊）",
+      "publisher": "中华医学会",
+      "issn": "1674-0815",
+      "cn": "11-5624/R",
+      "remark": "ISSN：1674-0815 CN：11-5624/R",
+      "source": "B类（校内限定期刊）"
+    },
+    {
+      "name": "卫生软科学",
+      "aliases": [],
+      "type": "journal",
+      "level": "B",
+      "category": "B类（校内限定期刊）",
+      "publisher": "云南省卫生厅、中国经济卫生学会、中国卫生软科学杂志社",
+      "issn": "1003-2800",
+      "cn": "53-1083/R",
+      "remark": "ISSN：1003-2800 CN：53-1083/R",
+      "source": "B类（校内限定期刊）"
+    },
+    {
+      "name": "生产力研究",
+      "aliases": [],
+      "type": "journal",
+      "level": "B",
+      "category": "B类（校内限定期刊）",
+      "publisher": "山西社会科学报刊社",
+      "issn": "1004-2768",
+      "cn": "14-1145/F",
+      "remark": "ISSN：1004-2768 CN：14-1145/F",
+      "source": "B类（校内限定期刊）"
+    },
+    {
+      "name": "中国医疗保险",
+      "aliases": [],
+      "type": "journal",
+      "level": "B",
+      "category": "B类（校内限定期刊）",
+      "publisher": "中国医疗保险研究会",
+      "issn": "1674-3830",
+      "cn": "11-5708/R",
+      "remark": "ISSN：1674-3830 CN：11-5708/R",
+      "source": "B类（校内限定期刊）"
+    },
+    {
+      "name": "岭南学刊",
+      "aliases": [],
+      "type": "journal",
+      "level": "B",
+      "category": "B类（校内限定期刊）",
+      "publisher": "中共广东省委党校",
+      "issn": "1003-7462",
+      "cn": "44-1005/C",
+      "remark": "ISSN：1003-7462 CN：44-1005/C",
+      "source": "B类（校内限定期刊）"
+    },
+    {
+      "name": "上海保险",
+      "aliases": [],
+      "type": "journal",
+      "level": "B",
+      "category": "B类（校内限定期刊）",
+      "publisher": "上海《上海保险》杂志社",
+      "issn": "1006-1320",
+      "cn": "31-1226/F",
+      "remark": "ISSN：1006-1320 CN：31-1226/F",
+      "source": "B类（校内限定期刊）"
+    },
+    {
+      "name": "中国健康心理学杂志",
+      "aliases": [],
+      "type": "journal",
+      "level": "B",
+      "category": "B类（校内限定期刊）",
+      "publisher": "中国心理卫生协会",
+      "issn": "2096-4811",
+      "cn": "11-5257/R",
+      "remark": "ISSN：2096-4811 CN：11-5257/R",
+      "source": "B类（校内限定期刊）"
+    },
+    {
+      "name": "心理技术与应用",
+      "aliases": [],
+      "type": "journal",
+      "level": "B",
+      "category": "B类（校内限定期刊）",
+      "publisher": "开明出版社、中央财经大学",
+      "issn": "2095-5588",
+      "cn": "10-1104/R",
+      "remark": "ISSN：2095-5588 CN：10-1104/R",
+      "source": "B类（校内限定期刊）"
+    },
+    {
+      "name": "心理研究",
+      "aliases": [],
+      "type": "journal",
+      "level": "B",
+      "category": "B类（校内限定期刊）",
+      "publisher": "河南大学",
+      "issn": "2095-1159",
+      "cn": "41-1393/B",
+      "remark": "ISSN：2095-1159 CN：41-1393/B",
+      "source": "B类（校内限定期刊）"
+    },
+    {
+      "name": "应用心理学",
+      "aliases": [],
+      "type": "journal",
+      "level": "B",
+      "category": "B类（校内限定期刊）",
+      "publisher": "浙江省心理学会、浙江大学",
+      "issn": "1006-6020",
+      "cn": "33-1012/B",
+      "remark": "ISSN：1006-6020 CN：33-1012/B",
+      "source": "B类（校内限定期刊）"
+    },
+    {
+      "name": "中国中医药图书情报杂志",
+      "aliases": [],
+      "type": "journal",
+      "level": "B",
+      "category": "B类（校内限定期刊）",
+      "publisher": "中国中医科学院中医药信息研究所",
+      "issn": "2095-5707",
+      "cn": "10-1113/R",
+      "remark": "ISSN：2095-5707 CN：10-1113/R",
+      "source": "B类（校内限定期刊）"
+    },
+    {
+      "name": "医学信息学杂志",
+      "aliases": [],
+      "type": "journal",
+      "level": "B",
+      "category": "B类（校内限定期刊）",
+      "publisher": "中国医学科学院",
+      "issn": "1673-6036",
+      "cn": "11-5447/R",
+      "remark": "ISSN：1673-6036 CN：11-5447/R",
+      "source": "B类（校内限定期刊）"
+    },
+    {
+      "name": "中华医学图书情报杂志",
+      "aliases": [],
+      "type": "journal",
+      "level": "B",
+      "category": "B类（校内限定期刊）",
+      "publisher": "解放军医学图书馆",
+      "issn": "1671-3982",
+      "cn": "11-4745/R",
+      "remark": "ISSN：1671-3982 CN：11-4745/R",
+      "source": "B类（校内限定期刊）"
+    },
+    {
+      "name": "广东外语外贸大学学报",
+      "aliases": [],
+      "type": "journal",
+      "level": "B",
+      "category": "B类（校内限定期刊）",
+      "publisher": "广东外语外贸大学",
+      "issn": "1672-0962",
+      "cn": "44-1554/Z",
+      "remark": "ISSN：1672-0962 CN：44-1554/Z",
+      "source": "B类（校内限定期刊）"
+    },
+    {
+      "name": "东方翻译",
+      "aliases": [],
+      "type": "journal",
+      "level": "B",
+      "category": "B类（校内限定期刊）",
+      "publisher": "上海市文艺期刊中心",
+      "issn": "1674-6686",
+      "cn": "31-2025/H",
+      "remark": "ISSN：1674-6686 CN：31-2025/H",
+      "source": "B类（校内限定期刊）"
+    },
+    {
+      "name": "中华医学教育探索杂志",
+      "aliases": [],
+      "type": "journal",
+      "level": "B",
+      "category": "B类（校内限定期刊）",
+      "publisher": "中华医学会",
+      "issn": "2095-1485",
+      "cn": "11-6021/R",
+      "remark": "ISSN：2095-1485 CN：11-6021/R",
+      "source": "B类（校内限定期刊）"
+    },
+    {
+      "name": "天津外国语大学报",
+      "aliases": [],
+      "type": "journal",
+      "level": "B",
+      "category": "B类（校内限定期刊）",
+      "publisher": "天津外国语学院",
+      "issn": "1008-665X",
+      "cn": "12-1422/H",
+      "remark": "ISSN：1008-665X CN：12-1422/H",
+      "source": "B类（校内限定期刊）"
+    },
+    {
+      "name": "山东外语教学",
+      "aliases": [],
+      "type": "journal",
+      "level": "B",
+      "category": "B类（校内限定期刊）",
+      "publisher": "山东师范大学",
+      "issn": "1002-2643",
+      "cn": "37-1026/G4",
+      "remark": "ISSN：1002-2643 CN：37-1026/G4",
+      "source": "B类（校内限定期刊）"
+    },
+    {
+      "name": "高校辅导员",
+      "aliases": [],
+      "type": "journal",
+      "level": "B",
+      "category": "B类（校内限定期刊）",
+      "publisher": "山东大学",
+      "issn": "1674-9618",
+      "cn": "37-1471/C",
+      "remark": "ISSN：1674-9618 CN：37-1471/C",
+      "source": "B类（校内限定期刊）"
+    },
+    {
+      "name": "成都中医药大学学报（教育科学版）",
+      "aliases": [],
+      "type": "journal",
+      "level": "B",
+      "category": "B类（校内限定期刊）",
+      "publisher": "成都中医药大学",
+      "issn": "1008-8288",
+      "cn": "51-1576/G4",
+      "remark": "ISSN：1008-8288 CN：51-1576/G4",
+      "source": "B类（校内限定期刊）"
+    },
+    {
+      "name": "医学教育研究与实践",
+      "aliases": [],
+      "type": "journal",
+      "level": "B",
+      "category": "B类（校内限定期刊）",
+      "publisher": "西安交通大学、陕西省医学会",
+      "issn": "2096-3181",
+      "cn": "61-1507/G4",
+      "remark": "ISSN：2096-3181 CN：61-1507/G4",
+      "source": "B类（校内限定期刊）"
+    },
+    {
+      "name": "中医教育",
+      "aliases": [],
+      "type": "journal",
+      "level": "B",
+      "category": "B类（校内限定期刊）",
+      "publisher": "北京中医药大学",
+      "issn": "1003-305X",
+      "cn": "11-1349/R",
+      "remark": "ISSN：1003-305X CN：11-1349/R",
+      "source": "B类（校内限定期刊）"
+    },
+    {
+      "name": "计算机与现代化",
+      "aliases": [],
+      "type": "journal",
+      "level": "B",
+      "category": "B类（校内限定期刊）",
+      "publisher": "江西省计算机学会",
+      "issn": "1006-2475",
+      "cn": "36-1137/TP",
+      "remark": "ISSN：1006-2475 CN：36-1137/TP",
+      "source": "B类（校内限定期刊）"
+    },
+    {
+      "name": "中国医学物理学杂志",
+      "aliases": [],
+      "type": "journal",
+      "level": "B",
+      "category": "B类（校内限定期刊）",
+      "publisher": "南方医科大学、中国医学物理学会",
+      "issn": "1005-202X",
+      "cn": "44-1351/R",
+      "remark": "ISSN：1005-202X CN：44-1351/R",
+      "source": "B类（校内限定期刊）"
+    },
+    {
+      "name": "中国数字医学",
+      "aliases": [],
+      "type": "journal",
+      "level": "B",
+      "category": "B类（校内限定期刊）",
+      "publisher": "国家卫生计生委医院管理研究所",
+      "issn": "1673-7571",
+      "cn": "11-5550/R",
+      "remark": "ISSN：1673-7571 CN：11-5550/R",
+      "source": "B类（校内限定期刊）"
+    },
+    {
+      "name": "中国康复医学杂志",
+      "aliases": [],
+      "type": "journal",
+      "level": "B",
+      "category": "B类（校内限定期刊）",
+      "publisher": "中国康复医学会",
+      "issn": "1001-1242",
+      "cn": "11-2540/R",
+      "remark": "ISSN：1001-1242 CN：11-2540/R",
+      "source": "B类（校内限定期刊）"
+    },
+    {
+      "name": "中国康复",
+      "aliases": [],
+      "type": "journal",
+      "level": "B",
+      "category": "B类（校内限定期刊）",
+      "publisher": "华中科技大学同济医学院、中国残疾人康复协会",
+      "issn": "1001-2001",
+      "cn": "42-1251/R",
+      "remark": "ISSN：1001-2001 CN：42-1251/R",
+      "source": "B类（校内限定期刊）"
+    },
+    {
+      "name": "中国康复理论与实践",
+      "aliases": [],
+      "type": "journal",
+      "level": "B",
+      "category": "B类（校内限定期刊）",
+      "publisher": "中国残疾人康复协会、中国医师协会、中国康复研究中心",
+      "issn": "1006-9771",
+      "cn": "11-3759/R",
+      "remark": "ISSN：1006-9771 CN：11-3759/R",
+      "source": "B类（校内限定期刊）"
+    },
+    {
+      "name": "中国医学伦理学",
+      "aliases": [],
+      "type": "journal",
+      "level": "B",
+      "category": "B类（校内限定期刊）",
+      "publisher": "西安交通大学",
+      "issn": "1001-8565",
+      "cn": "61-1203/R",
+      "remark": "ISSN：1001-8565 CN：61-1203/R",
+      "source": "B类（校内限定期刊）"
+    },
+    {
+      "name": "广东党史与文献研究",
+      "aliases": [],
+      "type": "journal",
+      "level": "B",
+      "category": "B类（校内限定期刊）",
+      "publisher": "中共广东省委党史研究室",
+      "issn": "2096-6644",
+      "cn": "44-1744/K2",
+      "remark": "ISSN：2096-6644 CN：44-1744/K2",
+      "source": "B类（校内限定期刊）"
+    },
+    {
+      "name": "现代教育论丛",
+      "aliases": [],
+      "type": "journal",
+      "level": "B",
+      "category": "B类（校内限定期刊）",
+      "publisher": "广东省教育科学研究所",
+      "issn": "2095-6762",
+      "cn": "44-1361/G4",
+      "remark": "ISSN：2095-6762 CN：44-1361/G4",
+      "source": "B类（校内限定期刊）"
+    }
+  ],
+  "rules": [
+    {
+      "key": "qiushi",
+      "name": "《求是》(1500字左右理论文章)",
+      "level": "A1",
+      "category": "A类1级",
+      "publisher": "中共中央",
+      "desc": "ISSN：1002-4980 CN：11-1000/D"
+    },
+    {
+      "key": "scie_zone1",
+      "name": "《科学引文索引（扩展版）》（SCIE）中科院1区收录期刊",
+      "level": "A1",
+      "category": "A类1级",
+      "publisher": "美国科学情报研究所",
+      "desc": "详见表格下方标注"
+    },
+    {
+      "key": "ssci_zone1",
+      "name": "《社会科学引文索引》（SSCI）1区收录期刊",
+      "level": "A1",
+      "category": "A类1级",
+      "publisher": "美国科学情报研究所",
+      "desc": "详见表格下方标注"
+    },
+    {
+      "key": "cscd_core",
+      "name": "《中国科学引文数据库(CSCD)》核心版",
+      "level": "A2",
+      "category": "A类2级",
+      "publisher": "中国科学院文献情报中心",
+      "desc": ""
+    },
+    {
+      "key": "cssci_core",
+      "name": "《中文社会科学引文索引（CSSCI）》核心版",
+      "level": "A2",
+      "category": "A类2级",
+      "publisher": "南京大学中国社会科学研究评价中心",
+      "desc": ""
+    },
+    {
+      "key": "ahci",
+      "name": "《艺术与人文科学索引》（A&HCI）收录期刊",
+      "level": "A2",
+      "category": "A类2级",
+      "publisher": "美国科学情报研究所",
+      "desc": ""
+    },
+    {
+      "key": "scie_zone2",
+      "name": "《科学引文索引（扩展版）》（SCIE）中科院2区收录期刊",
+      "level": "A2",
+      "category": "A类2级",
+      "publisher": "美国科学情报研究所",
+      "desc": "详见表格下方标注"
+    },
+    {
+      "key": "ssci_zone2",
+      "name": "《社会科学引文索引》（SSCI）2区收录期刊",
+      "level": "A2",
+      "category": "A类2级",
+      "publisher": "美国科学情报研究所",
+      "desc": "详见表格下方标注"
+    },
+    {
+      "key": "xhwd",
+      "name": "《新华文摘》全文转载（论文）",
+      "level": "A2",
+      "category": "A类2级",
+      "publisher": "人民出版社",
+      "desc": "CN：11-1187/Z"
+    },
+    {
+      "key": "pkucore",
+      "name": "《中文核心期刊要目总览》",
+      "level": "A3",
+      "category": "A类3级",
+      "publisher": "北京大学出版社",
+      "desc": ""
+    },
+    {
+      "key": "chss_core",
+      "name": "《中国人文社会科学核心期刊要览》",
+      "level": "A3",
+      "category": "A类3级",
+      "publisher": "中国社会科学院文献信息中心",
+      "desc": ""
+    },
+    {
+      "key": "cssci_ext",
+      "name": "《中文社会科学引文索引（CSSCI）》扩展版",
+      "level": "A3",
+      "category": "A类3级",
+      "publisher": "南京大学中国社会科学研究评价中心",
+      "desc": ""
+    },
+    {
+      "key": "scie_zone3",
+      "name": "《科学引文索引（扩展版）》（SCIE）中科院3区收录期刊",
+      "level": "A3",
+      "category": "A类3级",
+      "publisher": "美国科学情报研究所",
+      "desc": "详见表格下方标注"
+    },
+    {
+      "key": "ssci_zone3",
+      "name": "《社会科学引文索引》（SSCI）3区收录期刊",
+      "level": "A3",
+      "category": "A类3级",
+      "publisher": "美国科学情报研究所",
+      "desc": "详见表格下方标注"
+    },
+    {
+      "key": "rdyb",
+      "name": "《人民日报》（理论版）全文转载",
+      "level": "A3",
+      "category": "A类3级",
+      "publisher": "中国共产党中央委员会",
+      "desc": "CN：11-0065"
+    },
+    {
+      "key": "gmrb",
+      "name": "《光明日报》（理论版）全文转载",
+      "level": "A3",
+      "category": "A类3级",
+      "publisher": "中央宣传部",
+      "desc": "CN：11-0026"
+    },
+    {
+      "key": "jfjb",
+      "name": "《解放军报》（1500字以上理论文章）",
+      "level": "A3",
+      "category": "A类3级",
+      "publisher": "总政治部",
+      "desc": "CN：81-0001/(J)"
+    },
+    {
+      "key": "cscd_ext",
+      "name": "《中国科学引文数据库(CSCD)》扩展版",
+      "level": "A4",
+      "category": "A类4级",
+      "publisher": "中国科学院文献情报中心",
+      "desc": ""
+    },
+    {
+      "key": "scie_zone4",
+      "name": "《科学引文索引（拓展版）》（SCIE）中科院4区收录期刊",
+      "level": "A4",
+      "category": "A类4级",
+      "publisher": "美国科学情报研究所",
+      "desc": "详见表格下方标注"
+    },
+    {
+      "key": "ssci_zone4",
+      "name": "《社会科学引文索引》（SSCI）4区收录期刊",
+      "level": "A4",
+      "category": "A类4级",
+      "publisher": "美国科学情报研究所",
+      "desc": "详见表格下方标注"
+    },
+    {
+      "key": "ei",
+      "name": "EI Compendex（工程索引核心版）收录的期刊",
+      "level": "A4",
+      "category": "A类4级",
+      "publisher": "美国工程信息中心",
+      "desc": ""
+    },
+    {
+      "key": "cpci_ssh",
+      "name": "CPCI-SSH（原ISSHP，社会科学及人文科学会议录索引）",
+      "level": "A4",
+      "category": "A类4级",
+      "publisher": "美国科技信息所",
+      "desc": ""
+    },
+    {
+      "key": "cpci_s",
+      "name": "CPCI-S（原ISTP，科学技术会议录索引）",
+      "level": "A4",
+      "category": "A类4级",
+      "publisher": "美国科技信息所",
+      "desc": ""
+    },
+    {
+      "key": "isr",
+      "name": "ISR（科学评论索引）",
+      "level": "A4",
+      "category": "A类4级",
+      "publisher": "美国科学情报研究所",
+      "desc": ""
+    },
+    {
+      "key": "jjrb",
+      "name": "《经济日报》（1500字以上理论文章）",
+      "level": "A4",
+      "category": "A类4级",
+      "publisher": "经济日报社",
+      "desc": "CN：11-0014"
+    },
+    {
+      "key": "rdfy",
+      "name": "《人大复印报刊资料》全文转载（3000字以上）",
+      "level": "A4",
+      "category": "A类4级",
+      "publisher": "中国人民大学书报资料中心",
+      "desc": "不含“文摘”系列期刊、“报刊资料索引”系列期刊和中国人民大学书报资料中心编辑出版的原发性期刊"
+    },
+    {
+      "key": "nfyb",
+      "name": "《南方日报理论版》",
+      "level": "A4",
+      "category": "A类4级",
+      "publisher": "南方报业集团",
+      "desc": "CN：44-0001"
+    }
+  ]
+}

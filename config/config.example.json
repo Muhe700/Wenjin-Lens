@@ -1,0 +1,4 @@
+{
+  "_comment": "如需使用联网刷新功能，请复制此文件并重命名为 config.json，填入你的 API Key。该文件已被 .gitignore 保护，不会被上传到 GitHub。",
+  "gemini_api_key": "YOUR_GEMINI_API_KEY_HERE"
+}

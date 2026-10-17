@@ -1,0 +1,8 @@
+# 文津·选刊助手 (Wenjin-Lens) 开发与测试依赖清单
+# ==========================================
+-r requirements.txt
+
+# 自动化测试与 HTTP 模拟工具
+pytest>=7.0.0
+pytest-asyncio>=0.21.0
+httpx>=0.24.0

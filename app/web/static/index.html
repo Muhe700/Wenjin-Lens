@@ -1,0 +1,1588 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="renderer" content="webkit">
+  <meta name="force-rendering" content="webkit">
+  <title>文津·选刊助手 (Wenjin-Lens) — 广州中医药大学重要期刊认定与智能选刊服务</title>
+  <link rel="icon" type="image/jpeg" href="images/logo.jpg">
+
+  <!-- 预先同步暗色模式，杜绝首屏白闪 -->
+  <script>
+    if (localStorage.getItem('wenjin_theme') === 'dark') {
+      document.documentElement.classList.add('dark');
+      document.documentElement.setAttribute('data-theme', 'dark');
+    }
+  </script>
+
+  <!-- 引入成熟的企业级 UI 组件库 Element Plus 样式 (本地全量离线托管，零断网风险) -->
+  <link rel="stylesheet" href="libs/element-plus.min.css">
+  
+  <!-- 引入模块化学术定制主题样式 (tokens.css + layout.css + components.css + theme) -->
+  <link rel="stylesheet" href="css/academic-theme.css">
+
+  <!-- 引入 Chart.js 数据可视化库 (本地全量离线托管) -->
+  <script src="libs/chart.umd.min.js"></script>
+
+  <!-- 引入 Canvas Confetti 微动效库 (本地全量离线托管) -->
+  <script src="libs/confetti.browser.min.js"></script>
+</head>
+<body>
+  <div id="app">
+    <!-- 顶部现代化导航 Header -->
+    <el-header class="app-header">
+      <div class="header-container">
+        <!-- 品牌徽标与学术副标题 -->
+        <div class="brand-box" @click="activeTab = 'search'">
+          <div class="brand-crest">
+            <img src="images/logo.jpg" alt="文津选刊徽标">
+          </div>
+          <div class="brand-title-wrap">
+            <div class="brand-title-row">
+              <span class="brand-title">文津·选刊助手</span>
+              <span class="brand-badge">校办〔2020〕308号标准</span>
+            </div>
+            <div class="brand-sub">
+              <span class="status-dot"></span>
+              <span>广州中医药大学重要期刊认定与智能选刊决策系统</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- 导航与快捷操作 -->
+        <div class="header-nav-toolbar">
+          <div class="nav-segmented">
+            <button :class="['nav-segmented-item', { active: activeTab === 'search' }]" @click="activeTab = 'search'">
+              <el-icon><Search></Search></el-icon> <span>选刊检索</span>
+            </button>
+            <button :class="['nav-segmented-item', { active: activeTab === 'filter' }]" @click="activeTab = 'filter'">
+              <el-icon><Operation></Operation></el-icon> <span>智能筛选</span>
+            </button>
+            <button :class="['nav-segmented-item', { active: activeTab === 'track' }]" @click="activeTab = 'track'">
+              <el-icon><Document></Document></el-icon> <span>决策台账</span>
+            </button>
+            <button :class="['nav-segmented-item', { active: activeTab === 'catalog' }]" @click="activeTab = 'catalog'">
+              <el-icon><Notebook></Notebook></el-icon> <span>官方目录</span>
+            </button>
+          </div>
+
+          <div class="header-tools">
+            <el-badge :value="comparisonList.length" :hidden="comparisonList.length === 0">
+              <el-button circle class="tool-circle-btn" :icon="ScaleToOriginal" @click="comparisonDialogVisible = true" title="查看期刊多维对比矩阵"></el-button>
+            </el-badge>
+            <el-button circle class="tool-circle-btn" :icon="isDark ? Sunny : Moon" @click="toggleTheme" title="切换明暗色调"></el-button>
+            <el-button circle class="tool-circle-btn" :icon="Link" @click="openDocs" title="查看开放 RESTful API 接口文档"></el-button>
+          </div>
+        </div>
+      </div>
+    </el-header>
+
+    <!-- 页面主体容器 -->
+    <el-main class="app-main">
+      <!-- 仪表盘统计卡片条 (Stats Deck) -->
+      <div class="stats-deck">
+        <!-- 统计 1: 广中医重要期刊基准 -->
+        <div class="stat-card-custom is-clickable" @click="openCatalogModal('gzucms')" title="点击预览广中医308号官方目录">
+          <div class="stat-header">
+            <span class="stat-title">广中医重要期刊基准</span>
+            <div class="stat-icon-wrap stat-icon-teal">
+              <el-icon><School></School></el-icon>
+            </div>
+          </div>
+          <div class="stat-value-row">
+            <span class="stat-value">{{ stats.catalog_journals || 136 }}</span>
+            <span class="stat-unit">种</span>
+          </div>
+          <div class="stat-sub">校办〔2020〕308号官方目录库 · 点击预览全览 ↗</div>
+        </div>
+
+        <!-- 统计 2: 全国中文核心/CSCD扩充 -->
+        <div class="stat-card-custom is-clickable" @click="openCatalogModal('cscd')" title="点击预览CSCD与中文核心数据库">
+          <div class="stat-header">
+            <span class="stat-title">中文核心 / CSCD 扩充</span>
+            <div class="stat-icon-wrap stat-icon-emerald">
+              <el-icon><Collection></Collection></el-icon>
+            </div>
+          </div>
+          <div class="stat-value-row">
+            <span class="stat-value">{{ stats.chinese_core_count || 27 }}</span>
+            <span class="stat-unit">种</span>
+          </div>
+          <div class="stat-sub">中医药高被引全量覆盖 · 点击预览目录 ↗</div>
+        </div>
+
+        <!-- 统计 3: 中科院国际预警期刊 -->
+        <div class="stat-card-custom is-clickable" @click="openCatalogModal('cas_warning')" title="点击预览中科院国际预警名单">
+          <div class="stat-header">
+            <span class="stat-title">中科院国际预警名单</span>
+            <div class="stat-icon-wrap stat-icon-coral">
+              <el-icon><WarningFilled></WarningFilled></el-icon>
+            </div>
+          </div>
+          <div class="stat-value-row">
+            <span class="stat-value" style="color:var(--brand-coral);">{{ stats.cas_warning_count || 38 }}</span>
+            <span class="stat-unit" style="color:var(--brand-coral);">种</span>
+          </div>
+          <div class="stat-sub" style="color:var(--brand-coral);">实时学术合规风险阻断 · 点击查看名单 ↗</div>
+        </div>
+
+        <!-- 统计 4: 选刊决策沉淀台账 -->
+        <div class="stat-card-custom is-clickable" @click="activeTab = 'track'" title="点击切换至选刊决策台账">
+          <div class="stat-header">
+            <span class="stat-title">选刊决策沉淀台账</span>
+            <div class="stat-icon-wrap stat-icon-amber">
+              <el-icon><Tickets></Tickets></el-icon>
+            </div>
+          </div>
+          <div class="stat-value-row">
+            <span class="stat-value">{{ stats.track_records || 0 }}</span>
+            <span class="stat-unit">篇</span>
+          </div>
+          <div class="stat-sub">支持导出标准 Excel 台账 · 点击切换视图 ↗</div>
+        </div>
+      </div>
+
+      <!-- 视图 1: 选刊检索 -->
+      <div v-show="activeTab === 'search'">
+        <!-- 搜索输入操作面板 (Search Hero Card) -->
+        <div class="search-hero-card">
+          <div class="search-input-group">
+            <el-input
+              v-model="searchQuery"
+              class="search-input-large"
+              placeholder="输入期刊名称、ISSN、CN刊号或收录规则（如：中国中药杂志、1001-5302、北大核心、SCIE 1区）"
+              size="large"
+              clearable
+              @keyup.enter="handleSearch"
+            >
+              <template #prefix>
+                <el-icon style="font-size:18px; color:var(--text-muted);"><Search></Search></el-icon>
+              </template>
+            </el-input>
+
+            <el-button class="search-btn-primary" :loading="searching" :icon="Search" @click="handleSearch">
+              一键精准检索
+            </el-button>
+
+            <el-button class="search-btn-secondary" :loading="refreshing" :icon="Connection" @click="handleRefresh" title="调用 Gemini 联网核验并同步 OpenAlex/DOAJ 权威事实数据">
+              联网深度查证
+            </el-button>
+          </div>
+
+          <!-- 快捷推荐标签 (Notion/Claude 属性胶囊分组) -->
+          <div class="quick-tags-container">
+            <div class="quick-tags-row">
+              <span class="quick-tags-label"><el-icon><Star></Star></el-icon> 权威中药名刊：</span>
+              <el-tag effect="plain" class="quick-chip" @click="quickSearch('中国中药杂志')">《中国中药杂志》(北大/CSCD)</el-tag>
+              <el-tag effect="plain" class="quick-chip" @click="quickSearch('中草药')">《中草药》(卓越领军)</el-tag>
+              <el-tag effect="plain" class="quick-chip" @click="quickSearch('中华中医药杂志')">《中华中医药杂志》</el-tag>
+              <el-tag effect="plain" class="quick-chip" @click="quickSearch('针灸临床杂志')">《针灸临床杂志》(从高认定)</el-tag>
+            </div>
+            <div class="quick-tags-row">
+              <span class="quick-tags-label"><el-icon><Reading></Reading></el-icon> 规则与国际期刊：</span>
+              <el-tag effect="plain" class="quick-chip quick-chip-warning" @click="quickSearch('北大核心')">北大核心 (从高升A3)</el-tag>
+              <el-tag effect="plain" class="quick-chip quick-chip-warning" @click="quickSearch('SCIE 1区')">SCIE 1区 (从高升A1)</el-tag>
+              <el-tag effect="plain" class="quick-chip" @click="quickSearch('Scientific Reports')">Scientific Reports</el-tag>
+              <el-tag effect="plain" class="quick-chip quick-chip-danger" @click="quickSearch('Diagnostics')">
+                <el-icon><Warning></Warning></el-icon> Diagnostics (中科院预警期刊案例)
+              </el-tag>
+            </div>
+          </div>
+        </div>
+
+        <!-- 检索骨架屏 -->
+        <el-skeleton :rows="8" animated v-if="searching" style="margin-bottom:24px;"></el-skeleton>
+
+        <!-- 单条规则结果卡片 -->
+        <el-card shadow="hover" v-if="ruleResult" style="margin-bottom:24px; border-left:4px solid var(--el-color-primary);">
+          <div style="display:flex; justify-content:space-between; align-items:flex-start; flex-wrap:wrap; gap:16px;">
+            <div style="flex:1; min-width:300px;">
+              <div style="font-size:1.15rem; font-weight:600; margin-bottom:8px; color:var(--el-color-primary);">
+                <el-icon><ScaleToOriginal></ScaleToOriginal></el-icon> 索引定级规则：{{ ruleResult.name }}
+              </div>
+              <div style="font-size:1rem; margin-bottom:8px;">
+                对应广中医认定级别：
+                <el-tag size="large" :type="getLevelTagType(ruleResult.level)" effect="light">
+                  {{ ruleResult.label }}
+                </el-tag>
+              </div>
+              <div v-if="ruleResult.note" style="font-size:13px; color:var(--el-text-color-secondary); margin-bottom:6px;">
+                <el-icon><InfoFilled></InfoFilled></el-icon> {{ ruleResult.note }}
+              </div>
+              <!-- 历史版本关停合规免责声明 -->
+              <div v-if="ruleResult.disclaimer" style="font-size:12.5px; color:#d97706; background:rgba(217,119,6,0.08); padding:8px 12px; border-radius:6px; margin-top:8px; line-height:1.5; border-left:3px solid #d97706;">
+                <el-icon style="margin-right:4px;"><Warning></Warning></el-icon> {{ ruleResult.disclaimer }}
+              </div>
+            </div>
+
+            <!-- 下钻查看收录期刊全文操作区 -->
+            <div style="display:flex; flex-direction:column; gap:8px;">
+              <el-button
+                v-if="ruleResult.has_catalog_list && ruleResult.target_tab === 'cas_zone'"
+                type="primary"
+                size="default"
+                :icon="Collection"
+                @click="openCasZoneFullList(ruleResult.zone, ruleResult.wos_type)"
+              >
+                展开查看收录期刊全文 ({{ ruleResult.wos_type || 'SCIE' }} {{ ruleResult.zone }}区) ↗
+              </el-button>
+              <el-button
+                v-else-if="ruleResult.target_tab === 'pkucore' || ruleResult.rule_key === 'pkucore'"
+                type="warning"
+                size="default"
+                :icon="Notebook"
+                @click="openCatalogModal('pkucore')"
+              >
+                查看北大中文核心目录全景 (2,592本) ↗
+              </el-button>
+              <el-button
+                v-else-if="ruleResult.target_tab === 'cscd' || (ruleResult.rule_key && ruleResult.rule_key.includes('cscd'))"
+                type="primary"
+                size="default"
+                :icon="Collection"
+                @click="openCatalogModal('cscd')"
+              >
+                查看 CSCD 引文数据库全景 (1,306本) ↗
+              </el-button>
+              <el-button
+                v-if="ruleResult.zone"
+                type="info"
+                plain
+                size="small"
+                :icon="Compass"
+                @click="openCatalogModal('cas_zone')"
+              >
+                浏览 SCIE/SSCI 国际核心与中科院 1~4 区 (21,772种) ↗
+              </el-button>
+            </div>
+          </div>
+        </el-card>
+
+        <!-- 候选期刊结果卡片 -->
+        <el-card shadow="hover" v-if="candidatesResult && candidatesResult.length" style="margin-bottom:24px; border-left:4px solid var(--el-color-warning);">
+          <div style="font-size:1rem; font-weight:600; margin-bottom:12px; color:var(--el-color-warning);">
+            <el-icon><List></List></el-icon> 检索到多个高相关候选期刊，请点击具体刊物查看：
+          </div>
+          <el-space wrap>
+            <el-button v-for="c in candidatesResult" :key="c.name" @click="quickSearch(c.name)">
+              <strong>{{ c.name }}</strong> &nbsp;<span style="color:var(--el-text-color-secondary);">({{ c.publisher || '未明' }})</span>
+            </el-button>
+          </el-space>
+        </el-card>
+
+        <!-- 9 维核心选刊指标展示卡片 -->
+        <div v-if="currentJournal">
+          <!-- 期刊总览 Header Card -->
+          <el-card shadow="hover" class="journal-showcase-card">
+            <div style="display:flex; justify-content:space-between; align-items:flex-start; flex-wrap:wrap; gap:16px;">
+              <div style="flex:1; min-width:300px;">
+                <div style="display:flex; align-items:center; gap:12px; margin-bottom:8px; flex-wrap:wrap;">
+                  <h2 class="journal-header-title">{{ currentJournal.name }}</h2>
+                  <el-tag
+                    :type="currentJournal.in_catalog ? 'success' : 'info'"
+                    effect="light"
+                    round
+                    class="index-clickable-tag"
+                    @click="openCatalogModal(currentJournal.in_catalog ? 'gzucms' : 'rules', currentJournal.name)"
+                    title="点击在官方目录或认定规则中精准定位"
+                  >
+                    {{ currentJournal.in_catalog ? '广中医校办目录收录 (点击定位 ↗)' : '目录外·权威索引规则认定 (查看规则 ↗)' }}
+                  </el-tag>
+                </div>
+
+                <div class="journal-meta-row">
+                  <span class="journal-meta-item"><el-icon><School></School></el-icon> 主办/出版：{{ getPublisher(currentJournal) }}</span>
+                  <span class="journal-meta-item"><el-icon><Tickets></Tickets></el-icon> 刊号：{{ getIssnCnDisplay(currentJournal) }}</span>
+                </div>
+
+                <!-- 历史版本关停合规免责声明 (中科院分区) -->
+                <div v-if="currentJournal.catalog && currentJournal.catalog.disclaimer" style="font-size:12.5px; color:#d97706; background:rgba(217,119,6,0.08); padding:8px 12px; border-radius:6px; margin-bottom:12px; line-height:1.5; border-left:3px solid #d97706;">
+                  <el-icon style="margin-right:4px;"><Warning></Warning></el-icon> {{ currentJournal.catalog.disclaimer }}
+                </div>
+
+                <!-- 快捷工具按钮组 -->
+                <div style="display:flex; gap:10px; flex-wrap:wrap;">
+                  <el-button type="primary" plain :icon="DocumentCopy" @click="copyBrief">
+                    复制选刊决策简报
+                  </el-button>
+                  <el-button type="warning" plain :icon="Position" @click="openCatalogModal(currentJournal.in_catalog ? 'gzucms' : 'cscd', currentJournal.name)">
+                    跨目录精确定位
+                  </el-button>
+                  <el-button :icon="ScaleToOriginal" @click="addToComparison(currentJournal)">
+                    加入横向对比
+                  </el-button>
+                  <el-button :icon="Refresh" @click="handleRefresh">
+                    强制联网核验
+                  </el-button>
+                </div>
+              </div>
+
+              <!-- 级别徽章 -->
+              <div style="text-align:right;">
+                <el-tag
+                  size="large"
+                  :type="getLevelTagType(getLevelCode(currentJournal))"
+                  effect="light"
+                  class="level-badge-large index-clickable-tag"
+                  @click="openCatalogModal('gzucms', currentJournal.name, getLevelCode(currentJournal))"
+                  title="点击在308号目录中定位该级别条目"
+                >
+                  <el-icon><Medal></Medal></el-icon> {{ getLevelLabel(currentJournal) }}
+                </el-tag>
+                <div style="font-size:12px; color:var(--text-muted); margin-top:6px; cursor:pointer;" @click="openCatalogModal('rules', currentJournal.name)">
+                  广中医校办〔2020〕308号 认定标准 (查看对照表 ↗)
+                </div>
+              </div>
+            </div>
+          </el-card>
+
+          <!-- 从高认定依据 Alert -->
+          <el-alert
+            v-if="getReasons(currentJournal).length"
+            type="success"
+            :closable="false"
+            show-icon
+            style="margin-bottom: 20px;"
+          >
+            <template #title>
+              <strong>广中医重要期刊级别认定与升级规则依据：</strong>
+            </template>
+            <ul style="margin:6px 0 0 16px; padding:0; line-height:1.7;">
+              <li v-for="(r, idx) in getReasons(currentJournal)" :key="idx">{{ r }}</li>
+              <li v-if="isUpgraded(currentJournal)" style="font-weight:600; color:var(--brand-amber); cursor:pointer;" @click="openCatalogModal('rules', currentJournal.name)">
+                ★ 按目录备注1：本表中所列刊物如进入更高级别，则按高级别期刊认定。(点击查看规则对照表 ↗)
+              </li>
+            </ul>
+          </el-alert>
+
+          <!-- 中科院预警 Alert -->
+          <el-alert
+            v-if="isWarned(currentJournal)"
+            type="error"
+            :closable="false"
+            show-icon
+            style="margin-bottom: 20px;"
+          >
+            <template #title>
+              <strong>学术合规风险防范警示：该刊已被列入《中科院国际期刊预警名单》！</strong>
+            </template>
+            <div style="margin-top:6px; line-height:1.7;">
+              国内高校在职称评审、学位论文审核及科技成果认领中对预警期刊论文普遍<strong>不予认定且版面费不予报销</strong>，请科研人员高度警惕！
+              <div style="margin-top:6px; display:flex; gap:12px; flex-wrap:wrap; align-items:center;">
+                <el-tag type="danger" size="small"><el-icon><Calendar></Calendar></el-icon> 预警年份：{{ getWarningDetail(currentJournal).year }}年</el-tag>
+                <el-tag type="danger" size="small"><el-icon><Warning></Warning></el-icon> 预警原因：{{ getWarningDetail(currentJournal).reason || '学术合规风险' }}</el-tag>
+                <el-tag type="danger" size="small"><el-icon><Collection></Collection></el-icon> 学科领域：{{ getWarningDetail(currentJournal).subject || '综合学科' }}</el-tag>
+                <el-button type="danger" size="small" plain :icon="WarningFilled" @click="openCatalogModal('cas_warning', currentJournal.name)">
+                  在预警名单中查看具体位置 ↗
+                </el-button>
+              </div>
+            </div>
+          </el-alert>
+
+          <!-- 选刊核心 9 项决策维度全景指标 (Bento Grid) -->
+          <div class="bento-section-header">
+            <div class="bento-section-title">
+              <el-icon><Grid></Grid></el-icon> <span>选刊核心 9 项决策维度全景指标</span>
+            </div>
+            <el-tag size="small" effect="plain" round>广中医标准 9 维决策矩阵</el-tag>
+          </div>
+
+          <div class="bento-grid">
+            <!-- 1. 权威收录索引 -->
+            <div class="bento-card">
+              <div class="bento-tag" style="display:flex; justify-content:space-between; align-items:center;">
+                <span><el-icon><Collection></Collection></el-icon> 1. 权威收录索引数据库</span>
+                <span style="font-size:11.5px; color:var(--text-muted); font-weight:normal;">点击标签全览定位 ↗</span>
+              </div>
+              <div class="bento-value-wrap">
+                <div v-if="getKnownIndexes(currentJournal).length" style="display:flex; flex-wrap:wrap; gap:6px;">
+                  <el-tag
+                    v-for="tag in getKnownIndexes(currentJournal)"
+                    :key="tag"
+                    size="small"
+                    effect="plain"
+                    class="index-clickable-tag"
+                    @click="openCatalogModal(tag.includes('CSCD') ? 'cscd' : (tag.includes('北大') ? 'pkucore' : 'cscd'), currentJournal.name)"
+                    :title="'点击在对应目录中定位《' + currentJournal.name + '》的具体位置'"
+                  >
+                    {{ tag }} <el-icon style="margin-left:2px; font-size:10px;"><TopRight></TopRight></el-icon>
+                  </el-tag>
+                </div>
+                <div v-else style="color:var(--text-muted); font-size:13px;">
+                  {{ getIndexesVerified(currentJournal) ? '知识库核验：未命中主流核心索引' : '知识库暂无核验数据，待联网查证' }}
+                </div>
+              </div>
+              <div v-if="getIndexesNote(currentJournal)" class="bento-sub-note">
+                {{ getIndexesNote(currentJournal) }}
+              </div>
+            </div>
+
+            <!-- 2. 广中医级别 -->
+            <div class="bento-card">
+              <div class="bento-tag"><el-icon><Medal></Medal></el-icon> 2. 广中医官方认定级别</div>
+              <div class="bento-value-wrap">
+                <el-tag
+                  size="large"
+                  :type="getLevelTagType(getLevelCode(currentJournal))"
+                  effect="light"
+                  class="level-badge-large index-clickable-tag"
+                  @click="openCatalogModal('gzucms', currentJournal.name, getLevelCode(currentJournal))"
+                  title="点击在308号目录中查看条目位置"
+                >
+                  {{ getLevelLabel(currentJournal) }}
+                </el-tag>
+              </div>
+              <div style="margin-top:6px; display:flex; justify-content:space-between; align-items:center;">
+                <span class="bento-sub-note">依据校办〔2020〕308号标准</span>
+                <el-button size="small" text type="primary" :icon="Position" @click="openCatalogModal('gzucms', currentJournal.name)">
+                  在官方目录中定位 ↗
+                </el-button>
+              </div>
+            </div>
+
+            <!-- 3. 评分 (IF/分区) -->
+            <div class="bento-card">
+              <div class="bento-tag"><el-icon><DataLine></DataLine></el-icon> 3. 影响因子与中科院分区</div>
+              <div class="bento-value-wrap">
+                <div class="bento-highlight-value">{{ getScoreDisplay(currentJournal) }}</div>
+              </div>
+              <div v-if="getImpactNote(currentJournal)" class="bento-sub-note">
+                {{ getImpactNote(currentJournal) }}
+              </div>
+            </div>
+
+            <!-- 4. 主编信息 -->
+            <div class="bento-card">
+              <div class="bento-tag"><el-icon><User></User></el-icon> 4. 现任主编与编委会机构</div>
+              <div class="bento-value-wrap">
+                <div style="font-weight:600; font-size:15px; color:var(--text-ink);">
+                  {{ getEditorName(currentJournal) }}
+                </div>
+                <div v-if="getEditorAffiliation(currentJournal)" style="font-size:12.5px; color:var(--text-muted); margin-top:4px;">
+                  机构：{{ getEditorAffiliation(currentJournal) }}
+                </div>
+              </div>
+              <div class="bento-sub-note">学术领军人与主办学术团体</div>
+            </div>
+
+            <!-- 5. 收稿方向 -->
+            <div class="bento-card">
+              <div class="bento-tag"><el-icon><Document></Document></el-icon> 5. 收稿范围与常设栏目</div>
+              <div class="bento-value-wrap">
+                <div class="bento-text-body">
+                  {{ getScope(currentJournal) }}
+                </div>
+              </div>
+              <div class="bento-sub-note">契合度判断与重点资助课题偏向</div>
+            </div>
+
+            <!-- 6. 审稿周期 -->
+            <div class="bento-card">
+              <div class="bento-tag"><el-icon><Timer></Timer></el-icon> 6. 审稿周期与发表时效</div>
+              <div class="bento-value-wrap">
+                <div style="font-weight:600; font-size:14px; color:var(--text-body);">
+                  {{ getReviewCycle(currentJournal) }}
+                </div>
+              </div>
+              <div class="bento-sub-note">官方初审与同行评议预期时效</div>
+            </div>
+
+            <!-- 7. 出版方式 -->
+            <div class="bento-card">
+              <div class="bento-tag"><el-icon><Reading></Reading></el-icon> 7. 出版模式与刊期</div>
+              <div class="bento-value-wrap">
+                <el-tag size="default" effect="plain">{{ getPublicationMode(currentJournal) }}</el-tag>
+              </div>
+              <div class="bento-sub-note">传统订阅制 / OA 开放获取</div>
+            </div>
+
+            <!-- 8. 版面费 (APC) -->
+            <div class="bento-card">
+              <div class="bento-tag"><el-icon><Coin></Coin></el-icon> 8. 文章处理费 (APC) 标准</div>
+              <div class="bento-value-wrap">
+                <div style="font-weight:600; font-size:14px; color:var(--text-body);">
+                  {{ getApcFee(currentJournal) }}
+                </div>
+              </div>
+              <div class="bento-sub-note">学术成果报销与经费合规预算</div>
+            </div>
+
+            <!-- 9. 官方投稿系统 (跨全列) -->
+            <div class="bento-card bento-card-full">
+              <div class="bento-tag"><el-icon><Promotion></Promotion></el-icon> 9. 官方在线采编投稿系统与防伪避坑护航</div>
+              <div class="bento-value-wrap">
+                <div v-if="isHttpUrl(getSubmissionUrl(currentJournal))">
+                  <div style="display:flex; align-items:center; gap:12px; margin-bottom:10px; flex-wrap:wrap;">
+                    <el-link :href="getSubmissionUrl(currentJournal)" target="_blank" type="primary" :underline="false">
+                      <el-button type="primary" class="search-btn-primary" :icon="TopRight">直达官方采编投稿系统</el-button>
+                    </el-link>
+                    <el-button class="search-btn-secondary" :icon="DocumentCopy" @click="copyText(getSubmissionUrl(currentJournal))">
+                      复制投稿网址
+                    </el-button>
+                    <code style="font-size:13px; color:var(--brand-primary); background:var(--bg-canvas); padding:4px 10px; border-radius:6px; border:1px solid var(--border-hairline);">{{ getSubmissionUrl(currentJournal) }}</code>
+                  </div>
+                  <div style="font-size:12.5px; color:var(--brand-coral); display:flex; align-items:center; gap:6px;">
+                    <el-icon><Warning></Warning></el-icon> 官方正规网址防伪提醒：请认准官方正规域名，警惕山寨竞价中介与虚假钓鱼代发平台！
+                  </div>
+                </div>
+                <div v-else style="color:var(--text-muted); font-size:13.5px;">
+                  {{ getSubmissionUrl(currentJournal) || '暂无官方投稿系统说明，建议在期刊主办单位官网查阅' }}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 视图 2: 智能筛选 -->
+      <div v-show="activeTab === 'filter'">
+        <el-card shadow="hover" style="margin-bottom:20px; border:1px solid var(--el-border-color); border-radius:12px;">
+          <el-form :inline="true" style="margin-bottom:-18px; display:flex; flex-wrap:wrap; align-items:center; gap:12px;">
+            <el-form-item label="期刊数据池">
+              <el-radio-group v-model="filterScopeSource" size="default" @change="loadFilterRecords">
+                <el-radio-button label="official">广中医官方目录 (136本+核心库)</el-radio-button>
+                <el-radio-button label="track">我的选刊决策台账</el-radio-button>
+                <el-radio-button label="all">全量聚合</el-radio-button>
+              </el-radio-group>
+            </el-form-item>
+
+            <el-form-item label="广中医级别">
+              <el-select v-model="filterLevel" placeholder="全部级别" clearable style="width:160px;" @change="loadFilterRecords">
+                <el-option label="全部级别 (A1~B)" value=""></el-option>
+                <el-option label="A类1级 (顶尖权威)" value="A1"></el-option>
+                <el-option label="A类2级 (重点期刊)" value="A2"></el-option>
+                <el-option label="A类3级 (核心期刊)" value="A3"></el-option>
+                <el-option label="A类4级 (重要期刊)" value="A4"></el-option>
+                <el-option label="B类 (校内限定认定)" value="B"></el-option>
+              </el-select>
+            </el-form-item>
+
+            <el-form-item label="出版模式">
+              <el-select v-model="filterOA" placeholder="全部模式" clearable style="width:160px;" @change="loadFilterRecords">
+                <el-option label="全部模式" value=""></el-option>
+                <el-option label="传统订阅制 (非OA)" value="否"></el-option>
+                <el-option label="开放获取 (OA 期刊)" value="是"></el-option>
+              </el-select>
+            </el-form-item>
+
+            <el-form-item label="学科关键词">
+              <el-input v-model="filterScope" placeholder="如：中草药、针灸、肿瘤" clearable style="width:220px;" @input="loadFilterRecords"></el-input>
+            </el-form-item>
+          </el-form>
+        </el-card>
+
+        <el-card shadow="hover" style="border:1px solid var(--el-border-color); border-radius:12px;">
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:16px;">
+            <div style="font-weight:600;">
+              <el-icon><Operation></Operation></el-icon> 筛选结果清单 (已匹配 {{ filterRecords.length }} 本期刊)
+            </div>
+          </div>
+
+          <el-table :data="filterRecords" v-loading="filterLoading" stripe border style="width:100%;">
+            <el-table-column type="index" label="序号" width="60" align="center"></el-table-column>
+            <el-table-column prop="期刊名称" label="期刊名称" min-width="160">
+              <template #default="scope">
+                <el-link type="primary" :underline="false" @click="quickSearch(scope.row['期刊名称'])">
+                  <strong>{{ scope.row['期刊名称'] }}</strong>
+                </el-link>
+              </template>
+            </el-table-column>
+            <el-table-column prop="广中医认定级别" label="广中医级别" width="120" align="center">
+              <template #default="scope">
+                <el-tag size="small" :type="getLevelTagTypeFromLabel(scope.row['广中医认定级别'])" effect="light">
+                  {{ scope.row['广中医认定级别'] }}
+                </el-tag>
+              </template>
+            </el-table-column>
+            <el-table-column prop="影响因子(JIF)" label="影响因子" width="130" align="center"></el-table-column>
+            <el-table-column prop="出版方式与版面费" label="出版模式与版面费" min-width="180"></el-table-column>
+            <el-table-column prop="审稿周期" label="审稿周期" min-width="160"></el-table-column>
+            <el-table-column label="操作" width="100" align="center">
+              <template #default="scope">
+                <el-button size="small" type="primary" plain @click="quickSearch(scope.row['期刊名称'])">
+                  查看
+                </el-button>
+              </template>
+            </el-table-column>
+          </el-table>
+        </el-card>
+      </div>
+
+      <!-- 视图 3: 决策台账 -->
+      <div v-show="activeTab === 'track'">
+        <el-card shadow="hover" style="border:1px solid var(--el-border-color); border-radius:12px;">
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:16px; flex-wrap:wrap; gap:12px;">
+            <div style="display:flex; align-items:center; gap:8px;">
+              <el-icon><Document></Document></el-icon>
+              <strong style="font-size:1.05rem;">选刊决策沉淀台账</strong>
+              <el-tag size="small" round>已归档 {{ trackRecords.length }} 篇</el-tag>
+            </div>
+
+            <div style="display:flex; gap:12px; align-items:center;">
+              <el-input v-model="trackSearch" placeholder="搜索已追踪的期刊..." prefix-icon="Search" style="width:240px;" clearable></el-input>
+              <el-link :href="exportUrl" download :underline="false">
+                <el-button type="success" :icon="Download">
+                  导出为标准 Excel (.xlsx)
+                </el-button>
+              </el-link>
+            </div>
+          </div>
+
+          <el-table :data="filteredTrackRecords" v-loading="trackLoading" stripe border style="width:100%;">
+            <el-table-column prop="期刊名称" label="期刊名称" min-width="160">
+              <template #default="scope">
+                <el-link type="primary" :underline="false" @click="quickSearch(scope.row['期刊名称'])">
+                  <strong>{{ scope.row['期刊名称'] }}</strong>
+                </el-link>
+              </template>
+            </el-table-column>
+            <el-table-column prop="ISSN / CN" label="刊号" width="160">
+              <template #default="scope">
+                <code>{{ scope.row['ISSN / CN'] }}</code>
+              </template>
+            </el-table-column>
+            <el-table-column prop="收录索引" label="收录索引" min-width="160" show-overflow-tooltip></el-table-column>
+            <el-table-column prop="广中医认定级别" label="广中医级别" width="110" align="center">
+              <template #default="scope">
+                <el-tag size="small" :type="getLevelTagTypeFromLabel(scope.row['广中医认定级别'])" effect="light">
+                  {{ scope.row['广中医认定级别'] }}
+                </el-tag>
+              </template>
+            </el-table-column>
+            <el-table-column prop="影响因子(JIF)" label="影响因子" width="110" align="center"></el-table-column>
+            <el-table-column prop="中科院分区" label="中科院分区" width="120" show-overflow-tooltip></el-table-column>
+            <el-table-column prop="出版方式与版面费" label="出版与版面费" min-width="160" show-overflow-tooltip></el-table-column>
+            <el-table-column prop="审稿周期" label="审稿周期" min-width="140" show-overflow-tooltip></el-table-column>
+            <el-table-column prop="核验日期与来源" label="核验日期" width="130" show-overflow-tooltip></el-table-column>
+          </el-table>
+        </el-card>
+      </div>
+
+      <!-- 视图 4: 官方目录全览 -->
+      <div v-show="activeTab === 'catalog'">
+        <el-card shadow="hover" style="margin-bottom:20px; border:1px solid var(--el-border-color); border-radius:12px;">
+          <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:16px;">
+            <el-radio-group v-model="catalogLevelFilter" size="default">
+              <el-radio-button label="ALL">全部 (136)</el-radio-button>
+              <el-radio-button label="A1">A类1级 (3)</el-radio-button>
+              <el-radio-button label="A2">A类2级 (17)</el-radio-button>
+              <el-radio-button label="A3">A类3级 (45)</el-radio-button>
+              <el-radio-button label="A4">A类4级 (36)</el-radio-button>
+              <el-radio-button label="B">B类 (35)</el-radio-button>
+            </el-radio-group>
+
+            <div style="display:flex; gap:12px; align-items:center; flex-wrap:wrap;">
+              <el-button type="primary" :icon="Position" @click="openCatalogModal('gzucms')">
+                打开跨目录全景预览与精准定位器 ↗
+              </el-button>
+              <el-input v-model="catalogSearch" placeholder="在官方目录中即时搜索..." prefix-icon="Search" style="width:240px;" clearable></el-input>
+            </div>
+          </div>
+        </el-card>
+
+        <!-- 目录分级统计饼图卡片 -->
+        <el-card shadow="hover" style="margin-bottom:20px; border:1px solid var(--el-border-color); border-radius:12px;">
+          <div style="font-weight:600; margin-bottom:12px; display:flex; align-items:center; gap:8px;">
+            <el-icon><PieChart></PieChart></el-icon> 广中医重要期刊分级结构分布
+          </div>
+          <div style="height:220px; position:relative;">
+            <canvas id="catalogChartCanvas"></canvas>
+          </div>
+        </el-card>
+
+        <!-- 官方目录分级卡片列表 -->
+        <div v-loading="catalogLoading">
+          <el-card
+            v-for="cat in filteredCatalogCategories"
+            :key="cat.level"
+            shadow="hover"
+            style="margin-bottom:20px; border:1px solid var(--el-border-color); border-radius:12px;"
+          >
+            <template #header>
+              <div style="display:flex; justify-content:space-between; align-items:center;">
+                <span style="font-weight:600; font-size:1.05rem;">
+                  <el-icon><Notebook></Notebook></el-icon> {{ cat.name }} ({{ cat.level }})
+                </span>
+                <el-tag size="small" round>{{ cat.items.length }} 种</el-tag>
+              </div>
+            </template>
+            <el-space wrap :size="10">
+              <el-button
+                v-for="item in cat.items"
+                :key="item.name"
+                size="default"
+                plain
+                @click="quickSearch(item.name)"
+              >
+                {{ item.name }}
+              </el-button>
+            </el-space>
+          </el-card>
+        </div>
+      </div>
+    </el-main>
+
+    <!-- 期刊横向对比模态对话框 (Element Plus Dialog) -->
+    <el-dialog
+      v-model="comparisonDialogVisible"
+      title="选刊决策横向多维对比矩阵"
+      width="82%"
+      align-center
+      destroy-on-close
+    >
+      <div v-if="comparisonList.length === 0" style="text-align:center; padding:40px 0;">
+        <el-empty description="暂无对比期刊，请在选刊检索中点击“加入横向对比”添加至多 3 本期刊"></el-empty>
+      </div>
+      <div v-else style="overflow-x:auto;">
+        <table class="comparison-matrix">
+          <thead>
+            <tr>
+              <th style="width:160px;">维度 / 期刊</th>
+              <th v-for="(item, idx) in comparisonList" :key="item.name" style="text-align:center;">
+                <div style="font-size:1.1rem; font-weight:600; color:var(--el-color-primary); margin-bottom:6px;">
+                  《{{ item.name }}》
+                </div>
+                <el-button type="danger" size="small" plain @click="removeFromComparison(idx)">
+                  移除
+                </el-button>
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="matrix-label">广中医认定级别</td>
+              <td v-for="item in comparisonList" :key="item.name" style="text-align:center;">
+                <el-tag size="large" :type="getLevelTagType(getLevelCode(item))">
+                  {{ getLevelLabel(item) }}
+                </el-tag>
+              </td>
+            </tr>
+            <tr>
+              <td class="matrix-label">影响因子与分区</td>
+              <td v-for="item in comparisonList" :key="item.name" style="text-align:center;">
+                <strong>{{ getScoreDisplay(item) }}</strong>
+              </td>
+            </tr>
+            <tr>
+              <td class="matrix-label">审稿周期</td>
+              <td v-for="item in comparisonList" :key="item.name">
+                {{ getReviewCycle(item) }}
+              </td>
+            </tr>
+            <tr>
+              <td class="matrix-label">出版模式与版面费</td>
+              <td v-for="item in comparisonList" :key="item.name">
+                {{ getPublicationMode(item) }}<br><small>{{ getApcFee(item) }}</small>
+              </td>
+            </tr>
+            <tr>
+              <td class="matrix-label">中科院国际预警</td>
+              <td v-for="item in comparisonList" :key="item.name" style="text-align:center;">
+                <el-tag v-if="isWarned(item)" type="danger">
+                  ⚠️ 预警期刊 ({{ getWarningDetail(item).year }}年 / {{ getWarningDetail(item).reason }})
+                </el-tag>
+                <el-tag v-else type="success">✓ 正常无预警</el-tag>
+              </td>
+            </tr>
+            <tr>
+              <td class="matrix-label">官方投稿入口</td>
+              <td v-for="item in comparisonList" :key="item.name" style="text-align:center;">
+                <el-link v-if="isHttpUrl(getSubmissionUrl(item))" :href="getSubmissionUrl(item)" target="_blank" type="primary">
+                  直达系统
+                </el-link>
+                <span v-else style="color:var(--text-muted);">暂无</span>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </el-dialog>
+
+    <!-- 权威索引目录全景预览与跨目录期刊精准定位器模态对话框 (Element Plus Dialog) -->
+    <el-dialog
+      v-model="catalogModalVisible"
+      class="academic-catalog-modal"
+      width="88%"
+      align-center
+      destroy-on-close
+    >
+      <template #header>
+        <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px;">
+          <div>
+            <div class="catalog-locator-title">
+              <el-icon style="color:var(--brand-primary);"><Collection></Collection></el-icon>
+              <span>权威索引目录全景预览与跨目录期刊精准定位</span>
+            </div>
+            <div style="font-size:12.5px; color:var(--text-muted); margin-top:4px;">
+              覆盖广中医308号官方目录、CSCD中国科学引文数据库、北大中文核心、中科院预警名单及认定折算对照表
+            </div>
+          </div>
+          <el-tag size="small" effect="plain" round>
+            权威索引库全景联通
+          </el-tag>
+        </div>
+      </template>
+
+      <!-- 搜索与跨目录精准定位控制台 -->
+      <div class="catalog-locator-card">
+        <div class="catalog-locator-header">
+          <div style="font-weight:600; font-size:14px; color:var(--text-ink); display:flex; align-items:center; gap:6px;">
+            <el-icon style="color:var(--brand-primary);"><Aim></Aim></el-icon>
+            <span>跨目录期刊精准定位器 (支持刊名/ISSN/CN/模糊关键词)</span>
+          </div>
+          <div style="display:flex; gap:8px;">
+            <el-button
+              v-if="currentJournal"
+              size="small"
+              type="warning"
+              plain
+              :icon="Position"
+              @click="locateCurrentJournal"
+            >
+              定位当前检索期刊 (《{{ currentJournal.name }}》)
+            </el-button>
+            <el-button
+              size="small"
+              :icon="Refresh"
+              @click="clearLocator"
+            >
+              重置 / 预览全录
+            </el-button>
+          </div>
+        </div>
+
+        <div style="display:flex; gap:10px; flex-wrap:wrap;">
+          <el-input
+            v-model="locatorQuery"
+            placeholder="输入期刊全称、ISSN、CN刊号或收录规则（例如：中草药、1001-5302、中国中药杂志、针刺研究）"
+            clearable
+            style="flex:1; min-width:280px;"
+            size="default"
+            @keyup.enter="performLocate(null)"
+          >
+            <template #prefix>
+              <el-icon><Search></Search></el-icon>
+            </template>
+          </el-input>
+          <el-button
+            type="primary"
+            :icon="Search"
+            :loading="locatorLoading"
+            @click="performLocate(null)"
+          >
+            一键精准定位
+          </el-button>
+        </div>
+
+        <!-- 定位检索结果横幅通知 -->
+        <div
+          v-if="locatorResult"
+          :class="['locator-result-banner', locatorResult.found ? 'locator-result-success' : 'locator-result-empty']"
+        >
+          <el-icon style="font-size:18px; margin-top:2px;">
+            <Check v-if="locatorResult.found"></Check>
+            <InfoFilled v-else></InfoFilled>
+          </el-icon>
+          <div style="flex:1;">
+            <div style="font-weight:600; margin-bottom:4px;">
+              {{ locatorResult.summary }}
+            </div>
+            <div v-if="locatorResult.found && locatorResult.matches" style="display:flex; gap:8px; flex-wrap:wrap; margin-top:6px;">
+              <span style="font-size:12px; color:var(--text-muted); align-self:center;">点击直达命中目录定位：</span>
+              <el-tag
+                v-if="locatorResult.matches.gzucms && locatorResult.matches.gzucms.length"
+                type="success"
+                effect="light"
+                class="index-clickable-tag"
+                @click="activeIndexTab = 'gzucms'"
+              >
+                广中医308号目录：{{ locatorResult.matches.gzucms[0].position_desc }} ↗
+              </el-tag>
+              <el-tag
+                v-if="locatorResult.matches.cscd && locatorResult.matches.cscd.length"
+                type="primary"
+                effect="light"
+                class="index-clickable-tag"
+                @click="activeIndexTab = 'cscd'"
+              >
+                CSCD引文库：{{ locatorResult.matches.cscd[0].position_desc }} ↗
+              </el-tag>
+              <el-tag
+                v-if="locatorResult.matches.pkucore && locatorResult.matches.pkucore.length"
+                type="warning"
+                effect="light"
+                class="index-clickable-tag"
+                @click="activeIndexTab = 'pkucore'"
+              >
+                北大核心：{{ locatorResult.matches.pkucore[0].position_desc }} ↗
+              </el-tag>
+              <el-tag
+                v-if="locatorResult.matches.cas_warning && locatorResult.matches.cas_warning.length"
+                type="danger"
+                effect="light"
+                class="index-clickable-tag"
+                @click="activeIndexTab = 'cas_warning'"
+              >
+                ⚠️ 中科院预警名单：{{ locatorResult.matches.cas_warning[0].position_desc }} ↗
+              </el-tag>
+              <el-tag
+                v-if="locatorResult.matches.cas_jcr && locatorResult.matches.cas_jcr.length"
+                type="warning"
+                effect="light"
+                class="index-clickable-tag"
+                @click="openCasZoneFullList(locatorResult.matches.cas_jcr[0].zone, locatorResult.matches.cas_jcr[0].wos_type)"
+              >
+                {{ locatorResult.matches.cas_jcr[0].wos_type || 'SCIE' }} 中科院{{ locatorResult.matches.cas_jcr[0].zone }}区：{{ locatorResult.matches.cas_jcr[0].name }} ({{ locatorResult.matches.cas_jcr[0].position_desc }}) ↗
+              </el-tag>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 多目录全景选项卡 (Tabs) -->
+      <el-tabs v-model="activeIndexTab" type="border-card" class="catalog-tabs-container" @tab-change="handleTabChange">
+        <!-- Tab 1: 广中医校办308号官方目录 (136种) -->
+        <el-tab-pane name="gzucms">
+          <template #label>
+            <span><el-icon><School></School></el-icon> 广中医308号官方目录 (136种)</span>
+          </template>
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px; flex-wrap:wrap; gap:10px;">
+            <el-radio-group v-model="catalogModalFilter" size="small">
+              <el-radio-button label="ALL">全部级别 (136)</el-radio-button>
+              <el-radio-button label="A1">A1 (3)</el-radio-button>
+              <el-radio-button label="A2">A2 (17)</el-radio-button>
+              <el-radio-button label="A3">A3 (45)</el-radio-button>
+              <el-radio-button label="A4">A4 (36)</el-radio-button>
+              <el-radio-button label="B">B类 (35)</el-radio-button>
+            </el-radio-group>
+            <div style="font-size:12.5px; color:var(--text-muted);">
+              显示 {{ filteredGzucmsFlat.length }} 项期刊
+            </div>
+          </div>
+
+          <el-table
+            :data="filteredGzucmsFlat"
+            :row-class-name="catalogTableRowClass"
+            stripe
+            border
+            style="width:100%;"
+            max-height="520"
+          >
+            <el-table-column prop="official_serial" label="官方序号" width="95" align="center">
+              <template #default="scope">
+                <span class="position-tag-pill">#{{ scope.row.official_serial }}</span>
+              </template>
+            </el-table-column>
+            <el-table-column prop="name" label="期刊名称" min-width="190">
+              <template #default="scope">
+                <strong style="color:var(--text-ink); font-size:14px;">《{{ scope.row.name }}》</strong>
+                <el-tag
+                  v-if="isRowLocated(scope.row, 'gzucms')"
+                  size="small"
+                  type="warning"
+                  effect="dark"
+                  style="margin-left:6px;"
+                >
+                  当前定位条目
+                </el-tag>
+              </template>
+            </el-table-column>
+            <el-table-column prop="level" label="官方认定级别" width="130" align="center">
+              <template #default="scope">
+                <el-tag size="small" :type="getLevelTagType(scope.row.level)">
+                  {{ scope.row.category }}
+                </el-tag>
+              </template>
+            </el-table-column>
+            <el-table-column prop="publisher" label="主办 / 出版单位" min-width="200" show-overflow-tooltip></el-table-column>
+            <el-table-column prop="remark" label="刊号与附注" min-width="170" show-overflow-tooltip></el-table-column>
+            <el-table-column label="快捷操作" width="110" align="center">
+              <template #default="scope">
+                <el-button
+                  size="small"
+                  type="primary"
+                  plain
+                  @click="jumpFromCatalogToSearch(scope.row.name)"
+                >
+                  一键检索
+                </el-button>
+              </template>
+            </el-table-column>
+          </el-table>
+        </el-tab-pane>
+
+        <!-- Tab 2: CSCD 中国科学引文数据库 (2023-2024版，1,306种) -->
+        <el-tab-pane name="cscd">
+          <template #label>
+            <span><el-icon><Collection></Collection></el-icon> CSCD 引文数据库 (1,306种)</span>
+          </template>
+          <div style="font-size:13px; color:var(--text-muted); margin-bottom:12px; line-height:1.6;">
+            中国科学院文献情报中心发布《中国科学引文数据库》(CSCD 2023-2024)。依据广中医校办〔2020〕308号文：<strong>CSCD核心库折算认定为A2级</strong>，<strong>CSCD扩展库折算认定为A4级</strong>。
+          </div>
+          <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px; margin-bottom:12px;">
+            <div style="display:flex; align-items:center; gap:10px; flex-wrap:wrap;">
+              <el-radio-group v-model="cscdTypeFilter" size="small" @change="cscdPage = 1">
+                <el-radio-button label="ALL">全部收录 (1,306)</el-radio-button>
+                <el-radio-button label="core">CSCD核心库 (973本·从高升A2)</el-radio-button>
+                <el-radio-button label="ext">CSCD扩展库 (333本·认定A4)</el-radio-button>
+              </el-radio-group>
+              <el-input
+                v-model="cscdSearch"
+                placeholder="在 CSCD 中检索刊名/ISSN/主办..."
+                size="small"
+                style="width:230px;"
+                clearable
+                @input="cscdPage = 1"
+                :prefix-icon="Search"
+              ></el-input>
+            </div>
+            <div style="font-size:12.5px; color:var(--text-muted);">
+              匹配 {{ filteredCscdList.length }} 种期刊 (显示第 {{ filteredCscdList.length ? (cscdPage - 1) * cscdPageSize + 1 : 0 }}-{{ Math.min(cscdPage * cscdPageSize, filteredCscdList.length) }} 项)
+            </div>
+          </div>
+
+          <el-table
+            :data="pagedCscdList"
+            :row-class-name="catalogTableRowClass"
+            stripe
+            border
+            style="width:100%;"
+            max-height="520"
+          >
+            <el-table-column prop="position_index" label="序号" width="80" align="center">
+              <template #default="scope">
+                <span class="position-tag-pill">#{{ scope.row.position_index }}</span>
+              </template>
+            </el-table-column>
+            <el-table-column prop="name" label="期刊名称" min-width="190">
+              <template #default="scope">
+                <strong style="color:var(--text-ink); font-size:14px;">《{{ scope.row.name }}》</strong>
+                <el-tag
+                  v-if="isRowLocated(scope.row, 'cscd')"
+                  size="small"
+                  type="warning"
+                  effect="dark"
+                  style="margin-left:6px;"
+                >
+                  当前定位条目
+                </el-tag>
+              </template>
+            </el-table-column>
+            <el-table-column prop="cscd_type" label="CSCD版本与认定" width="180" align="center">
+              <template #default="scope">
+                <el-tag size="small" :type="scope.row.cscd_core ? 'success' : 'info'">
+                  {{ scope.row.cscd_type }}
+                </el-tag>
+              </template>
+            </el-table-column>
+            <el-table-column label="学科领域" width="160" show-overflow-tooltip>
+              <template #default="scope">
+                <div>{{ scope.row.subject || '综合学科' }}</div>
+                <div v-if="scope.row.sub_subject" style="font-size:11.5px; color:var(--text-muted);">{{ scope.row.sub_subject }}</div>
+              </template>
+            </el-table-column>
+            <el-table-column label="影响因子" width="140">
+              <template #default="scope">
+                <div style="font-size:12px;">复合: {{ scope.row.composite_if || '-' }}</div>
+                <div style="font-size:12px; color:var(--text-muted);">综合: {{ scope.row.comprehensive_if || '-' }}</div>
+              </template>
+            </el-table-column>
+            <el-table-column label="ISSN / CN" width="160">
+              <template #default="scope">
+                <div style="font-size:12px;">ISSN: {{ scope.row.issn || '-' }}</div>
+                <div style="font-size:12px;">CN: {{ scope.row.cn || '-' }}</div>
+              </template>
+            </el-table-column>
+            <el-table-column prop="publisher" label="主办单位" min-width="180" show-overflow-tooltip></el-table-column>
+            <el-table-column label="快捷操作" width="140" align="center">
+              <template #default="scope">
+                <el-button
+                  size="small"
+                  type="primary"
+                  plain
+                  @click="jumpFromCatalogToSearch(scope.row.name)"
+                >
+                  选刊核验
+                </el-button>
+                <el-link
+                  v-if="scope.row.submission_url"
+                  :href="scope.row.submission_url"
+                  target="_blank"
+                  type="info"
+                  style="margin-left:8px; font-size:12px;"
+                  title="在知网导航中查看"
+                >
+                  知网↗
+                </el-link>
+              </template>
+            </el-table-column>
+          </el-table>
+
+          <div style="margin-top:14px; display:flex; justify-content:center;">
+            <el-pagination
+              v-model:current-page="cscdPage"
+              v-model:page-size="cscdPageSize"
+              :total="filteredCscdList.length"
+              :page-sizes="[20, 50, 100]"
+              layout="total, sizes, prev, pager, next, jumper"
+            ></el-pagination>
+          </div>
+        </el-tab-pane>
+
+        <!-- Tab 3: 北大中文核心期刊要目总览 (第10版，2,592种) -->
+        <el-tab-pane name="pkucore">
+          <template #label>
+            <span><el-icon><Notebook></Notebook></el-icon> 北大中文核心要目总览 (2,592种)</span>
+          </template>
+          <div style="font-size:13px; color:var(--text-muted); margin-bottom:12px; line-height:1.6;">
+            北京大学图书馆编制《中文核心期刊要目总览》(第10版/2023-2024最新版)。依据广中医校办〔2020〕308号文：<strong>北大核心期刊折算认定为广中医A3级</strong>。
+          </div>
+          <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px; margin-bottom:12px;">
+            <div style="display:flex; align-items:center; gap:10px; flex-wrap:wrap;">
+              <el-select
+                v-model="pkuSubjectFilter"
+                placeholder="全部学科领域"
+                size="small"
+                style="width:180px;"
+                @change="pkuPage = 1"
+              >
+                <el-option label="全部学科领域 (2,592)" value="ALL"></el-option>
+                <el-option v-for="s in pkuSubjects" :key="s" :label="s" :value="s"></el-option>
+              </el-select>
+              <el-input
+                v-model="pkuSearch"
+                placeholder="在北大核心中检索刊名/ISSN/主办..."
+                size="small"
+                style="width:230px;"
+                clearable
+                @input="pkuPage = 1"
+                :prefix-icon="Search"
+              ></el-input>
+            </div>
+            <div style="font-size:12.5px; color:var(--text-muted);">
+              匹配 {{ filteredPkuList.length }} 种期刊 (显示第 {{ filteredPkuList.length ? (pkuPage - 1) * pkuPageSize + 1 : 0 }}-{{ Math.min(pkuPage * pkuPageSize, filteredPkuList.length) }} 项)
+            </div>
+          </div>
+
+          <el-table
+            :data="pagedPkuList"
+            :row-class-name="catalogTableRowClass"
+            stripe
+            border
+            style="width:100%;"
+            max-height="520"
+          >
+            <el-table-column prop="position_index" label="序号" width="80" align="center">
+              <template #default="scope">
+                <span class="position-tag-pill">#{{ scope.row.position_index }}</span>
+              </template>
+            </el-table-column>
+            <el-table-column prop="name" label="期刊名称" min-width="190">
+              <template #default="scope">
+                <strong style="color:var(--text-ink); font-size:14px;">《{{ scope.row.name }}》</strong>
+                <el-tag
+                  v-if="isRowLocated(scope.row, 'pkucore')"
+                  size="small"
+                  type="warning"
+                  effect="dark"
+                  style="margin-left:6px;"
+                >
+                  当前定位条目
+                </el-tag>
+              </template>
+            </el-table-column>
+            <el-table-column prop="pku_version" label="核心版本与折算" width="190" align="center">
+              <template #default="scope">
+                <el-tag size="small" type="warning">
+                  北大中文核心 (从高升A3)
+                </el-tag>
+              </template>
+            </el-table-column>
+            <el-table-column label="学科领域" width="160" show-overflow-tooltip>
+              <template #default="scope">
+                <div>{{ scope.row.subject || '综合学科' }}</div>
+                <div v-if="scope.row.sub_subject" style="font-size:11.5px; color:var(--text-muted);">{{ scope.row.sub_subject }}</div>
+              </template>
+            </el-table-column>
+            <el-table-column label="影响因子" width="140">
+              <template #default="scope">
+                <div style="font-size:12px;">复合: {{ scope.row.composite_if || '-' }}</div>
+                <div style="font-size:12px; color:var(--text-muted);">综合: {{ scope.row.comprehensive_if || '-' }}</div>
+              </template>
+            </el-table-column>
+            <el-table-column label="ISSN / CN" width="160">
+              <template #default="scope">
+                <div style="font-size:12px;">ISSN: {{ scope.row.issn || '-' }}</div>
+                <div style="font-size:12px;">CN: {{ scope.row.cn || '-' }}</div>
+              </template>
+            </el-table-column>
+            <el-table-column prop="publisher" label="主办单位" min-width="180" show-overflow-tooltip></el-table-column>
+            <el-table-column label="快捷操作" width="140" align="center">
+              <template #default="scope">
+                <el-button
+                  size="small"
+                  type="primary"
+                  plain
+                  @click="jumpFromCatalogToSearch(scope.row.name)"
+                >
+                  选刊核验
+                </el-button>
+                <el-link
+                  v-if="scope.row.submission_url"
+                  :href="scope.row.submission_url"
+                  target="_blank"
+                  type="info"
+                  style="margin-left:8px; font-size:12px;"
+                  title="在知网导航中查看"
+                >
+                  知网↗
+                </el-link>
+              </template>
+            </el-table-column>
+          </el-table>
+
+          <div style="margin-top:14px; display:flex; justify-content:center;">
+            <el-pagination
+              v-model:current-page="pkuPage"
+              v-model:page-size="pkuPageSize"
+              :total="filteredPkuList.length"
+              :page-sizes="[20, 50, 100]"
+              layout="total, sizes, prev, pager, next, jumper"
+            ></el-pagination>
+          </div>
+        </el-tab-pane>
+
+        <!-- Tab 4: 中科院国际期刊预警名单 (2024版) -->
+        <el-tab-pane name="cas_warning">
+          <template #label>
+            <span><el-icon><WarningFilled></WarningFilled></el-icon> 中科院国际预警名单 (38种)</span>
+          </template>
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;">
+            <div style="font-size:13px; color:var(--brand-coral);">
+              中国科学院文献情报中心发布，列入预警名单期刊国内高校普遍<strong>不予认定成果且版面费不予报销</strong>。
+            </div>
+            <div style="font-size:12.5px; color:var(--text-muted);">
+              实时合规阻断库：{{ filteredCasWarningList.length }} 种
+            </div>
+          </div>
+
+          <el-table
+            :data="filteredCasWarningList"
+            :row-class-name="catalogTableRowClass"
+            stripe
+            border
+            style="width:100%;"
+            max-height="520"
+          >
+            <el-table-column prop="position_index" label="名单排位" width="105" align="center">
+              <template #default="scope">
+                <span class="position-tag-pill" style="color:var(--brand-coral); border-color:rgba(193,65,49,0.3);">#{{ scope.row.position_index }}</span>
+              </template>
+            </el-table-column>
+            <el-table-column prop="name" label="预警期刊全称" min-width="210">
+              <template #default="scope">
+                <strong style="color:var(--brand-coral); font-size:14px;">《{{ scope.row.name }}》</strong>
+                <el-tag
+                  v-if="isRowLocated(scope.row, 'cas_warning')"
+                  size="small"
+                  type="danger"
+                  effect="dark"
+                  style="margin-left:6px;"
+                >
+                  当前命中预警
+                </el-tag>
+              </template>
+            </el-table-column>
+            <el-table-column prop="level" label="预警级别" width="110" align="center">
+              <template #default="scope">
+                <el-tag size="small" type="danger">
+                  {{ scope.row.level || '高风险' }}
+                </el-tag>
+              </template>
+            </el-table-column>
+            <el-table-column prop="year" label="预警年份" width="100" align="center">
+              <template #default="scope">
+                <span>{{ scope.row.year }} 年</span>
+              </template>
+            </el-table-column>
+            <el-table-column prop="reason" label="预警风险原因" min-width="190">
+              <template #default="scope">
+                <span style="color:var(--brand-coral); font-weight:500;">{{ scope.row.reason || '学术合规风险' }}</span>
+              </template>
+            </el-table-column>
+            <el-table-column prop="subject" label="学科领域" width="140" show-overflow-tooltip></el-table-column>
+            <el-table-column prop="publisher" label="出版商" min-width="140" show-overflow-tooltip></el-table-column>
+            <el-table-column label="快捷操作" width="110" align="center">
+              <template #default="scope">
+                <el-button
+                  size="small"
+                  type="danger"
+                  plain
+                  @click="jumpFromCatalogToSearch(scope.row.name)"
+                >
+                  深度核验
+                </el-button>
+              </template>
+            </el-table-column>
+          </el-table>
+        </el-tab-pane>
+
+        <!-- Tab 5: SCIE / SSCI 国际期刊与中科院 1~4 区 (历史开源镜像 21,772 种) -->
+        <el-tab-pane name="cas_zone">
+          <template #label>
+            <span><el-icon><Compass></Compass></el-icon> SCIE / SSCI 国际期刊与中科院1~4区 (21,772种)</span>
+          </template>
+
+          <!-- 历史版本关停重要合规说明横幅 -->
+          <div style="font-size:12.5px; color:#d97706; background:rgba(217,119,6,0.08); padding:10px 14px; border-radius:8px; margin-bottom:14px; line-height:1.6; border-left:4px solid #d97706; display:flex; align-items:flex-start; gap:8px;">
+            <el-icon style="margin-top:3px; font-size:16px;"><Warning></Warning></el-icon>
+            <div>
+              <strong>重要版本与合规说明：</strong>
+              本库全量收录 <strong>Web of Science 核心合集（SCIE 9,426本、SSCI 3,525本、AHCI 1,742本、ESCI 8,217本）</strong>及中国科学院文献情报中心中科院1~4区分区表升级版历史开源镜像。<strong>⚠️ 其中科院分区在线服务已于2026年9月30日调整关停</strong>。本库数据供学术选刊检索与折算参考，成果认定请以论文发表当年官方最新版本为准。
+            </div>
+          </div>
+
+          <!-- 分区与国际索引综合控制台 -->
+          <div style="background:var(--bg-canvas-subtle); padding:12px 14px; border-radius:8px; margin-bottom:14px; border:1px solid var(--border-subtle); display:flex; flex-direction:column; gap:10px;">
+            <!-- 第一行：国际索引合集筛选 (SCIE / SSCI / AHCI / ESCI) -->
+            <div style="display:flex; align-items:center; gap:12px; flex-wrap:wrap;">
+              <span style="font-size:13px; font-weight:600; color:var(--text-ink); white-space:nowrap;">国际引文库：</span>
+              <el-radio-group v-model="casWosFilter" size="small" @change="casPage = 1; fetchCasJournals()">
+                <el-radio-button label="">全部国际合集 (21,772)</el-radio-button>
+                <el-radio-button label="SCIE">SCIE 自然科学/医学 (9,426本)</el-radio-button>
+                <el-radio-button label="SSCI">SSCI 社会科学 (3,525本)</el-radio-button>
+                <el-radio-button label="AHCI">AHCI 人文艺术 (1,742本)</el-radio-button>
+                <el-radio-button label="ESCI">ESCI 新兴源 (8,217本)</el-radio-button>
+              </el-radio-group>
+            </div>
+
+            <!-- 第二行：中科院大类分区与学科搜索 -->
+            <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px;">
+              <div style="display:flex; align-items:center; gap:12px; flex-wrap:wrap;">
+                <span style="font-size:13px; font-weight:600; color:var(--text-ink); white-space:nowrap;">中科院分区：</span>
+                <el-radio-group v-model="casZoneFilter" size="small" @change="casPage = 1; fetchCasJournals()">
+                  <el-radio-button label="">全部分区</el-radio-button>
+                  <el-radio-button label="1">1区 (1,451本·从高升A1)</el-radio-button>
+                  <el-radio-button label="2">2区 (2,844本·从高升A2)</el-radio-button>
+                  <el-radio-button label="3">3区 (4,583本·认定A3)</el-radio-button>
+                  <el-radio-button label="4">4区 (12,894本·认定A3)</el-radio-button>
+                </el-radio-group>
+              </div>
+
+              <div style="display:flex; align-items:center; gap:10px; flex-wrap:wrap;">
+                <el-select
+                  v-model="casCatFilter"
+                  placeholder="全部学科大类"
+                  size="small"
+                  style="width:140px;"
+                  @change="casPage = 1; fetchCasJournals()"
+                >
+                  <el-option label="全部学科大类" value="ALL"></el-option>
+                  <el-option v-for="c in casCategories" :key="c" :label="c" :value="c"></el-option>
+                </el-select>
+
+                <el-checkbox
+                  v-model="casTopFilter"
+                  :true-label="1"
+                  :false-label="''"
+                  size="small"
+                  @change="casPage = 1; fetchCasJournals()"
+                >
+                  仅看 Top 期刊
+                </el-checkbox>
+
+                <el-input
+                  v-model="casSearch"
+                  placeholder="搜索英文刊名、ISSN..."
+                  size="small"
+                  clearable
+                  style="width:210px;"
+                  @input="casPage = 1; fetchCasJournals()"
+                  :prefix-icon="Search"
+                ></el-input>
+              </div>
+            </div>
+          </div>
+
+          <!-- 数据表格 -->
+          <el-table
+            :data="casJournals"
+            v-loading="casLoading"
+            stripe
+            border
+            style="width:100%;"
+            max-height="480"
+          >
+            <el-table-column type="index" label="序号" width="65" align="center">
+              <template #default="scope">
+                <span class="position-tag-pill">#{{ (casPage - 1) * casPageSize + scope.$index + 1 }}</span>
+              </template>
+            </el-table-column>
+            <el-table-column prop="name" label="国际期刊英文全称" min-width="220">
+              <template #default="scope">
+                <strong style="color:var(--text-ink); font-size:13.5px;">{{ scope.row.name }}</strong>
+                <el-tag v-if="scope.row.is_top" size="small" type="danger" effect="dark" style="margin-left:6px;">
+                  TOP
+                </el-tag>
+              </template>
+            </el-table-column>
+            <el-table-column prop="category" label="中科院大类及分区" width="160" align="center">
+              <template #default="scope">
+                <div style="font-weight:600; font-size:13px;">
+                  {{ scope.row.category }}
+                  <el-tag size="small" :type="scope.row.zone === 1 ? 'danger' : (scope.row.zone === 2 ? 'warning' : 'info')" style="margin-left:4px;">
+                    {{ scope.row.zone }}区
+                  </el-tag>
+                </div>
+              </template>
+            </el-table-column>
+            <el-table-column label="JIF影响因子 & JCR" width="160" align="center">
+              <template #default="scope">
+                <div style="font-weight:600; color:var(--brand-primary); font-size:13px;">
+                  {{ scope.row.jif || '未明' }}
+                </div>
+                <div style="font-size:11.5px; color:var(--text-muted);" v-if="scope.row.jcr_quartile">
+                  JCR {{ scope.row.jcr_quartile }}
+                </div>
+              </template>
+            </el-table-column>
+            <el-table-column label="ISSN / EISSN" width="150">
+              <template #default="scope">
+                <div style="font-size:12px;">P: {{ scope.row.issn || '-' }}</div>
+                <div style="font-size:12px;">E: {{ scope.row.eissn || '-' }}</div>
+              </template>
+            </el-table-column>
+            <el-table-column prop="wos_type" label="WoS索引库" width="125" align="center">
+              <template #default="scope">
+                <el-tag
+                  size="small"
+                  :type="scope.row.wos_type && scope.row.wos_type.includes('SCIE') ? 'success' : (scope.row.wos_type && scope.row.wos_type.includes('SSCI') ? 'warning' : 'info')"
+                  effect="light"
+                  style="font-weight:600;"
+                >
+                  {{ scope.row.wos_type }}
+                </el-tag>
+              </template>
+            </el-table-column>
+            <el-table-column prop="gzucms_level" label="广中医折算" width="115" align="center">
+              <template #default="scope">
+                <el-tag size="small" :type="getLevelTagType(scope.row.gzucms_level)">
+                  {{ scope.row.gzucms_level }}级
+                </el-tag>
+              </template>
+            </el-table-column>
+            <el-table-column label="快捷操作" width="105" align="center">
+              <template #default="scope">
+                <el-button
+                  size="small"
+                  type="primary"
+                  plain
+                  @click="jumpFromCatalogToSearch(scope.row.name)"
+                >
+                  一键检索
+                </el-button>
+              </template>
+            </el-table-column>
+          </el-table>
+
+          <!-- 分页器 -->
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-top:14px; flex-wrap:wrap; gap:10px;">
+            <div style="font-size:12.5px; color:var(--text-muted);">
+              匹配中科院开源镜像期刊共 <strong>{{ casTotal }}</strong> 种
+            </div>
+            <el-pagination
+              v-model:current-page="casPage"
+              v-model:page-size="casPageSize"
+              :page-sizes="[10, 20, 50, 100]"
+              :total="casTotal"
+              layout="total, sizes, prev, pager, next, jumper"
+              @size-change="fetchCasJournals"
+              @current-change="fetchCasJournals"
+            ></el-pagination>
+          </div>
+        </el-tab-pane>
+
+        <!-- Tab 6: 广中医重要期刊认定与升级折算规则对照表 -->
+        <el-tab-pane name="rules">
+          <template #label>
+            <span><el-icon><Operation></Operation></el-icon> 广中医认定与升级折算规则</span>
+          </template>
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;">
+            <div style="font-size:13px; color:var(--text-muted);">
+              依据广中医校办〔2020〕308号文：SCI/SSCI分区、CSCD核心/扩展版、CSSCI及报刊理论文章等通用定级规则。
+            </div>
+            <div style="font-size:12.5px; color:var(--text-muted);">
+              共 {{ filteredRulesList.length }} 项法定规则条目
+            </div>
+          </div>
+
+          <el-table
+            :data="filteredRulesList"
+            :row-class-name="catalogTableRowClass"
+            stripe
+            border
+            style="width:100%;"
+            max-height="520"
+          >
+            <el-table-column prop="position_index" label="规则序号" width="95" align="center">
+              <template #default="scope">
+                <span class="position-tag-pill">条款 {{ scope.row.position_index }}</span>
+              </template>
+            </el-table-column>
+            <el-table-column prop="name" label="成果 / 权威索引名称" min-width="240">
+              <template #default="scope">
+                <strong style="color:var(--text-ink); font-size:14px;">{{ scope.row.name }}</strong>
+                <el-tag
+                  v-if="isRowLocated(scope.row, 'rules')"
+                  size="small"
+                  type="warning"
+                  effect="dark"
+                  style="margin-left:6px;"
+                >
+                  当前命中规则
+                </el-tag>
+              </template>
+            </el-table-column>
+            <el-table-column prop="level" label="广中医折算级别" width="140" align="center">
+              <template #default="scope">
+                <el-tag size="small" :type="getLevelTagType(scope.row.level)">
+                  {{ scope.row.category }}
+                </el-tag>
+              </template>
+            </el-table-column>
+            <el-table-column prop="publisher" label="发布 / 评定机构" min-width="190" show-overflow-tooltip></el-table-column>
+            <el-table-column prop="desc" label="条款细则与附注说明" min-width="210" show-overflow-tooltip></el-table-column>
+          </el-table>
+        </el-tab-pane>
+      </el-tabs>
+    </el-dialog>
+
+    <!-- 底部 Footer -->
+    <el-footer class="app-footer">
+      <div class="footer-inner">
+        <div>
+          <strong>文津·选刊助手 (Wenjin-Lens)</strong> &copy; 2026 | 面向广州中医药大学科研骨干与研究生的专业选刊决策系统
+        </div>
+        <div style="font-size:12px; color:var(--el-text-color-secondary);">
+          认定标准依据：《广州中医药大学重要期刊目录（试行）》（广中医校办〔2020〕308号） | 双模驱动：本地离线速查 + Google Gemini 深度核验
+        </div>
+      </div>
+    </el-footer>
+  </div>
+
+  <!-- 引入 Vue 3、Element Plus、Element Plus 图标库 (本地全量离线托管) -->
+  <script src="libs/vue.global.prod.min.js"></script>
+  <script src="libs/element-plus.full.min.js"></script>
+  <script src="libs/element-plus-icons.iife.min.js"></script>
+
+  <!-- 引入解耦的前端服务与各业务模块脚本 (通过标准化接口传输数据) -->
+  <script src="js/services/api.js"></script>
+  <script src="js/modules/theme.js"></script>
+  <script src="js/modules/formatters.js"></script>
+  <script src="js/modules/chart.js"></script>
+  <script src="js/modules/comparison.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>

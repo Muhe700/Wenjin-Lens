@@ -1,0 +1,37 @@
+# Git 仓库与本地版本控制
+.git
+.gitignore
+
+# 外部参考设计资源与本地配置
+references/
+.agent/
+.vscode/
+.idea/
+
+# 敏感文件
+config/config.json
+.env
+.env.*
+!.env.example
+*.key
+*.token
+
+# 测试与临时运行产物
+tests/
+pytest.ini
+.pytest_cache/
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+env/
+venv/
+.venv/
+build/
+dist/
+*.log
+
+# 个人追踪表原始记录（容器挂载卷提供）
+data/track/journal_track.xlsx
+data/track/journal_track.csv

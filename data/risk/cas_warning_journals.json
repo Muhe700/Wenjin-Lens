@@ -1,0 +1,351 @@
+{
+  "meta": {
+    "source": "中国科学院文献情报中心《国际期刊预警名单》",
+    "updated": "2024-02",
+    "description": "旨在提醒科研人员审慎选择成果发表平台，重点防范论文工厂、引用操纵与中国作者占比畸高等学术治理风险。"
+  },
+  "journals": [
+    {
+      "name": "Cancers",
+      "issn": "2072-6694",
+      "subject": "医学",
+      "year": "2024",
+      "risk_level": "预警",
+      "reason": "引用操纵",
+      "publisher": "MDPI"
+    },
+    {
+      "name": "Diagnostics",
+      "issn": "2075-4418",
+      "subject": "医学",
+      "year": "2024",
+      "risk_level": "预警",
+      "reason": "引用操纵",
+      "publisher": "MDPI"
+    },
+    {
+      "name": "Environmental Science and Pollution Research",
+      "issn": "0944-1344",
+      "subject": "环境科学与生态学",
+      "year": "2024",
+      "risk_level": "预警",
+      "reason": "引用操纵、论文工厂",
+      "publisher": "Springer Nature"
+    },
+    {
+      "name": "Fuel",
+      "issn": "0016-2361",
+      "subject": "工程技术",
+      "year": "2024",
+      "risk_level": "预警",
+      "reason": "引用操纵",
+      "publisher": "Elsevier"
+    },
+    {
+      "name": "Journal of Clinical Medicine",
+      "issn": "2077-0383",
+      "subject": "医学",
+      "year": "2024",
+      "risk_level": "预警",
+      "reason": "引用操纵",
+      "publisher": "MDPI"
+    },
+    {
+      "name": "Journal of Personalized Medicine",
+      "issn": "2075-4426",
+      "subject": "医学",
+      "year": "2024",
+      "risk_level": "预警",
+      "reason": "引用操纵",
+      "publisher": "MDPI"
+    },
+    {
+      "name": "Radiologia Medica",
+      "issn": "0033-8362",
+      "subject": "医学",
+      "year": "2024",
+      "risk_level": "预警",
+      "reason": "引用操纵",
+      "publisher": "Springer"
+    },
+    {
+      "name": "Bioengineered",
+      "issn": "2165-5979",
+      "subject": "生物学",
+      "year": "2024",
+      "risk_level": "预警",
+      "reason": "论文工厂",
+      "publisher": "Taylor & Francis"
+    },
+    {
+      "name": "Connection Science",
+      "issn": "0954-0091",
+      "subject": "计算机科学",
+      "year": "2024",
+      "risk_level": "预警",
+      "reason": "论文工厂",
+      "publisher": "Taylor & Francis"
+    },
+    {
+      "name": "Multimedia Tools and Applications",
+      "issn": "1380-7501",
+      "subject": "计算机科学",
+      "year": "2024",
+      "risk_level": "预警",
+      "reason": "论文工厂",
+      "publisher": "Springer"
+    },
+    {
+      "name": "Psychiatria Danubina",
+      "issn": "0353-5053",
+      "subject": "医学",
+      "year": "2024",
+      "risk_level": "高风险预警",
+      "reason": "论文工厂（连续多年预警）",
+      "publisher": "Medicinska Naklada"
+    },
+    {
+      "name": "Journal of Biobased Materials and Bioenergy",
+      "issn": "1556-6560",
+      "subject": "材料科学",
+      "year": "2024",
+      "risk_level": "预警",
+      "reason": "论文工厂、中国作者占比畸高",
+      "publisher": "American Scientific Publishers"
+    },
+    {
+      "name": "Journal of Biomaterials and Tissue Engineering",
+      "issn": "2157-9083",
+      "subject": "医学",
+      "year": "2024",
+      "risk_level": "预警",
+      "reason": "论文工厂、中国作者占比畸高",
+      "publisher": "American Scientific Publishers"
+    },
+    {
+      "name": "Journal of Biomedical Nanotechnology",
+      "issn": "1550-7033",
+      "subject": "医学",
+      "year": "2024",
+      "risk_level": "预警",
+      "reason": "论文工厂、中国作者占比畸高",
+      "publisher": "American Scientific Publishers"
+    },
+    {
+      "name": "Journal of Nanoelectronics and Optoelectronics",
+      "issn": "1555-130X",
+      "subject": "工程技术",
+      "year": "2024",
+      "risk_level": "预警",
+      "reason": "论文工厂、中国作者占比畸高",
+      "publisher": "American Scientific Publishers"
+    },
+    {
+      "name": "Journal of Sensors",
+      "issn": "1687-725X",
+      "subject": "工程技术",
+      "year": "2024",
+      "risk_level": "预警",
+      "reason": "论文工厂、中国作者占比畸高",
+      "publisher": "Hindawi"
+    },
+    {
+      "name": "Materials Express",
+      "issn": "2158-5849",
+      "subject": "材料科学",
+      "year": "2024",
+      "risk_level": "预警",
+      "reason": "论文工厂、中国作者占比畸高",
+      "publisher": "American Scientific Publishers"
+    },
+    {
+      "name": "Science of Advanced Materials",
+      "issn": "1947-2935",
+      "subject": "材料科学",
+      "year": "2024",
+      "risk_level": "预警",
+      "reason": "论文工厂、中国作者占比畸高",
+      "publisher": "American Scientific Publishers"
+    },
+    {
+      "name": "Alternative Therapies in Health and Medicine",
+      "issn": "1078-6791",
+      "subject": "医学",
+      "year": "2024",
+      "risk_level": "预警",
+      "reason": "中国作者占比畸高",
+      "publisher": "InnoVision Health Media"
+    },
+    {
+      "name": "CMES-Computer Modeling in Engineering & Sciences",
+      "issn": "1526-1492",
+      "subject": "工程技术",
+      "year": "2024",
+      "risk_level": "预警",
+      "reason": "中国作者占比畸高",
+      "publisher": "Tech Science Press"
+    },
+    {
+      "name": "Experimental and Therapeutic Medicine",
+      "issn": "1792-0981",
+      "subject": "医学",
+      "year": "2024",
+      "risk_level": "预警",
+      "reason": "中国作者占比畸高",
+      "publisher": "Spandidos Publications"
+    },
+    {
+      "name": "Frontiers in Energy Research",
+      "issn": "2296-598X",
+      "subject": "工程技术",
+      "year": "2024",
+      "risk_level": "预警",
+      "reason": "中国作者占比畸高",
+      "publisher": "Frontiers"
+    },
+    {
+      "name": "Mathematical Biosciences and Engineering",
+      "issn": "1547-1063",
+      "subject": "数学/生物",
+      "year": "2024",
+      "risk_level": "预警",
+      "reason": "中国作者占比畸高",
+      "publisher": "AIMS"
+    },
+    {
+      "name": "Tropical Journal of Pharmaceutical Research",
+      "issn": "1596-5996",
+      "subject": "医学/药学",
+      "year": "2024",
+      "risk_level": "预警",
+      "reason": "中国作者占比畸高",
+      "publisher": "Pharmacotherapy Group"
+    },
+    {
+      "name": "Journal of Environmental and Public Health",
+      "issn": "1687-9805",
+      "subject": "医学",
+      "year": "2023",
+      "risk_level": "高风险预警",
+      "reason": "批量论文涉及论文工厂",
+      "publisher": "Hindawi"
+    },
+    {
+      "name": "Pharmazie",
+      "issn": "0031-7144",
+      "subject": "医学",
+      "year": "2023",
+      "risk_level": "高风险预警",
+      "reason": "学术不端风险与批量发表",
+      "publisher": "Govi-Verlag"
+    },
+    {
+      "name": "Inorganic and Nano-Metal Chemistry",
+      "issn": "2470-1556",
+      "subject": "化学",
+      "year": "2023",
+      "risk_level": "高风险预警",
+      "reason": "论文工厂风险",
+      "publisher": "Taylor & Francis"
+    },
+    {
+      "name": "Journal of Structural Chemistry",
+      "issn": "0022-4766",
+      "subject": "化学",
+      "year": "2023",
+      "risk_level": "高风险预警",
+      "reason": "论文工厂风险",
+      "publisher": "Springer"
+    },
+    {
+      "name": "Microprocessors and Microsystems",
+      "issn": "0141-9331",
+      "subject": "计算机科学",
+      "year": "2023",
+      "risk_level": "高风险预警",
+      "reason": "同行评议被操纵、批量发表",
+      "publisher": "Elsevier"
+    },
+    {
+      "name": "Acta Medica Mediterranea",
+      "issn": "0393-6384",
+      "subject": "医学",
+      "year": "2023",
+      "risk_level": "中风险预警",
+      "reason": "中国作者占比畸高",
+      "publisher": "Carbone Editore"
+    },
+    {
+      "name": "American Journal of Translational Research",
+      "issn": "1943-8141",
+      "subject": "医学",
+      "year": "2023",
+      "risk_level": "中风险预警",
+      "reason": "发文量激增与质量管控风险",
+      "publisher": "e-Century Publishing"
+    },
+    {
+      "name": "Journal of Clinical Laboratory Analysis",
+      "issn": "0887-8013",
+      "subject": "医学",
+      "year": "2023",
+      "risk_level": "中风险预警",
+      "reason": "引用操纵与发文量激增",
+      "publisher": "Wiley"
+    },
+    {
+      "name": "World Journal of Clinical Cases",
+      "issn": "2307-8960",
+      "subject": "医学",
+      "year": "2023",
+      "risk_level": "中风险预警",
+      "reason": "中国作者占比畸高",
+      "publisher": "Baishideng"
+    },
+    {
+      "name": "Frontiers in Surgery",
+      "issn": "2296-875X",
+      "subject": "医学",
+      "year": "2023",
+      "risk_level": "低风险预警",
+      "reason": "大体量发文与学术影响力波动",
+      "publisher": "Frontiers"
+    },
+    {
+      "name": "Geofluids",
+      "issn": "1468-8115",
+      "subject": "地球科学",
+      "year": "2023",
+      "risk_level": "中风险预警",
+      "reason": "发文激增与同行评审操纵",
+      "publisher": "Hindawi"
+    },
+    {
+      "name": "Mathematical Problems in Engineering",
+      "issn": "1024-123X",
+      "subject": "工程技术",
+      "year": "2023",
+      "risk_level": "中风险预警",
+      "reason": "同行评审异常",
+      "publisher": "Hindawi"
+    },
+    {
+      "name": "Computational and Mathematical Methods in Medicine",
+      "issn": "1748-670X",
+      "subject": "工程技术/医学",
+      "year": "2023",
+      "risk_level": "低风险预警",
+      "reason": "发文量激增",
+      "publisher": "Hindawi"
+    },
+    {
+      "name": "Energy Reports",
+      "issn": "2352-4847",
+      "subject": "工程技术",
+      "year": "2023",
+      "risk_level": "低风险预警",
+      "reason": "发文量激增",
+      "publisher": "Elsevier"
+    }
+  ]
+}

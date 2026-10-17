@@ -1,0 +1,25 @@
+# ========================================================
+# 文津·选刊助手 (Wenjin-Lens) Systemd 守护进程服务配置
+# 存放路径：/etc/systemd/system/wenjin-lens.service
+# ========================================================
+
+[Unit]
+Description=Wenjin-Lens Academic Journal Selector Web Service
+After=network.target
+
+[Service]
+Type=simple
+User=www-data
+Group=www-data
+WorkingDirectory=/var/www/Wenjin-Lens
+EnvironmentFile=-/var/www/Wenjin-Lens/.env
+ExecStart=/var/www/Wenjin-Lens/venv/bin/python web_app.py --host 127.0.0.1 --port 8000 --workers 2
+Restart=always
+RestartSec=5s
+
+# 资源保护与安全加固
+NoNewPrivileges=true
+PrivateTmp=true
+
+[Install]
+WantedBy=multi-user.target

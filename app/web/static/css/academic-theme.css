@@ -1,0 +1,170 @@
+/* ==========================================================================
+   Wenjin-Lens (文津·选刊助手) — 学术主题总控聚合样式 (Master Academic Theme)
+   Design System: Element Plus Academic Edition (Warm Canvas & Scholarly Precision)
+   Modular architecture: tokens.css -> layout.css -> components.css -> framework overrides
+   ========================================================================== */
+
+@import url('tokens.css');
+@import url('layout.css');
+@import url('components.css');
+
+:root {
+  /* Element Plus 品牌主色变量重写 (松烟墨青 & 陶土暖褐) */
+  --el-color-primary: #1b4942;
+  --el-color-primary-light-3: #2d6a60;
+  --el-color-primary-light-5: #4e8c82;
+  --el-color-primary-light-7: #93c0b8;
+  --el-color-primary-light-8: #c0ded8;
+  --el-color-primary-light-9: #edf5f3;
+  --el-color-primary-dark-2: #133732;
+
+  --el-color-success: #2d7a46;
+  --el-color-success-light-9: #edf7ed;
+  --el-color-warning: #c4841d;
+  --el-color-warning-light-9: #fdf8ee;
+  --el-color-danger: #cc785c;
+  --el-color-danger-light-9: #fdf3ef;
+  --el-color-info: #6c6a64;
+  --el-color-info-light-9: #f5f4ef;
+
+  /* 背景底色体系 (Warm Canvas 宣纸温润白) */
+  --el-bg-color-page: #faf9f5;
+  --el-bg-color: #ffffff;
+  --el-bg-color-overlay: #ffffff;
+
+  /* 文字颜色 */
+  --el-text-color-primary: #141413;
+  --el-text-color-regular: #3d3d3a;
+  --el-text-color-secondary: #6c6a64;
+  --el-text-color-placeholder: #9c9a92;
+
+  /* 发丝微线与圆角 */
+  --el-border-color: #e8e4dc;
+  --el-border-color-light: #f0ece4;
+  --el-border-color-lighter: #f7f5f0;
+  --el-border-color-extra-light: #faf8f5;
+  --el-border-radius-base: 8px;
+  --el-border-radius-small: 6px;
+  --el-border-radius-round: 9999px;
+
+  /* 字体排印 */
+  --el-font-family: var(--font-sans);
+
+  /* 环境光微米级漫射 */
+  --el-box-shadow-light: 0 1px 3px rgba(20, 20, 19, 0.02), 0 4px 16px rgba(20, 20, 19, 0.025);
+  --el-box-shadow: 0 4px 20px -2px rgba(20, 20, 19, 0.04);
+}
+
+/* 深色模式变量适配 (彻底全组件深色覆盖) */
+html.dark, [data-theme="dark"] {
+  color-scheme: dark;
+
+  /* 品牌色 */
+  --el-color-primary: #4e9b8f;
+  --el-color-primary-light-3: #63b3a7;
+  --el-color-primary-light-5: #7ec4b9;
+  --el-color-primary-light-7: #9ecfc7;
+  --el-color-primary-light-8: #c2e2dc;
+  --el-color-primary-light-9: rgba(78, 155, 143, 0.18);
+  --el-color-primary-dark-2: #3d7d74;
+
+  /* 页面底色与卡片底色 */
+  --el-bg-color-page: #121312 !important;
+  --el-bg-color: #1a1b19 !important;
+  --el-bg-color-overlay: #1e201d !important;
+  --el-card-bg-color: #1a1b19 !important;
+
+  /* 填充底色 (避免白底) */
+  --el-fill-color-blank: #1a1b19 !important;
+  --el-fill-color: #212220 !important;
+  --el-fill-color-light: #1f201e !important;
+  --el-fill-color-lighter: #1a1b19 !important;
+  --el-fill-color-extra-light: #161715 !important;
+  --el-fill-color-dark: #292a27 !important;
+  --el-fill-color-darker: #333430 !important;
+
+  /* 文本色彩 */
+  --el-text-color-primary: #f5f4ef !important;
+  --el-text-color-regular: #d5d3ca !important;
+  --el-text-color-secondary: #949186 !important;
+  --el-text-color-placeholder: #6e6b61 !important;
+
+  /* 边线与投影 */
+  --el-border-color: #2d2f2b !important;
+  --el-border-color-light: #252623 !important;
+  --el-border-color-lighter: #1e1f1c !important;
+  --el-border-color-extra-light: #161715 !important;
+
+  --el-box-shadow-light: 0 1px 3px rgba(0, 0, 0, 0.35), 0 4px 16px rgba(0, 0, 0, 0.25) !important;
+  --el-box-shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.45) !important;
+}
+
+/* Element Plus 组件全局微调 */
+.el-card {
+  background-color: var(--el-bg-color);
+  border-color: var(--el-border-color);
+  color: var(--el-text-color-primary);
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.el-button--primary {
+  --el-button-bg-color: var(--brand-primary);
+  --el-button-border-color: var(--brand-primary);
+  --el-button-hover-bg-color: var(--brand-primary-hover);
+  --el-button-hover-border-color: var(--brand-primary-hover);
+}
+
+.el-tag {
+  border-radius: 6px;
+  font-weight: 500;
+}
+
+.el-dialog {
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--border-hairline);
+  box-shadow: var(--shadow-float);
+  background: var(--bg-surface);
+}
+
+.el-dialog__header {
+  border-bottom: 1px solid var(--border-hairline);
+  margin-right: 0;
+  padding: 18px 24px;
+}
+
+.el-dialog__title {
+  font-family: var(--font-serif);
+  font-size: 1.15rem;
+  font-weight: 600;
+  color: var(--text-ink);
+}
+
+/* 自定义滚动条 */
+::-webkit-scrollbar {
+  width: 7px;
+  height: 7px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #d8d4cb;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #b8b4ab;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+html.dark ::-webkit-scrollbar-thumb,
+[data-theme="dark"] ::-webkit-scrollbar-thumb {
+  background: #333430;
+  border-radius: 4px;
+}
+
+html.dark ::-webkit-scrollbar-track,
+[data-theme="dark"] ::-webkit-scrollbar-track {
+  background: #121312;
+}

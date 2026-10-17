@@ -1,0 +1,29 @@
+version: "3.8"
+
+services:
+  wenjin-lens:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: wenjin-lens-app
+    restart: unless-stopped
+    ports:
+      - "127.0.0.1:${PORT:-8001}:8000"
+    environment:
+      - HOST=0.0.0.0
+      - PORT=8000
+      - WORKERS=${WORKERS:-1}
+      - GEMINI_API_KEY=${GEMINI_API_KEY:-}
+      - GEMINI_BASE_URL=${GEMINI_BASE_URL:-}
+      - HTTPS_PROXY=${HTTPS_PROXY:-}
+      - HTTP_PROXY=${HTTP_PROXY:-}
+    volumes:
+      # 持久化个人选刊台账与本地配置
+      - ./data/track:/app/data/track
+      - ./config:/app/config
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://127.0.0.1:8000/api/health')"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 10s
