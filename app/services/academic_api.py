@@ -32,42 +32,43 @@ def fetch_openalex_journal(issn=None, journal_name=None):
     opener = _get_opener()
     clean_issn = re.sub(r"[^0-9Xx-]", "", str(issn or "")).strip()
 
-    # 优先使用 ISSN 查询
-    if clean_issn:
-        # OpenAlex 支持 1234-5678 格式
-        if len(clean_issn) == 8 and "-" not in clean_issn:
-            clean_issn = f"{clean_issn[:4]}-{clean_issn[4:]}"
-        url = f"https://api.openalex.org/sources?filter=issn:{clean_issn}"
-    elif journal_name:
-        encoded_name = urllib.parse.quote(journal_name.strip())
-        url = f"https://api.openalex.org/sources?search={encoded_name}"
-    else:
-        return {"success": False, "error": "未提供 ISSN 或期刊名称"}
-
-    req = urllib.request.Request(url, headers={"User-Agent": POLITE_USER_AGENT})
-    try:
+    def _query_openalex(query_url):
+        req = urllib.request.Request(query_url, headers={"User-Agent": POLITE_USER_AGENT})
         with opener.open(req, timeout=12) as resp:
             data = json.loads(resp.read().decode("utf-8"))
-            results = data.get("results", [])
-            if not results:
-                return {"success": False, "error": "OpenAlex 未检索到对应期刊条目"}
-            j = results[0]
-            summary = {
-                "source": "OpenAlex",
-                "display_name": j.get("display_name"),
-                "publisher": j.get("host_organization_name") or (j.get("publisher") or ""),
-                "homepage_url": j.get("homepage_url"),
-                "is_oa": j.get("is_oa"),
-                "is_in_doaj": j.get("is_in_doaj"),
-                "apc_usd": j.get("apc_usd"),
-                "apc_prices": j.get("apc_prices") or [],
-                "cited_by_count": j.get("cited_by_count"),
-                "works_count": j.get("works_count"),
-                "h_index": j.get("summary_stats", {}).get("h_index"),
-                "issn": j.get("issn"),
-                "type": j.get("type"),
-            }
-            return {"success": True, "data": summary}
+            return data.get("results", [])
+
+    try:
+        results = []
+        if clean_issn:
+            if len(clean_issn) == 8 and "-" not in clean_issn:
+                clean_issn = f"{clean_issn[:4]}-{clean_issn[4:]}"
+            results = _query_openalex(f"https://api.openalex.org/sources?filter=issn:{clean_issn}")
+
+        if not results and journal_name:
+            encoded_name = urllib.parse.quote(journal_name.strip())
+            results = _query_openalex(f"https://api.openalex.org/sources?search={encoded_name}")
+
+        if not results:
+            return {"success": False, "error": "OpenAlex 未检索到对应期刊条目"}
+
+        j = results[0]
+        summary = {
+            "source": "OpenAlex",
+            "display_name": j.get("display_name"),
+            "publisher": j.get("host_organization_name") or (j.get("publisher") or ""),
+            "homepage_url": j.get("homepage_url"),
+            "is_oa": j.get("is_oa"),
+            "is_in_doaj": j.get("is_in_doaj"),
+            "apc_usd": j.get("apc_usd"),
+            "apc_prices": j.get("apc_prices") or [],
+            "cited_by_count": j.get("cited_by_count"),
+            "works_count": j.get("works_count"),
+            "h_index": j.get("summary_stats", {}).get("h_index"),
+            "issn": j.get("issn"),
+            "type": j.get("type"),
+        }
+        return {"success": True, "data": summary}
     except urllib.error.URLError as e:
         return {"success": False, "error": f"OpenAlex 网络连接异常: {e.reason}"}
     except Exception as e:
@@ -139,16 +140,24 @@ def fetch_open_academic_metadata(issn=None, journal_name=None):
         res["is_oa"] = d.get("is_oa")
 
     # 2. 查 DOAJ
-    target_issn = issn or (res["openalex"].get("issn", [None])[0] if res["openalex"] else None)
+    target_issn = issn
+    if not target_issn and res.get("openalex"):
+        oa_issn = res["openalex"].get("issn")
+        if isinstance(oa_issn, list) and oa_issn and oa_issn[0]:
+            target_issn = str(oa_issn[0]).strip()
+        elif isinstance(oa_issn, str) and oa_issn.strip():
+            target_issn = oa_issn.strip()
+
     if target_issn:
         doaj_res = fetch_doaj_journal(target_issn)
-        if doaj_res["success"]:
+        if doaj_res.get("success"):
             res["doaj"] = doaj_res["data"]
             dd = doaj_res["data"]
             if dd.get("review_cycle_desc"):
                 res["review_cycle"] = dd["review_cycle_desc"]
-            if not res["apc_summary"] and dd.get("apc_max"):
+            if not res["apc_summary"] and isinstance(dd.get("apc_max"), list) and dd["apc_max"]:
                 max_price = dd["apc_max"][0]
-                res["apc_summary"] = f"APC: {max_price.get('currency')} {max_price.get('price')}"
+                if isinstance(max_price, dict):
+                    res["apc_summary"] = f"APC: {max_price.get('currency', '')} {max_price.get('price', '')}".strip()
 
     return res

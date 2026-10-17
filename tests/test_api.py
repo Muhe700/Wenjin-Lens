@@ -123,3 +123,37 @@ def test_api_search_unrated_journal_with_none_level(tmp_path, monkeypatch):
             from app.services.kb_service import save_kb
             save_kb(kb)
 
+
+def test_academic_api_resilience(monkeypatch):
+    """验证当 OpenAlex 返回的 issn 为 None、空列表或缺失时，fetch_open_academic_metadata 健壮容错不崩溃。"""
+    from app.services.academic_api import fetch_open_academic_metadata
+
+    def mock_fetch_openalex(issn, journal_name):
+        return {
+            "success": True,
+            "data": {
+                "source": "OpenAlex",
+                "display_name": "Mock Journal",
+                "publisher": "Mock University",
+                "homepage_url": "https://example.com",
+                "is_oa": True,
+                "is_in_doaj": False,
+                "apc_usd": 1500,
+                "apc_prices": [],
+                "cited_by_count": 10,
+                "works_count": 100,
+                "h_index": 2,
+                "issn": None,  # 模拟造成 NoneType subscriptable 的核心场景
+                "type": "journal",
+            },
+        }
+
+    monkeypatch.setattr("app.services.academic_api.fetch_openalex_journal", mock_fetch_openalex)
+    meta = fetch_open_academic_metadata(journal_name="Mock Journal")
+    assert meta["openalex"] is not None
+    assert meta["openalex"]["issn"] is None
+    assert meta["apc_summary"] == "官方APC: $1500"
+    assert meta["homepage"] == "https://example.com"
+    assert meta["is_oa"] is True
+
+

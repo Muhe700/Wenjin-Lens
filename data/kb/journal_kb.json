@@ -1912,7 +1912,7 @@
     },
     "针灸临床杂志": {
       "indexes": {
-        "indexes_verified": false,
+        "indexes_verified": true,
         "scie_zone": null,
         "ssci_zone": null,
         "cscd_core": false,
@@ -1927,13 +1927,38 @@
         "cpci_ssh": false,
         "isr": false,
         "xhwd": false,
-        "rdfy": false
+        "rdfy": false,
+        "extra": [
+          "中国科技核心期刊（中国科技论文统计源期刊）",
+          "JST 日本科学技术振兴机构数据库（日）",
+          "CA 化学文摘（美）"
+        ]
       },
-      "impact_factor": {},
-      "editor_in_chief": {},
-      "scope": "",
-      "review_cycle": "",
-      "sources": []
+      "impact_factor": {
+        "jcr_year": 2024,
+        "jcr_if": "暂无JCR影响因子",
+        "cas_zone": "无（中信所中国科技核心期刊）",
+        "note": "复合影响因子及综合影响因子可在中国知网或万方数据中查询最新年度报告"
+      },
+      "editor_in_chief": {
+        "name": "由期刊主办单位相关负责人及编委会共同领导",
+        "affiliation": "黑龙江中医药大学"
+      },
+      "scope": "办刊宗旨：贯彻党和国家的卫生工作方针政策，坚持理论与实践、普及与提高相结合，报道针灸医疗、教学、科研成果与进展，促进学术交流。学科范畴：中医学、针灸学、推拿学及中西医结合临床。主要栏目：临床研究、实验研究、文献研究、名医经验、针灸基础、学术探讨、综述等。字数规约：一般文章要求在4000～7000字左右。",
+      "review_cycle": "官方审稿承诺一般为1～3个月内，若超过3个月未收到录用通知，作者可自行处理。实际作者经验周期一般在1至3个月左右。",
+      "sources": [
+        "http://zqlc.hljzy.edu.cn/",
+        "https://kns.cnki.net/"
+      ],
+      "basic": {
+        "name": "针灸临床杂志",
+        "issn": "1005-0779"
+      },
+      "publication_mode": "传统订阅制",
+      "apc_fee": "收取一定数额的版面费，具体标准按杂志社当年度最新收费通知为准（约每版千元左右，具体以编辑部审稿通过后的《稿件录用通知书》为准）。",
+      "submission_url": "http://zqlc.hljzy.edu.cn/（防伪避坑提示：请认准黑龙江中医药大学官方域名及杂志社唯一采编系统，切勿通过任何第三方中介代发机构投稿，谨防假冒网站诈骗）",
+      "indexes_note": "依据中国科学技术信息研究所发布的《中国科技论文统计源期刊》（中国科技核心期刊）目录核验",
+      "updated": "2026-10-17"
     },
     "颈腰痛杂志": {
       "indexes": {

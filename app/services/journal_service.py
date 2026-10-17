@@ -17,6 +17,7 @@ from app.services.catalog_service import (
     find_cas_journal,
     find_chinese_core,
     find_journal,
+    is_issn,
     load_catalog,
 )
 from app.services.kb_service import find_in_kb, load_kb, upsert_kb_record
@@ -265,11 +266,36 @@ class JournalService:
         if not q:
             return False, {"error": "期刊名称不能为空"}
 
-        # 1. 抓取 OpenAlex / DOAJ 权威学术元数据
-        academic_meta = fetch_open_academic_metadata(journal_name=q)
+        # 0. 尝试优先推导本地已知的官方 ISSN 刊号
+        local_issn = None
+        if is_issn(q):
+            local_issn = q
+        else:
+            cat = load_catalog()
+            j_rec, _, _ = find_journal(cat, q)
+            if j_rec and j_rec.get("issn"):
+                local_issn = j_rec["issn"]
+            else:
+                cas_rec = find_cas_journal(q)
+                if cas_rec and (cas_rec.get("issn") or cas_rec.get("eissn")):
+                    local_issn = cas_rec.get("issn") or cas_rec.get("eissn")
+
+        # 1. 抓取 OpenAlex / DOAJ 权威学术元数据（防御性隔离外部网络抖动）
+        try:
+            academic_meta = fetch_open_academic_metadata(issn=local_issn, journal_name=q)
+        except Exception:
+            academic_meta = {
+                "source": "OpenAcademic",
+                "openalex": None,
+                "doaj": None,
+                "apc_summary": "",
+                "homepage": "",
+                "review_cycle": "",
+                "is_oa": None,
+            }
 
         res_data = {
-            "basic": {"name": q},
+            "basic": {"name": q, "issn": local_issn or ""},
             "indexes": {"indexes_verified": True},
             "impact_factor": {},
             "editor_in_chief": {},
