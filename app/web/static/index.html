@@ -82,7 +82,7 @@
     <!-- 页面主体容器 -->
     <el-main class="app-main">
       <!-- 仪表盘统计卡片条 (Stats Deck) -->
-      <div class="stats-deck">
+      <div class="stats-deck" :class="{ 'mobile-hidden': activeTab !== 'search' }">
         <!-- 统计 1: 广中医重要期刊基准 -->
         <div class="stat-card-custom is-clickable" @click="openCatalogModal('gzucms')" title="点击预览广中医308号官方目录">
           <div class="stat-header">
@@ -162,13 +162,15 @@
               </template>
             </el-input>
 
-            <el-button class="search-btn-primary" :loading="searching" :icon="Search" @click="handleSearch">
-              一键精准检索
-            </el-button>
+            <div class="search-btns-row">
+              <el-button class="search-btn-primary" :loading="searching" :icon="Search" @click="handleSearch">
+                一键精准检索
+              </el-button>
 
-            <el-button class="search-btn-secondary" :loading="refreshing" :icon="Connection" @click="handleRefresh" title="调用 Gemini 联网核验并同步 OpenAlex/DOAJ 权威事实数据">
-              联网深度查证
-            </el-button>
+              <el-button class="search-btn-secondary" :loading="refreshing" :icon="Connection" @click="handleRefresh" title="调用 Gemini 联网核验并同步 OpenAlex/DOAJ 权威事实数据">
+                联网深度查证
+              </el-button>
+            </div>
           </div>
 
           <!-- 快捷推荐标签 (Notion/Claude 属性胶囊分组) -->
@@ -198,7 +200,7 @@
         <!-- 单条规则结果卡片 -->
         <el-card shadow="hover" v-if="ruleResult" style="margin-bottom:24px; border-left:4px solid var(--el-color-primary);">
           <div style="display:flex; justify-content:space-between; align-items:flex-start; flex-wrap:wrap; gap:16px;">
-            <div style="flex:1; min-width:300px;">
+            <div style="flex:1; min-width:0;">
               <div style="font-size:1.15rem; font-weight:600; margin-bottom:8px; color:var(--el-color-primary);">
                 <el-icon><ScaleToOriginal></ScaleToOriginal></el-icon> 索引定级规则：{{ ruleResult.name }}
               </div>
@@ -277,7 +279,7 @@
           <!-- 期刊总览 Header Card -->
           <el-card shadow="hover" class="journal-showcase-card">
             <div style="display:flex; justify-content:space-between; align-items:flex-start; flex-wrap:wrap; gap:16px;">
-              <div style="flex:1; min-width:300px;">
+              <div style="flex:1; min-width:0;">
                 <div style="display:flex; align-items:center; gap:12px; margin-bottom:8px; flex-wrap:wrap;">
                   <h2 class="journal-header-title">{{ currentJournal.name }}</h2>
                   <el-tag
@@ -400,7 +402,7 @@
           <div class="bento-grid">
             <!-- 1. 权威收录索引 -->
             <div class="bento-card">
-              <div class="bento-tag" style="display:flex; justify-content:space-between; align-items:center;">
+              <div class="bento-tag" style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:4px;">
                 <span><el-icon><Collection></Collection></el-icon> 1. 权威收录索引数据库</span>
                 <span style="font-size:11.5px; color:var(--text-muted); font-weight:normal;">点击标签全览定位 ↗</span>
               </div>
@@ -442,7 +444,7 @@
                   {{ getLevelLabel(currentJournal) }}
                 </el-tag>
               </div>
-              <div style="margin-top:6px; display:flex; justify-content:space-between; align-items:center;">
+              <div style="margin-top:6px; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:6px;">
                 <span class="bento-sub-note">依据校办〔2020〕308号标准</span>
                 <el-button size="small" text type="primary" :icon="Position" @click="openCatalogModal('gzucms', currentJournal.name)">
                   在官方目录中定位 ↗
@@ -454,7 +456,7 @@
             <div class="bento-card">
               <div class="bento-tag"><el-icon><DataLine></DataLine></el-icon> 3. 影响因子与中科院分区</div>
               <div class="bento-value-wrap">
-                <div class="bento-highlight-value">{{ getScoreDisplay(currentJournal) }}</div>
+                <div class="bento-highlight-value" style="word-break:break-word;">{{ getScoreDisplay(currentJournal) }}</div>
               </div>
               <div v-if="getImpactNote(currentJournal)" class="bento-sub-note">
                 {{ getImpactNote(currentJournal) }}
@@ -465,10 +467,10 @@
             <div class="bento-card">
               <div class="bento-tag"><el-icon><User></User></el-icon> 4. 现任主编与编委会机构</div>
               <div class="bento-value-wrap">
-                <div style="font-weight:600; font-size:15px; color:var(--text-ink);">
+                <div style="font-weight:600; font-size:15px; color:var(--text-ink); word-break:break-word;">
                   {{ getEditorName(currentJournal) }}
                 </div>
-                <div v-if="getEditorAffiliation(currentJournal)" style="font-size:12.5px; color:var(--text-muted); margin-top:4px;">
+                <div v-if="getEditorAffiliation(currentJournal)" style="font-size:12.5px; color:var(--text-muted); margin-top:4px; word-break:break-word;">
                   机构：{{ getEditorAffiliation(currentJournal) }}
                 </div>
               </div>
@@ -490,7 +492,7 @@
             <div class="bento-card">
               <div class="bento-tag"><el-icon><Timer></Timer></el-icon> 6. 审稿周期与发表时效</div>
               <div class="bento-value-wrap">
-                <div style="font-weight:600; font-size:14px; color:var(--text-body);">
+                <div style="font-weight:600; font-size:14px; color:var(--text-body); word-break:break-word; line-height:1.5;">
                   {{ getReviewCycle(currentJournal) }}
                 </div>
               </div>
@@ -501,7 +503,9 @@
             <div class="bento-card">
               <div class="bento-tag"><el-icon><Reading></Reading></el-icon> 7. 出版模式与刊期</div>
               <div class="bento-value-wrap">
-                <el-tag size="default" effect="plain">{{ getPublicationMode(currentJournal) }}</el-tag>
+                <div class="bento-pub-mode-badge">
+                  {{ getPublicationMode(currentJournal) }}
+                </div>
               </div>
               <div class="bento-sub-note">传统订阅制 / OA 开放获取</div>
             </div>
@@ -510,7 +514,7 @@
             <div class="bento-card">
               <div class="bento-tag"><el-icon><Coin></Coin></el-icon> 8. 文章处理费 (APC) 标准</div>
               <div class="bento-value-wrap">
-                <div style="font-weight:600; font-size:14px; color:var(--text-body);">
+                <div style="font-weight:600; font-size:14px; color:var(--text-body); word-break:break-word; line-height:1.5;">
                   {{ getApcFee(currentJournal) }}
                 </div>
               </div>
@@ -522,20 +526,25 @@
               <div class="bento-tag"><el-icon><Promotion></Promotion></el-icon> 9. 官方在线采编投稿系统与防伪避坑护航</div>
               <div class="bento-value-wrap">
                 <div v-if="isHttpUrl(getSubmissionUrl(currentJournal))">
-                  <div style="display:flex; align-items:center; gap:12px; margin-bottom:10px; flex-wrap:wrap;">
-                    <el-link :href="getSubmissionUrl(currentJournal)" target="_blank" type="primary" :underline="false">
-                      <el-button type="primary" class="search-btn-primary" :icon="TopRight">直达官方采编投稿系统</el-button>
-                    </el-link>
-                    <el-button class="search-btn-secondary" :icon="DocumentCopy" @click="copyText(getSubmissionUrl(currentJournal))">
+                  <div class="submission-actions-row">
+                    <a :href="getSubmissionUrl(currentJournal)" target="_blank" class="submission-link-btn" rel="noopener noreferrer">
+                      <el-button type="primary" class="search-btn-primary submission-btn" :icon="TopRight">
+                        直达官方采编投稿系统
+                      </el-button>
+                    </a>
+                    <el-button class="search-btn-secondary submission-btn" :icon="DocumentCopy" @click="copyText(getSubmissionUrl(currentJournal))">
                       复制投稿网址
                     </el-button>
-                    <code style="font-size:13px; color:var(--brand-primary); background:var(--bg-canvas); padding:4px 10px; border-radius:6px; border:1px solid var(--border-hairline);">{{ getSubmissionUrl(currentJournal) }}</code>
+                    <div class="submission-url-code">
+                      {{ getSubmissionUrl(currentJournal) }}
+                    </div>
                   </div>
-                  <div style="font-size:12.5px; color:var(--brand-coral); display:flex; align-items:center; gap:6px;">
-                    <el-icon><Warning></Warning></el-icon> 官方正规网址防伪提醒：请认准官方正规域名，警惕山寨竞价中介与虚假钓鱼代发平台！
+                  <div class="submission-warning-alert">
+                    <el-icon><Warning></Warning></el-icon>
+                    <span>官方正规网址防伪提醒：请认准官方正规域名，警惕山寨竞价中介与虚假钓鱼代发平台！</span>
                   </div>
                 </div>
-                <div v-else style="color:var(--text-muted); font-size:13.5px;">
+                <div v-else style="color:var(--text-muted); font-size:13.5px; line-height:1.6;">
                   {{ getSubmissionUrl(currentJournal) || '暂无官方投稿系统说明，建议在期刊主办单位官网查阅' }}
                 </div>
               </div>
@@ -972,7 +981,7 @@
             v-model="locatorQuery"
             placeholder="输入期刊全称、ISSN、CN刊号或收录规则（例如：中草药、1001-5302、中国中药杂志、针刺研究）"
             clearable
-            style="flex:1; min-width:280px;"
+            style="flex:1; min-width:200px;"
             size="default"
             @keyup.enter="performLocate(null)"
           >

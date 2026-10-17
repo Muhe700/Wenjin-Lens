@@ -67,3 +67,4 @@ desktop.ini
 
 # 7. 本地参考资料库与设计规范（避免向主仓库提交外部嵌套 Git 库）
 references/
+tuiwen_journal_strategy/
