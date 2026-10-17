@@ -15,25 +15,83 @@ from app.core.rules import normalize
 CAS_DB_PATH = os.path.join(os.path.dirname(get_catalog_json_path()), "cas_jcr.db")
 CAS_DISCLAIMER = "⚠️ 本中科院分区数据来源于公开历史开源镜像整理版，其中科院分区在线服务已于2026-09-30关停。仅供选刊参考，实际成果认定请以论文发表当年中国科学院文献情报中心官方最新版本为准。"
 
+_CATALOG_CACHE = None
+_CHINESE_CORE_CACHE = None
+_CHINESE_CORE_FULL_CACHE = None
+_CAS_CATEGORIES_CACHE = None
+
+_CHINESE_CORE_BY_NAME = {}
+_CHINESE_CORE_BY_ISSN = {}
+_CHINESE_CORE_BY_CN = {}
+
+
+def clear_catalog_caches():
+    """清理内存缓存，用于热更新或单元测试隔离。"""
+    global _CATALOG_CACHE, _CHINESE_CORE_CACHE, _CHINESE_CORE_FULL_CACHE, _CAS_CATEGORIES_CACHE
+    _CATALOG_CACHE = None
+    _CHINESE_CORE_CACHE = None
+    _CHINESE_CORE_FULL_CACHE = None
+    _CAS_CATEGORIES_CACHE = None
+    _CHINESE_CORE_BY_NAME.clear()
+    _CHINESE_CORE_BY_ISSN.clear()
+    _CHINESE_CORE_BY_CN.clear()
+
 
 def load_catalog(path=None):
-    """加载检索目录主数据 (journal_catalog.json)。"""
+    """加载检索目录主数据 (journal_catalog.json)，带内存缓存。"""
+    global _CATALOG_CACHE
+    if not path and _CATALOG_CACHE is not None:
+        return _CATALOG_CACHE
     target = path or get_catalog_json_path()
     if not os.path.exists(target):
         return {"meta": {}, "categories": [], "journals": [], "rules": []}
     with open(target, encoding="utf-8") as f:
-        return json.load(f)
+        data = json.load(f)
+        if not path:
+            _CATALOG_CACHE = data
+        return data
+
+
+def _build_chinese_core_index(journals):
+    """构建中文核心期刊 O(1) 毫秒级内存索引。"""
+    _CHINESE_CORE_BY_NAME.clear()
+    _CHINESE_CORE_BY_ISSN.clear()
+    _CHINESE_CORE_BY_CN.clear()
+    for j in journals:
+        name_n = normalize(j.get("name", ""))
+        if name_n:
+            _CHINESE_CORE_BY_NAME[name_n] = j
+        for a in j.get("aliases", []):
+            an = normalize(a)
+            if an and an not in _CHINESE_CORE_BY_NAME:
+                _CHINESE_CORE_BY_NAME[an] = j
+        issn = j.get("issn", "")
+        if issn:
+            clean = re.sub(r"[^0-9Xx]", "", issn).upper()
+            if clean:
+                _CHINESE_CORE_BY_ISSN[clean] = j
+        cn = j.get("cn", "")
+        if cn:
+            cn_clean = normalize(cn)
+            if cn_clean:
+                _CHINESE_CORE_BY_CN[cn_clean] = j
 
 
 def load_chinese_core():
-    """加载全国中文核心期刊与 CSCD 离线全量索引库。"""
+    """加载全国中文核心期刊与 CSCD 离线全量索引库（带内存缓存与快速哈希索引）。"""
+    global _CHINESE_CORE_CACHE
+    if _CHINESE_CORE_CACHE is not None:
+        return _CHINESE_CORE_CACHE
     core_path = os.path.join(os.path.dirname(get_catalog_json_path()), "chinese_core_journals.json")
     if not os.path.exists(core_path):
         return []
     try:
         with open(core_path, encoding="utf-8") as f:
             data = json.load(f)
-            return data.get("journals", [])
+            journals = data.get("journals", [])
+            _CHINESE_CORE_CACHE = journals
+            _build_chinese_core_index(journals)
+            return journals
     except Exception:
         return []
 
@@ -45,98 +103,106 @@ def find_chinese_core(q):
     qn = normalize(q)
     core_journals = load_chinese_core()
 
-    for j in core_journals:
-        name_n = normalize(j.get("name", ""))
-        aliases_n = [normalize(a) for a in j.get("aliases", [])]
-        # 精确匹配
-        matched = False
-        match_type = ""
-        if qn == name_n or qn in aliases_n:
-            matched = True
-            match_type = "核心库精确匹配"
-        # ISSN 匹配
-        elif is_issn(q):
-            if re.sub(r"[^0-9Xx]", "", j.get("issn", "")).upper() == re.sub(r"[^0-9Xx]", "", q).upper():
-                matched = True
-                match_type = "核心库ISSN匹配"
-        # CN 匹配
-        elif j.get("cn") and qn in normalize(j.get("cn")):
-            matched = True
-            match_type = "核心库CN匹配"
-        # 模糊子串
-        elif len(qn) >= 3 and (qn in name_n or name_n in qn):
-            matched = True
-            match_type = "核心库模糊匹配"
+    matched_j = None
+    match_type = ""
 
-        if matched:
-            # 依广中医规则确定级别基准
-            if j.get("cscd_core"):
-                calc_level = "A2"
-                category_desc = "A类2级（CSCD核心版）"
-            elif j.get("pkucore"):
-                calc_level = "A3"
-                category_desc = "A类3级（中文核心期刊要目总览）"
-            elif j.get("cscd_ext"):
-                calc_level = "A4"
-                category_desc = "A类4级（CSCD扩展版）"
-            else:
-                calc_level = "B"
-                category_desc = "B类（校内限定）"
+    # 1. O(1) 精确刊名与别名哈希检索
+    if qn in _CHINESE_CORE_BY_NAME:
+        matched_j = _CHINESE_CORE_BY_NAME[qn]
+        match_type = "核心库精确匹配"
+    # 2. O(1) ISSN 哈希检索
+    elif is_issn(q):
+        clean_q = re.sub(r"[^0-9Xx]", "", q).upper()
+        if clean_q in _CHINESE_CORE_BY_ISSN:
+            matched_j = _CHINESE_CORE_BY_ISSN[clean_q]
+            match_type = "核心库ISSN匹配"
+    # 3. O(1) CN 刊号哈希检索
+    elif qn in _CHINESE_CORE_BY_CN:
+        matched_j = _CHINESE_CORE_BY_CN[qn]
+        match_type = "核心库CN匹配"
+    else:
+        # 4. 降级模糊子串扫描
+        for j in core_journals:
+            if j.get("cn") and qn in normalize(j.get("cn")):
+                matched_j = j
+                match_type = "核心库CN匹配"
+                break
+            name_n = normalize(j.get("name", ""))
+            if len(qn) >= 3 and (qn in name_n or name_n in qn):
+                matched_j = j
+                match_type = "核心库模糊匹配"
+                break
 
-            journal_rec = {
+    if matched_j:
+        j = matched_j
+        # 依广中医规则确定级别基准
+        if j.get("cscd_core"):
+            calc_level = "A2"
+            category_desc = "A类2级（CSCD核心版）"
+        elif j.get("pkucore"):
+            calc_level = "A3"
+            category_desc = "A类3级（中文核心期刊要目总览）"
+        elif j.get("cscd_ext"):
+            calc_level = "A4"
+            category_desc = "A类4级（CSCD扩展版）"
+        else:
+            calc_level = "B"
+            category_desc = "B类（校内限定）"
+
+        journal_rec = {
+            "name": j["name"],
+            "level": calc_level,
+            "category": category_desc,
+            "publisher": j.get("publisher", ""),
+            "issn": j.get("issn", ""),
+            "cn": j.get("cn", ""),
+            "is_chinese_core": True,
+        }
+
+        idx_notes = []
+        if j.get("cscd_core"):
+            idx_notes.append("中国科学引文数据库CSCD核心库(2023-2024)")
+        if j.get("pkucore"):
+            idx_notes.append("中文核心期刊要目总览(2023年版/第10版)")
+        if j.get("cscd_ext"):
+            idx_notes.append("中国科学引文数据库CSCD扩展版")
+
+        kb_rec = {
+            "basic": {
                 "name": j["name"],
-                "level": calc_level,
-                "category": category_desc,
-                "publisher": j.get("publisher", ""),
                 "issn": j.get("issn", ""),
                 "cn": j.get("cn", ""),
-                "is_chinese_core": True,
-            }
-
-            idx_notes = []
-            if j.get("cscd_core"):
-                idx_notes.append("中国科学引文数据库CSCD核心库(2023-2024)")
-            if j.get("pkucore"):
-                idx_notes.append("中文核心期刊要目总览(2023年版/第10版)")
-            if j.get("cscd_ext"):
-                idx_notes.append("中国科学引文数据库CSCD扩展版")
-
-            kb_rec = {
-                "basic": {
-                    "name": j["name"],
-                    "issn": j.get("issn", ""),
-                    "cn": j.get("cn", ""),
-                    "publisher": j.get("publisher", ""),
-                },
-                "indexes": {
-                    "indexes_verified": True,
-                    "scie_zone": None,
-                    "ssci_zone": None,
-                    "cscd_core": bool(j.get("cscd_core")),
-                    "cscd_ext": bool(j.get("cscd_ext")),
-                    "cssci_core": False,
-                    "cssci_ext": False,
-                    "pkucore": bool(j.get("pkucore")),
-                    "chss_core": False,
-                    "ahci": False,
-                    "ei": False,
-                    "extra": j.get("extra", []),
-                },
-                "indexes_note": "全国中文核心期刊库收录确认：" + "；".join(idx_notes),
-                "impact_factor": {},
-                "editor_in_chief": j.get("editor", {}),
-                "scope": j.get("scope", ""),
-                "review_cycle": j.get("review_cycle", ""),
-                "publication_mode": j.get("publication_mode", ""),
-                "apc_fee": j.get("apc_fee", ""),
-                "submission_url": j.get("submission_url", ""),
-                "updated": "2024版核心目录已核验",
-                "sources": [
-                    "北京大学图书馆《中文核心期刊要目总览》",
-                    "中国科学院文献情报中心《中国科学引文数据库(CSCD)》",
-                ],
-            }
-            return journal_rec, kb_rec, match_type
+                "publisher": j.get("publisher", ""),
+            },
+            "indexes": {
+                "indexes_verified": True,
+                "scie_zone": None,
+                "ssci_zone": None,
+                "cscd_core": bool(j.get("cscd_core")),
+                "cscd_ext": bool(j.get("cscd_ext")),
+                "cssci_core": False,
+                "cssci_ext": False,
+                "pkucore": bool(j.get("pkucore")),
+                "chss_core": False,
+                "ahci": False,
+                "ei": False,
+                "extra": j.get("extra", []),
+            },
+            "indexes_note": "全国中文核心期刊库收录确认：" + "；".join(idx_notes),
+            "impact_factor": {},
+            "editor_in_chief": j.get("editor", {}),
+            "scope": j.get("scope", ""),
+            "review_cycle": j.get("review_cycle", ""),
+            "publication_mode": j.get("publication_mode", ""),
+            "apc_fee": j.get("apc_fee", ""),
+            "submission_url": j.get("submission_url", ""),
+            "updated": "2024版核心目录已核验",
+            "sources": [
+                "北京大学图书馆《中文核心期刊要目总览》",
+                "中国科学院文献情报中心《中国科学引文数据库(CSCD)》",
+            ],
+        }
+        return journal_rec, kb_rec, match_type
 
     return None, None, None
 
@@ -213,13 +279,18 @@ def search_catalog(catalog, keyword):
 
 
 def load_chinese_core_full():
-    """加载全国中文核心期刊与 CSCD 离线全量数据 (含 meta 与 journals)。"""
+    """加载全国中文核心期刊与 CSCD 离线全量数据 (含 meta 与 journals，带内存缓存)。"""
+    global _CHINESE_CORE_FULL_CACHE
+    if _CHINESE_CORE_FULL_CACHE is not None:
+        return _CHINESE_CORE_FULL_CACHE
     core_path = os.path.join(os.path.dirname(get_catalog_json_path()), "chinese_core_journals.json")
     if not os.path.exists(core_path):
         return {"meta": {}, "journals": []}
     try:
         with open(core_path, encoding="utf-8") as f:
-            return json.load(f)
+            data = json.load(f)
+            _CHINESE_CORE_FULL_CACHE = data
+            return data
     except Exception:
         return {"meta": {}, "journals": []}
 
@@ -436,16 +507,28 @@ def search_cas_for_locate(query: str, limit: int = 5):
 
     rows = []
     if len(clean_issn) >= 7:
+        formatted_issn = f"{clean_issn[:4]}-{clean_issn[4:]}" if len(clean_issn) == 8 else clean_issn
         cursor.execute(
             """
             SELECT id, name, issn, eissn, wos_type, category, zone, zone_raw, is_top, jif, jcr_quartile, sub_categories, gzucms_level
             FROM cas_journals
-            WHERE replace(issn, '-', '') = ? OR replace(eissn, '-', '') = ?
+            WHERE issn IN (?, ?) OR eissn IN (?, ?)
             LIMIT ?
             """,
-            (clean_issn, clean_issn, limit),
+            (clean_issn, formatted_issn, clean_issn, formatted_issn, limit),
         )
         rows = cursor.fetchall()
+        if not rows:
+            cursor.execute(
+                """
+                SELECT id, name, issn, eissn, wos_type, category, zone, zone_raw, is_top, jif, jcr_quartile, sub_categories, gzucms_level
+                FROM cas_journals
+                WHERE replace(issn, '-', '') = ? OR replace(eissn, '-', '') = ?
+                LIMIT ?
+                """,
+                (clean_issn, clean_issn, limit),
+            )
+            rows = cursor.fetchall()
 
     if not rows:
         cursor.execute(
@@ -501,15 +584,26 @@ def find_cas_journal(q: str):
     row = None
     match_type = ""
     if len(clean_issn) >= 7:
+        formatted_issn = f"{clean_issn[:4]}-{clean_issn[4:]}" if len(clean_issn) == 8 else clean_issn
         cursor.execute(
             """
             SELECT * FROM cas_journals
-            WHERE replace(issn, '-', '') = ? OR replace(eissn, '-', '') = ?
+            WHERE issn IN (?, ?) OR eissn IN (?, ?)
             LIMIT 1
             """,
-            (clean_issn, clean_issn),
+            (clean_issn, formatted_issn, clean_issn, formatted_issn),
         )
         row = cursor.fetchone()
+        if not row:
+            cursor.execute(
+                """
+                SELECT * FROM cas_journals
+                WHERE replace(issn, '-', '') = ? OR replace(eissn, '-', '') = ?
+                LIMIT 1
+                """,
+                (clean_issn, clean_issn),
+            )
+            row = cursor.fetchone()
         if row:
             match_type = "中科院分区库ISSN匹配"
 
@@ -707,7 +801,10 @@ def get_cas_journals(
 
 
 def get_cas_categories():
-    """获取中科院分区库所有学科大类列表。"""
+    """获取中科院分区库所有学科大类列表（带内存缓存）。"""
+    global _CAS_CATEGORIES_CACHE
+    if _CAS_CATEGORIES_CACHE is not None:
+        return _CAS_CATEGORIES_CACHE
     conn = get_cas_db_connection()
     if not conn:
         return []
@@ -715,4 +812,5 @@ def get_cas_categories():
     cursor.execute("SELECT DISTINCT category FROM cas_journals WHERE category != '' ORDER BY category")
     cats = [row[0] for row in cursor.fetchall()]
     conn.close()
+    _CAS_CATEGORIES_CACHE = cats
     return cats

@@ -21,6 +21,8 @@ app = FastAPI(
     version="2.2.0",
 )
 
+from starlette.middleware.gzip import GZipMiddleware
+
 # 允许跨域请求，保障前后端彻底解耦与独立部署
 app.add_middleware(
     CORSMiddleware,
@@ -29,6 +31,9 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
+# 开启 GZip 压缩，大幅减少全景索引库及筛选列表等大体积 JSON 的网络传输耗时
+app.add_middleware(GZipMiddleware, minimum_size=1000)
 
 # 挂载各领域模块化路由器
 app.include_router(search_router)

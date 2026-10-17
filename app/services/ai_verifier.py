@@ -63,7 +63,14 @@ def fetch_journal_from_gemini(journal_name, api_key=None, proxy=None):
         "}"
     )
 
-    models_to_try = ["gemini-flash-lite-latest", "gemini-flash-latest", "gemini-3.8-flash"]
+    models_to_try = [
+        "gemini-2.5-flash",
+        "gemini-2.0-flash",
+        "gemini-1.5-flash",
+        "gemini-flash-latest",
+        "gemini-flash-lite-latest",
+        "gemini-3.8-flash",
+    ]
     last_err = None
 
     base_url = get_gemini_base_url()
@@ -84,7 +91,7 @@ def fetch_journal_from_gemini(journal_name, api_key=None, proxy=None):
                 res_obj = json.loads(resp_body)
                 candidates = res_obj.get("candidates", [])
                 if not candidates:
-                    last_err = "模型未返回任何结果"
+                    last_err = f"模型 {model} 未返回任何内容"
                     continue
                 parts = candidates[0].get("content", {}).get("parts", [])
                 text = "".join(p.get("text", "") for p in parts)
@@ -93,17 +100,27 @@ def fetch_journal_from_gemini(journal_name, api_key=None, proxy=None):
                 json_match = re.search(r"(\{.*\})", clean_text, re.DOTALL)
                 if json_match:
                     clean_text = json_match.group(1)
+                # 清洗尾随逗号
+                clean_text = re.sub(r",\s*([\]}])", r"\1", clean_text)
                 data = json.loads(clean_text)
                 return True, data
         except urllib.error.HTTPError as e:
             err_msg = e.read().decode("utf-8", errors="ignore")
-            last_err = f"Google API 响应异常 ({model} - HTTP {e.code}): {err_msg}"
+            try:
+                err_json = json.loads(err_msg)
+                if isinstance(err_json, dict) and "error" in err_json:
+                    err_info = err_json["error"]
+                    if isinstance(err_info, dict) and "message" in err_info:
+                        err_msg = err_info["message"]
+            except Exception:
+                pass
+            last_err = f"Google API 异常 ({model} - HTTP {e.code}): {err_msg}"
             continue
         except urllib.error.URLError as e:
-            last_err = f"网络连接失败: {e.reason}（请检查本地代理配置）"
+            last_err = f"网络连接失败: {e.reason}（请检查本地代理或反代服务）"
             break
         except Exception as e:
-            last_err = f"处理异常: {str(e)}"
+            last_err = f"解析响应异常: {str(e)}"
             continue
 
     return False, last_err or "所有候选模型均无法完成请求"

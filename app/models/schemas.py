@@ -98,6 +98,13 @@ class TrackResponseDTO(BaseModel):
     records: List[Dict[str, Any]] = Field(default_factory=list, description="台账行记录列表 (12列标准表头)")
 
 
+class TrackActionResponseDTO(BaseModel):
+    """决策台账增删操作响应契约。"""
+    status: str = Field("success", description="操作状态: success / error")
+    message: str = Field(..., description="操作提示信息")
+    remaining: Optional[int] = Field(None, description="操作后剩余台账条数")
+
+
 class CatalogResponseDTO(BaseModel):
     """官方目录全景数据响应契约。"""
     meta: Dict[str, Any] = Field(default_factory=dict, description="目录元数据 (依据文件号、发文单位等)")

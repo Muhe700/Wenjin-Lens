@@ -6,7 +6,7 @@ app.web.routers.catalog_router
 提供官方期刊分级目录全景数据、系统全量运行资产统计及健康探针。
 """
 from typing import Optional
-from fastapi import APIRouter, Query
+from fastapi import APIRouter, Header, Query
 
 from app.models.schemas import (
     AllIndexesResponseDTO,
@@ -97,11 +97,15 @@ def api_get_cas_categories():
 
 
 @router.get("/stats", response_model=StatsResponseDTO)
-def api_get_stats():
+def api_get_stats(
+    user_id: Optional[str] = Header(None, alias="X-User-ID"),
+    uid: Optional[str] = Query(None, alias="user_id"),
+):
     """获取当前系统运行统计（目录数、知识库数、追踪数、核心库数、预警库数）。"""
+    effective_uid = uid or user_id
     catalog = load_catalog()
     kb = load_kb()
-    track = load_track()
+    track = load_track(user_id=effective_uid)
     chinese_core = load_chinese_core()
     warning_db = load_warning_db()
 

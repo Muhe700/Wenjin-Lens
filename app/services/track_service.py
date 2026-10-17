@@ -103,10 +103,13 @@ def build_track_row(journal_rec, kb_rec, catalog, best_level, kb_only=False):
     }
 
 
-def load_track(csv_path=None):
-    """加载追踪表记录。"""
-    target = csv_path or get_track_csv_path()
+def load_track(csv_path=None, user_id=None):
+    """加载追踪表记录（支持多用户独立隔离）。"""
+    target = csv_path or get_track_csv_path(user_id=user_id)
     if not os.path.exists(target):
+        # 若指定了非默认用户但其目录尚无台账，返回空列表
+        if user_id:
+            return []
         # 兼容性检查：若 root 目录下有旧的 journal_track.csv，读取它
         root_old = os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(target))), "journal_track.csv")
         if os.path.exists(root_old):
@@ -139,10 +142,10 @@ def load_track(csv_path=None):
     return clean_rows
 
 
-def save_track(rows, csv_path=None, xlsx_path=None):
-    """写 CSV（utf-8-sig）并同步生成带样式的 xlsx（首行冻结与筛选）。"""
-    c_path = csv_path or get_track_csv_path()
-    x_path = xlsx_path or get_track_xlsx_path()
+def save_track(rows, csv_path=None, xlsx_path=None, user_id=None):
+    """写 CSV（utf-8-sig）并同步生成带样式的 xlsx（首行冻结与筛选，支持多用户独立隔离）。"""
+    c_path = csv_path or get_track_csv_path(user_id=user_id)
+    x_path = xlsx_path or get_track_xlsx_path(user_id=user_id)
     os.makedirs(os.path.dirname(c_path), exist_ok=True)
     os.makedirs(os.path.dirname(x_path), exist_ok=True)
 
@@ -196,16 +199,35 @@ def save_track(rows, csv_path=None, xlsx_path=None):
         pass
 
 
-def upsert_track(row, csv_path=None, xlsx_path=None):
+def upsert_track(row, csv_path=None, xlsx_path=None, user_id=None):
     """幂等写入/更新追踪表。"""
-    rows = load_track(csv_path)
+    rows = load_track(csv_path=csv_path, user_id=user_id)
     for r in rows:
         if r.get("期刊名称") == row["期刊名称"]:
             r.update(row)
             break
     else:
         rows.append(row)
-    save_track(rows, csv_path, xlsx_path)
+    save_track(rows, csv_path=csv_path, xlsx_path=xlsx_path, user_id=user_id)
+
+
+def delete_track_row(journal_name: str, csv_path=None, xlsx_path=None, user_id=None):
+    """从追踪台账中删除指定期刊（支持精确及去除空格比对）。
+    返回: (found: bool, remaining_count: int)
+    """
+    rows = load_track(csv_path=csv_path, user_id=user_id)
+    target_name = (journal_name or "").strip().lower()
+    new_rows = [r for r in rows if r.get("期刊名称", "").strip().lower() != target_name]
+    if len(new_rows) < len(rows):
+        save_track(new_rows, csv_path=csv_path, xlsx_path=xlsx_path, user_id=user_id)
+        return True, len(new_rows)
+    return False, len(rows)
+
+
+def clear_track(csv_path=None, xlsx_path=None, user_id=None):
+    """清空指定用户的全部追踪台账。"""
+    save_track([], csv_path=csv_path, xlsx_path=xlsx_path, user_id=user_id)
+    return True
 
 
 def filter_track_rows(track_rows, filter_expr):
@@ -267,13 +289,13 @@ def filter_track_rows(track_rows, filter_expr):
     return [r for r in track_rows if match_row(r, conds)]
 
 
-def get_filterable_rows(scope: str = "official"):
+def get_filterable_rows(scope: str = "official", user_id=None):
     """获取供智能筛选的期刊列表。
     scope='official': 广中医官方308号目录136本 + 中文核心/CSCD精选库 (默认)
     scope='track': 仅个人已保存的选刊台账
     scope='all': 全量合并
     """
-    track_rows = load_track()
+    track_rows = load_track(user_id=user_id)
     if scope == "track":
         return track_rows
 
@@ -283,11 +305,13 @@ def get_filterable_rows(scope: str = "official"):
 
     track_names = {r.get("期刊名称") for r in track_rows}
     all_rows = list(track_rows) if scope == "all" else []
+    seen_names = set(track_names) if scope == "all" else set()
 
     for j in catalog.get("journals", []):
         name = j.get("name")
-        if scope == "all" and name in track_names:
+        if not name or name in seen_names:
             continue
+        seen_names.add(name)
         level_code = j.get("level", "B")
         level_label = LEVEL_LABEL.get(level_code, j.get("category", "B类"))
         issn_parts = []
@@ -313,8 +337,9 @@ def get_filterable_rows(scope: str = "official"):
 
     for cj in chinese_core:
         name = cj.get("name")
-        if name in track_names or any(r.get("期刊名称") == name for r in all_rows):
+        if not name or name in seen_names:
             continue
+        seen_names.add(name)
         calc_level = "A类2级" if cj.get("cscd_core") else ("A类3级" if cj.get("pkucore") else "A类4级")
         all_rows.append({
             "期刊名称": name,

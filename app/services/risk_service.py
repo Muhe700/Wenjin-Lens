@@ -14,13 +14,21 @@ from app.core.rules import normalize
 WARNING_DB_PATH = os.path.join(DATA_DIR, "risk", "cas_warning_journals.json")
 
 
+_WARNING_DB_CACHE = None
+
+
 def load_warning_db():
     """加载中科院预警期刊离线数据库。"""
+    global _WARNING_DB_CACHE
+    if _WARNING_DB_CACHE is not None:
+        return _WARNING_DB_CACHE
     if not os.path.exists(WARNING_DB_PATH):
         return {"meta": {}, "journals": []}
     try:
         with open(WARNING_DB_PATH, encoding="utf-8") as f:
-            return json.load(f)
+            data = json.load(f)
+            _WARNING_DB_CACHE = data
+            return data
     except Exception:
         return {"meta": {}, "journals": []}
 

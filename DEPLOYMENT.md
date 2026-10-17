@@ -13,6 +13,8 @@
 5. [生产安全加固与密钥物理隔离清单](#五生产安全加固与密钥物理隔离清单)
 6. [数据持久化、备份与灾难恢复](#六数据持久化备份与灾难恢复)
 7. [健康检查与运维监控](#七健康检查与运维监控)
+8. [云端部署与全浏览器兼容保障](#八云端部署与全浏览器兼容保障-cross-browser--offline-reliability)
+9. [阿里云 ECS 生产环境实战：多服务网关与 Cloudflare 域名托管架构](#九阿里云-ecs-生产环境实战多服务网关与-cloudflare-域名托管架构)
 
 ---
 
@@ -216,4 +218,124 @@ sudo systemctl reload nginx
 ### 3. 移动端防爆框与超宽表格内联隔离
 - 顶栏胶囊导航在移动小屏下自动切换为无滚动条平滑滑行；
 - 官方目录及台账中超过 1100px 的多维宽表格在移动端采用独立内联触摸滚动隔离，绝对不撑爆根视口，杜绝手机端横向晃动或右半屏截断现象。
+
+---
+
+## 九、云端生产环境实战：多服务网关与 Cloudflare 域名托管架构
+
+本节专门记录云服务器生产环境（基于域名托管与多服务统一网关）的现网运行拓扑、DNS 域名托管、Nginx 网关路由及 Gemini API 免翻反代实践。
+
+### 1. 现网拓扑架构全景 (Production Topology)
+
+在云服务器上，系统推荐采用“**宿主机 Nginx 统一网关 + Docker 容器微服务化 + Cloudflare 边缘反向代理**”的高可用架构：
+
+```mermaid
+flowchart TD
+    User(["科研学者 / 移动端与桌面浏览器"]) -->|HTTPS / HTTP 请求| DNS["DNS 托管解析 (gateway.yourdomain.com)"]
+    DNS -->|A 记录指向服务器公网 IP| Nginx["云服务器 Nginx 统一网关 (Port 80)"]
+
+    subgraph ECS["云服务器生产主机 (Linux 2C2G)"]
+        Nginx -->|/ 根路径| Portal["服务导航门户 (/var/www/portal)"]
+        Nginx -->|/wenjin/ 子路径反代| DockerApp["文津·选刊助手 (Docker 容器: wenjin-lens-app)<br/>端口映射: 127.0.0.1:8001 -> 8000"]
+        Nginx -->|/shanghanlun/| SPort["伤寒论 Web (Port 8080)"]
+        Nginx -->|/guipei/| GPort["规培排版系统 (Streamlit Port 8501)"]
+        Nginx -->|/api/v1/| LPort["外部微服务 API (Port 8000)"]
+    end
+
+    subgraph Edge["Cloudflare 边缘网络 (DNS 托管 Zone)"]
+        DockerApp -->|办刊宗旨语义查证| CFProxy["Cloudflare Worker (gemini.yourdomain.com)"]
+        CFProxy -->|全球边缘清洗 & 反代| GoogleAI["Google Gemini 官方 API (generativelanguage.googleapis.com)"]
+    end
+```
+
+### 2. 多服务端口规划与隔离规范
+
+为确保多系统共存时互不干扰，宿主机端口规划如下：
+
+| 业务系统 | 容器 / 进程端口 | 宿主机映射端口 | Nginx 网关访问路径 | 说明 |
+| :--- | :--- | :--- | :--- | :--- |
+| **文津·选刊助手** | `8000/tcp` | `127.0.0.1:8001` | `/wenjin/` 或独立域名 | 本项目，避开 8000 默认端口冲突 |
+| **多系统门户主页** | 静态页面 | - | `/` (根路径) | 挂载在 `/var/www/portal/index.html` |
+| **伤寒论 Web** | `8080/tcp` | `127.0.0.1:8080` | `/shanghanlun/` | 中医药古籍智能检索 |
+| **规培排版系统** | `8501/tcp` | `127.0.0.1:8501` | `/guipei/` | 基于 Streamlit 支持 WebSocket |
+| **外部微服务 API** | `8000/tcp` | `127.0.0.1:8000` | `/api/v1/` | 后端辅助数据接口 |
+
+### 3. Nginx 网关子路径挂载与 URI 剥离机制
+
+在 `/etc/nginx/sites-available/default` 中，文津选刊助手的核心反向代理规则如下：
+
+```nginx
+# 文津·选刊助手反向代理
+location /wenjin/ {
+    # 核心要点：proxy_pass 末尾带有斜杠 "/"
+    # 当请求访问 /wenjin/api/catalog/query 时，Nginx 会自动剥离 "/wenjin/" 前缀，
+    # 将规范的 /api/catalog/query 请求转发给容器 8001 端口的 FastAPI 后端。
+    proxy_pass http://127.0.0.1:8001/;
+    proxy_http_version 1.1;
+
+    # 传递 WebSocket / SSE 升级协议
+    proxy_set_header Upgrade $http_upgrade;
+    proxy_set_header Connection "upgrade";
+
+    # 透传真实客户端网络元数据
+    proxy_set_header Host $host;
+    proxy_set_header X-Real-IP $remote_addr;
+    proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+    proxy_set_header X-Forwarded-Proto $scheme;
+
+    # AI 深度查证长连接防超时中断
+    proxy_connect_timeout 60s;
+    proxy_read_timeout 60s;
+    proxy_send_timeout 60s;
+}
+```
+
+#### 前端自动适配机制
+前端客户端（`app/web/static/js/services/api.js`）已内置环境自适应逻辑：
+- 当用户通过网关二级路径（如 `http://gateway.yourdomain.com/wenjin/`）访问时，检测到 `pathname.startsWith('/wenjin')`，API 请求会自动前缀 `/wenjin`；
+- 当用户通过独立二级域名（如 `http://wenjin.yourdomain.com/`）或本地 `http://localhost:8000/` 访问时，基础路径保持为空，完全向下兼容。
+
+### 4. Cloudflare Worker + 自定义域名免翻墙反代 Gemini API
+
+由于国内云服务器访问 Google API 受限，本项目配套提供了 Cloudflare Worker 免翻代理解析方案（位于 `cloudflare-worker/` 目录）：
+
+1. **托管拓扑**：
+   - Cloudflare Zone：`yourdomain.com`
+   - Worker 项目名：`wenjin-gemini-proxy`
+   - 生产绑定域名：`https://gemini.yourdomain.com`
+2. **反向代理逻辑**：
+   - 接收云端发往 `https://gemini.yourdomain.com/v1beta/...` 的 HTTP 请求；
+   - 自动重写 Host 为 `generativelanguage.googleapis.com:443`；
+   - 补齐 CORS 响应头并由 Google 官方返回结果；
+   - 彻底摆脱在服务器端安装配置任何本地代理客户端的沉重依赖。
+3. **环境激活**：
+   只需在生产环境 `.env` 中指定：
+   ```ini
+   GEMINI_API_KEY=your_gemini_api_key
+   GEMINI_BASE_URL=https://gemini.yourdomain.com
+   ```
+   项目在进行期刊办刊宗旨深度语义查证时，将自动通过该高可用节点安全通信。
+
+### 5. 云端服务一键维护与滚动更新
+
+若本地代码完成迭代（如性能调优或界面增强），可通过以下步骤平滑同步至云服务器：
+
+```bash
+# 1. 登录云服务器
+ssh your_server_user@your_server_ip
+
+# 2. 进入项目部署根目录
+cd /opt/wenjin-lens
+
+# 3. 检查容器状态
+docker compose ps
+
+# 4. 重新构建并平滑重启容器
+docker compose up -d --build
+
+# 5. 查看健康探针返回
+curl -s http://127.0.0.1:8001/api/health
+# 预期返回: {"status":"ok","app":"Wenjin-Lens","version":"2.2.0"}
+```
+
 

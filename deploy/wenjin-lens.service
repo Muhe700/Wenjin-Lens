@@ -13,7 +13,8 @@ User=www-data
 Group=www-data
 WorkingDirectory=/var/www/Wenjin-Lens
 EnvironmentFile=-/var/www/Wenjin-Lens/.env
-ExecStart=/var/www/Wenjin-Lens/venv/bin/python web_app.py --host 127.0.0.1 --port 8000 --workers 2
+# 生产环境端口规范：采用 8001 端口（与 Docker 容器映射及 Nginx 反代保持一致，避开 8000 默认端口冲突）
+ExecStart=/var/www/Wenjin-Lens/venv/bin/python web_app.py --host 127.0.0.1 --port 8001 --workers 2
 Restart=always
 RestartSec=5s
 

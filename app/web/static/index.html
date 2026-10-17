@@ -304,6 +304,14 @@
 
                 <!-- 快捷工具按钮组 -->
                 <div style="display:flex; gap:10px; flex-wrap:wrap;">
+                  <el-button
+                    :type="isJournalInTrack(currentJournal.name) ? 'danger' : 'success'"
+                    plain
+                    :icon="isJournalInTrack(currentJournal.name) ? Delete : Plus"
+                    @click="handleToggleTrack(currentJournal.name)"
+                  >
+                    {{ isJournalInTrack(currentJournal.name) ? '从台账中移出' : '收录至台账' }}
+                  </el-button>
                   <el-button type="primary" plain :icon="DocumentCopy" @click="copyBrief">
                     复制选刊决策简报
                   </el-button>
@@ -314,7 +322,7 @@
                     加入横向对比
                   </el-button>
                   <el-button :icon="Refresh" @click="handleRefresh">
-                    强制联网核验
+                    深度联网查证
                   </el-button>
                 </div>
               </div>
@@ -568,7 +576,7 @@
             </el-form-item>
 
             <el-form-item label="学科关键词">
-              <el-input v-model="filterScope" placeholder="如：中草药、针灸、肿瘤" clearable style="width:220px;" @input="loadFilterRecords"></el-input>
+              <el-input v-model="filterScope" placeholder="如：中草药、针灸、肿瘤" clearable style="width:220px;" @input="debouncedLoadFilterRecords"></el-input>
             </el-form-item>
           </el-form>
         </el-card>
@@ -580,8 +588,12 @@
             </div>
           </div>
 
-          <el-table :data="filterRecords" v-loading="filterLoading" stripe border style="width:100%;">
-            <el-table-column type="index" label="序号" width="60" align="center"></el-table-column>
+          <el-table :data="pagedFilterRecords" v-loading="filterLoading" stripe border style="width:100%;">
+            <el-table-column type="index" label="序号" width="60" align="center">
+              <template #default="scope">
+                {{ (filterPage - 1) * filterPageSize + scope.$index + 1 }}
+              </template>
+            </el-table-column>
             <el-table-column prop="期刊名称" label="期刊名称" min-width="160">
               <template #default="scope">
                 <el-link type="primary" :underline="false" @click="quickSearch(scope.row['期刊名称'])">
@@ -607,6 +619,17 @@
               </template>
             </el-table-column>
           </el-table>
+
+          <div style="margin-top:16px; display:flex; justify-content:center;">
+            <el-pagination
+              v-model:current-page="filterPage"
+              v-model:page-size="filterPageSize"
+              :page-sizes="[20, 50, 100]"
+              layout="total, sizes, prev, pager, next, jumper"
+              :total="filterRecords.length"
+              background
+            ></el-pagination>
+          </div>
         </el-card>
       </div>
 
@@ -614,23 +637,45 @@
       <div v-show="activeTab === 'track'">
         <el-card shadow="hover" style="border:1px solid var(--el-border-color); border-radius:12px;">
           <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:16px; flex-wrap:wrap; gap:12px;">
-            <div style="display:flex; align-items:center; gap:8px;">
+            <div style="display:flex; align-items:center; gap:10px; flex-wrap:wrap;">
               <el-icon><Document></Document></el-icon>
               <strong style="font-size:1.05rem;">选刊决策沉淀台账</strong>
               <el-tag size="small" round>已归档 {{ trackRecords.length }} 篇</el-tag>
+              
+              <!-- 用户专属台账身份指示与切换 -->
+              <el-tooltip content="点击可切换或新建个人独立台账账户，不同用户台账互不干扰" placement="top">
+                <el-tag size="small" type="info" effect="plain" style="cursor:pointer; display:inline-flex; align-items:center; gap:4px; font-weight:500;" @click="openUserDialog">
+                  <el-icon><User></User></el-icon>
+                  <span>台账归属: <strong>{{ currentUserId }}</strong></span>
+                  <el-icon><Edit></Edit></el-icon>
+                </el-tag>
+              </el-tooltip>
             </div>
 
-            <div style="display:flex; gap:12px; align-items:center;">
-              <el-input v-model="trackSearch" placeholder="搜索已追踪的期刊..." prefix-icon="Search" style="width:240px;" clearable></el-input>
+            <div style="display:flex; gap:12px; align-items:center; flex-wrap:wrap;">
+              <el-input v-model="trackSearch" placeholder="搜索已追踪的期刊..." prefix-icon="Search" style="width:220px;" clearable></el-input>
               <el-link :href="exportUrl" download :underline="false">
                 <el-button type="success" :icon="Download">
                   导出为标准 Excel (.xlsx)
                 </el-button>
               </el-link>
+              <el-popconfirm
+                title="确定要清空当前账户的所有台账记录吗？此操作无法撤销！"
+                confirm-button-text="确认清空"
+                cancel-button-text="取消"
+                confirm-button-type="danger"
+                @confirm="handleClearTrack"
+              >
+                <template #reference>
+                  <el-button type="danger" plain :icon="Delete" :disabled="trackRecords.length === 0">
+                    清空台账
+                  </el-button>
+                </template>
+              </el-popconfirm>
             </div>
           </div>
 
-          <el-table :data="filteredTrackRecords" v-loading="trackLoading" stripe border style="width:100%;">
+          <el-table :data="pagedTrackRecords" v-loading="trackLoading" stripe border style="width:100%;">
             <el-table-column prop="期刊名称" label="期刊名称" min-width="160">
               <template #default="scope">
                 <el-link type="primary" :underline="false" @click="quickSearch(scope.row['期刊名称'])">
@@ -656,7 +701,35 @@
             <el-table-column prop="出版方式与版面费" label="出版与版面费" min-width="160" show-overflow-tooltip></el-table-column>
             <el-table-column prop="审稿周期" label="审稿周期" min-width="140" show-overflow-tooltip></el-table-column>
             <el-table-column prop="核验日期与来源" label="核验日期" width="130" show-overflow-tooltip></el-table-column>
+            <el-table-column label="操作" width="85" align="center" fixed="right">
+              <template #default="scope">
+                <el-popconfirm
+                  :title="`确认从台账中移出《${scope.row['期刊名称']}》？`"
+                  confirm-button-text="确认移除"
+                  cancel-button-text="取消"
+                  confirm-button-type="danger"
+                  @confirm="handleDeleteTrack(scope.row['期刊名称'])"
+                >
+                  <template #reference>
+                    <el-button type="danger" link size="small" :icon="Delete">
+                      移除
+                    </el-button>
+                  </template>
+                </el-popconfirm>
+              </template>
+            </el-table-column>
           </el-table>
+
+          <div style="margin-top:16px; display:flex; justify-content:center;">
+            <el-pagination
+              v-model:current-page="trackPage"
+              v-model:page-size="trackPageSize"
+              :page-sizes="[20, 50, 100]"
+              layout="total, sizes, prev, pager, next, jumper"
+              :total="filteredTrackRecords.length"
+              background
+            ></el-pagination>
+          </div>
         </el-card>
       </div>
 
@@ -723,6 +796,47 @@
         </div>
       </div>
     </el-main>
+
+    <!-- 用户专属台账管理与切换对话框 (Element Plus Dialog) -->
+    <el-dialog
+      v-model="userDialogVisible"
+      title="切换 / 管理个人选刊决策台账账户"
+      width="460px"
+      align-center
+    >
+      <div style="margin-bottom:16px; font-size:13.5px; color:var(--text-muted); line-height:1.6;">
+        文津·选刊助手已支持多用户独立台账隔离。每位教师/科研人员可拥有专属台账空间，导出的 Excel 与期刊增删完全独立。
+      </div>
+
+      <el-form label-position="top">
+        <el-form-item label="台账账户标识 / 姓名 / 课题组名">
+          <el-input
+            v-model="newUserIdInput"
+            placeholder="如: 李老师 / 针灸课题组 / user_xxxx"
+            clearable
+            maxlength="32"
+            show-word-limit
+            @keyup.enter="handleSwitchUser"
+          >
+            <template #prefix>
+              <el-icon><User></User></el-icon>
+            </template>
+          </el-input>
+        </el-form-item>
+      </el-form>
+
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-top:20px;">
+        <el-button type="info" plain :icon="Plus" @click="handleCreateNewUser">
+          随机生成新台账
+        </el-button>
+        <div>
+          <el-button @click="userDialogVisible = false">取消</el-button>
+          <el-button type="primary" :icon="Check" @click="handleSwitchUser">
+            确认切换
+          </el-button>
+        </div>
+      </div>
+    </el-dialog>
 
     <!-- 期刊横向对比模态对话框 (Element Plus Dialog) -->
     <el-dialog
@@ -963,7 +1077,7 @@
           </div>
 
           <el-table
-            :data="filteredGzucmsFlat"
+            :data="pagedGzucmsFlat"
             :row-class-name="catalogTableRowClass"
             stripe
             border
@@ -1011,6 +1125,17 @@
               </template>
             </el-table-column>
           </el-table>
+
+          <div style="margin-top:14px; display:flex; justify-content:center;">
+            <el-pagination
+              v-model:current-page="gzucmsPage"
+              v-model:page-size="gzucmsPageSize"
+              :page-sizes="[20, 50, 100]"
+              layout="total, sizes, prev, pager, next, jumper"
+              :total="filteredGzucmsFlat.length"
+              background
+            ></el-pagination>
+          </div>
         </el-tab-pane>
 
         <!-- Tab 2: CSCD 中国科学引文数据库 (2023-2024版，1,306种) -->

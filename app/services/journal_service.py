@@ -29,7 +29,7 @@ class JournalService:
     """选刊助手核心业务领域服务。"""
 
     @classmethod
-    def search(cls, query: str, auto_track: bool = True) -> Dict[str, Any]:
+    def search(cls, query: str, auto_track: bool = True, user_id: Optional[str] = None) -> Dict[str, Any]:
         """执行统一的多层级联选刊检索流程。
         检索优先级策略：
           1. 广中医校办〔2020〕308号目录精确/别名/刊号匹配
@@ -70,7 +70,7 @@ class JournalService:
             best, reasons, upgraded = compute_level(catalog, journal_rec, kb_rec)
             track_row = build_track_row(journal_rec, kb_rec, catalog, best, kb_only=False)
             if auto_track:
-                upsert_track(track_row)
+                upsert_track(track_row, user_id=user_id)
             issn_val = journal_rec.get("issn") or (kb_rec or {}).get("basic", {}).get("issn")
             warning_info = check_cas_warning(journal_rec["name"], issn_val)
             return {
@@ -105,7 +105,7 @@ class JournalService:
             best, reasons, upgraded = compute_level(catalog, None, core_kb)
             track_row = build_track_row(core_j, core_kb, catalog, best, kb_only=True)
             if auto_track:
-                upsert_track(track_row)
+                upsert_track(track_row, user_id=user_id)
             warning_info = check_cas_warning(core_j["name"], core_j.get("issn"))
             return {
                 "type": "journal",
@@ -137,7 +137,7 @@ class JournalService:
             best, reasons, upgraded = compute_level(catalog, None, kb_rec)
             track_row = build_track_row(synthetic, kb_rec, catalog, best, kb_only=True)
             if auto_track:
-                upsert_track(track_row)
+                upsert_track(track_row, user_id=user_id)
             warning_info = check_cas_warning(kb_name, basic.get("issn"))
             return {
                 "type": "journal",
@@ -224,7 +224,7 @@ class JournalService:
             best, reasons, upgraded = compute_level(catalog, None, cas_kb)
             track_row = build_track_row(cas_j, cas_kb, catalog, best, kb_only=True)
             if auto_track:
-                upsert_track(track_row)
+                upsert_track(track_row, user_id=user_id)
             warning_info = check_cas_warning(cas_j["name"], cas_j.get("issn"))
             return {
                 "type": "journal",
@@ -301,7 +301,7 @@ class JournalService:
 
         res_data = {
             "basic": {"name": q, "issn": local_issn or ""},
-            "indexes": {"indexes_verified": True},
+            "indexes": {"indexes_verified": False},
             "impact_factor": {},
             "editor_in_chief": {},
             "scope": "",
@@ -315,26 +315,72 @@ class JournalService:
 
         # 2. 尝试调用 Gemini 提炼办刊方向、主编及复杂中医药办刊范畴
         api_key = get_api_key(explicit_api_key)
+        gemini_ok = False
+        gemini_err = None
         if api_key:
-            gemini_ok, gemini_data = fetch_journal_from_gemini(q, api_key)
-            if gemini_ok and isinstance(gemini_data, dict):
-                for k, v in gemini_data.items():
+            gemini_ok, gemini_res = fetch_journal_from_gemini(q, api_key)
+            if gemini_ok and isinstance(gemini_res, dict):
+                for k, v in gemini_res.items():
                     if v and (not res_data.get(k) or k in ("scope", "editor_in_chief", "impact_factor", "indexes")):
                         res_data[k] = v
+                if (gemini_res.get("indexes") or {}).get("indexes_verified"):
+                    res_data["indexes"]["indexes_verified"] = True
+            else:
+                gemini_err = str(gemini_res) if gemini_res else "Gemini 请求失败"
 
-        if not res_data.get("submission_url") and not res_data.get("apc_fee") and not api_key:
-            return False, {
-                "error": "OpenAlex/DOAJ 未检索到该刊且未配置 Gemini API Key，请在 config/config.json 配置 Key 进行深度检索。"
-            }
+        # 判定是否成功获取到了真实有价值的学术数据
+        has_academic_meta = bool(
+            academic_meta.get("openalex")
+            or academic_meta.get("doaj")
+            or res_data.get("submission_url")
+            or res_data.get("apc_fee")
+        )
+        has_gemini_data = bool(
+            gemini_ok
+            and (
+                (res_data.get("scope") and res_data.get("scope") != "无")
+                or (res_data.get("editor_in_chief") and res_data.get("editor_in_chief", {}).get("name") and res_data.get("editor_in_chief", {}).get("name") != "无")
+                or (res_data.get("impact_factor") and (res_data.get("impact_factor", {}).get("jcr_if") or res_data.get("impact_factor", {}).get("cas_zone")))
+                or res_data.get("submission_url")
+                or res_data.get("apc_fee")
+            )
+        )
 
-        # 3. 回写持久化至知识库
+        # 严格防御系统假成功：如果两路皆空，或者配置了API Key但AI报错且无有效学术数据，绝不允许写入空白壳并上报“成功”
+        if not has_academic_meta and not has_gemini_data:
+            if api_key and gemini_err:
+                return False, {
+                    "error": f"深度联网查证未完成：AI 服务调用异常（{gemini_err}），且开放学术数据库 (OpenAlex/DOAJ) 未检索到该刊。请检查网络代理或 API Key 配置。"
+                }
+            elif not api_key:
+                return False, {
+                    "error": "开放学术库 (OpenAlex/DOAJ) 未检索到该刊，且系统未配置 Gemini API Key 进行深度查证。"
+                }
+            else:
+                return False, {
+                    "error": f"未能检索到期刊《{q}》的真实官方数据，请确认期刊官方全称或 ISSN 是否输入正确。"
+                }
+
+        # 3. 仅当检索到真实有效的指标数据时，才持久化回写至知识库
         kb = load_kb()
         j_name = res_data.get("basic", {}).get("name") or q
         upsert_kb_record(kb, j_name, res_data)
+
+        msg = "成功完成期刊指标联网查证并已同步沉淀"
+        if gemini_ok and has_academic_meta:
+            msg = "成功聚合 OpenAlex 开放学术生态与 Gemini AI 深度核验指标"
+        elif gemini_ok:
+            msg = "成功通过 Gemini AI 联网深度核验期刊指标"
+        elif has_academic_meta:
+            if gemini_err:
+                msg = f"已获取开放学术元数据（注：AI 语义核验遇到异常：{gemini_err}）"
+            else:
+                msg = "已从 OpenAlex/DOAJ 开放学术数据库获取基础办刊元数据"
 
         return True, {
             "status": "success",
             "journal": j_name,
             "data": res_data,
             "open_academic": academic_meta,
+            "message": msg,
         }

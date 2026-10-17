@@ -20,6 +20,35 @@
     }
 
     /**
+     * 获取当前用户/台账ID（支持本地持久化隔离）
+     */
+    getUserId() {
+      if (typeof window === 'undefined' || !window.localStorage) {
+        return 'default';
+      }
+      let uid = window.localStorage.getItem('wenjin_user_id');
+      if (!uid) {
+        // 自动为首次访问的用户生成唯一台账ID，例如 user_a9f3b2c1
+        const randStr = Math.random().toString(36).substring(2, 10);
+        uid = `user_${randStr}`;
+        window.localStorage.setItem('wenjin_user_id', uid);
+      }
+      return uid;
+    }
+
+    /**
+     * 设置/切换当前用户台账ID
+     */
+    setUserId(newId) {
+      if (typeof window !== 'undefined' && window.localStorage) {
+        const clean = (newId || '').trim();
+        if (clean) {
+          window.localStorage.setItem('wenjin_user_id', clean);
+        }
+      }
+    }
+
+    /**
      * 基础 HTTP 请求封装器
      * @private
      */
@@ -28,11 +57,15 @@
       const defaultOptions = {
         headers: {
           'Content-Type': 'application/json',
-          'Accept': 'application/json'
+          'Accept': 'application/json',
+          'X-User-ID': this.getUserId()
         }
       };
 
       const mergedOptions = { ...defaultOptions, ...options };
+      if (options.headers) {
+        mergedOptions.headers = { ...defaultOptions.headers, ...options.headers };
+      }
 
       try {
         const response = await fetch(url, mergedOptions);
@@ -94,11 +127,46 @@
     }
 
     /**
+     * 4.1 从台账中删除指定期刊
+     * @param {string} journalName - 期刊名称
+     * @returns {Promise<Object>}
+     */
+    async deleteTrack(journalName) {
+      const name = encodeURIComponent((journalName || '').trim());
+      return await this._request(`/api/track?name=${name}`, {
+        method: 'DELETE'
+      });
+    }
+
+    /**
+     * 4.2 清空当前用户的选刊决策台账
+     * @returns {Promise<Object>}
+     */
+    async clearTrack() {
+      return await this._request('/api/track/clear', {
+        method: 'DELETE'
+      });
+    }
+
+    /**
+     * 4.3 手动将指定期刊收录入当前用户的台账
+     * @param {string} journalName - 期刊名称
+     * @returns {Promise<Object>}
+     */
+    async addToTrack(journalName) {
+      const name = encodeURIComponent((journalName || '').trim());
+      return await this._request(`/api/track?name=${name}`, {
+        method: 'POST'
+      });
+    }
+
+    /**
      * 5. 获取标准 Excel 台账导出下载 URL
      * @returns {string}
      */
     getExportTrackUrl() {
-      return `${this.baseURL}/api/track/export`;
+      const uid = encodeURIComponent(this.getUserId());
+      return `${this.baseURL}/api/track/export?user_id=${uid}`;
     }
 
     /**

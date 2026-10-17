@@ -88,18 +88,33 @@
         searchQuery.value = '中国中药杂志';
       }
 
-      // 3. 智能筛选模块状态
+      // 3. 智能筛选模块状态与分页
       const filterScopeSource = ref('official'); // 'official' | 'track' | 'all'
       const filterLevel = ref('');
       const filterOA = ref('');
       const filterScope = ref('');
       const filterRecords = ref([]);
       const filterLoading = ref(false);
+      const filterPage = ref(1);
+      const filterPageSize = ref(20);
 
-      // 4. 决策台账模块状态
+      const pagedFilterRecords = computed(() => {
+        const start = (filterPage.value - 1) * filterPageSize.value;
+        return filterRecords.value.slice(start, start + filterPageSize.value);
+      });
+
+      // 4. 决策台账模块状态 (支持多用户独立隔离与分页)
+      const currentUserId = ref(window.WenjinAPI.getUserId());
       const trackRecords = ref([]);
       const trackSearch = ref('');
       const trackLoading = ref(false);
+      const trackPage = ref(1);
+      const trackPageSize = ref(20);
+      const userDialogVisible = ref(false);
+      const newUserIdInput = ref('');
+
+      const gzucmsPage = ref(1);
+      const gzucmsPageSize = ref(20);
 
       // 5. 官方目录与权威索引全景定位器状态
       const catalogCategories = ref([]);
@@ -225,9 +240,12 @@
           refreshing.value = false;
 
           if (data.status === 'success') {
-            ElMessage.success(`✓ 成功联网查证《${data.journal}》并已同步回写知识库！`);
+            const successMsg = data.message || `✓ 成功联网查证《${data.journal}》并已同步回写知识库！`;
+            ElMessage.success(successMsg);
             searchQuery.value = data.journal;
-            handleSearch();
+            await handleSearch();
+            await loadTrackRecords();
+            await loadStats();
           } else {
             ElMessage.warning(data.message || '联网核验未完成');
           }
@@ -285,6 +303,18 @@
         comparisonList.value = window.WenjinComparison.getList();
       };
 
+      // 通用防抖工具函数
+      const debounce = (fn, delay = 250) => {
+        let timer = null;
+        return (...args) => {
+          if (timer) clearTimeout(timer);
+          timer = setTimeout(() => fn(...args), delay);
+        };
+      };
+
+      // 统计兼容性别名
+      const loadStats = fetchStats;
+
       // 筛选数据加载
       const loadFilterRecords = async () => {
         const conds = [];
@@ -296,12 +326,18 @@
         try {
           const data = await window.WenjinAPI.filterTrack(conds.join(',') || 'all', filterScopeSource.value);
           filterRecords.value = data.records || [];
+          filterPage.value = 1;
         } catch (e) {
           ElMessage.error('筛选数据加载失败');
         } finally {
           filterLoading.value = false;
         }
       };
+
+      // 防抖触发的筛选检索
+      const debouncedLoadFilterRecords = debounce(() => {
+        loadFilterRecords();
+      }, 300);
 
       // 中科院 1~4 区开源历史镜像数据加载与检索
       const fetchCasCategories = async () => {
@@ -357,7 +393,7 @@
         }
       };
 
-      // 台账本地搜索过滤
+      // 台账本地搜索过滤与分页
       const filteredTrackRecords = computed(() => {
         const q = trackSearch.value.trim().toLowerCase();
         if (!q) return trackRecords.value;
@@ -368,6 +404,97 @@
             (r['广中医认定级别'] || '').toLowerCase().includes(q)
         );
       });
+
+      watch(trackSearch, () => {
+        trackPage.value = 1;
+      });
+
+      const pagedTrackRecords = computed(() => {
+        const start = (trackPage.value - 1) * trackPageSize.value;
+        return filteredTrackRecords.value.slice(start, start + trackPageSize.value);
+      });
+
+      // 从当前台账中删除指定期刊
+      const handleDeleteTrack = async (journalName) => {
+        if (!journalName) return;
+        try {
+          const res = await window.WenjinAPI.deleteTrack(journalName);
+          ElMessage.success(res.message || `已从台账中移出《${journalName}》`);
+          await loadTrackRecords();
+          await loadStats();
+        } catch (e) {
+          ElMessage.error(e.message || '删除期刊失败');
+        }
+      };
+
+      // 清空当前用户的台账
+      const handleClearTrack = async () => {
+        try {
+          const res = await window.WenjinAPI.clearTrack();
+          ElMessage.success(res.message || '选刊决策台账已成功清空');
+          await loadTrackRecords();
+          await loadStats();
+        } catch (e) {
+          ElMessage.error(e.message || '清空台账失败');
+        }
+      };
+
+      // 判断某期刊是否在当前台账中
+      const isJournalInTrack = (journalName) => {
+        if (!journalName) return false;
+        const target = journalName.trim().toLowerCase();
+        return trackRecords.value.some(
+          (r) => (r['期刊名称'] || '').trim().toLowerCase() === target
+        );
+      };
+
+      // 切换/添加期刊至台账
+      const handleToggleTrack = async (journalName) => {
+        if (!journalName) return;
+        if (isJournalInTrack(journalName)) {
+          await handleDeleteTrack(journalName);
+        } else {
+          try {
+            const res = await window.WenjinAPI.addToTrack(journalName);
+            ElMessage.success(res.message || `已成功将《${journalName}》收录至台账`);
+            await loadTrackRecords();
+            await loadStats();
+          } catch (e) {
+            ElMessage.error(e.message || '收录台账失败');
+          }
+        }
+      };
+
+      // 用户台账账户切换与新建
+      const openUserDialog = () => {
+        newUserIdInput.value = currentUserId.value;
+        userDialogVisible.value = true;
+      };
+
+      const handleSwitchUser = async () => {
+        const uid = (newUserIdInput.value || '').trim();
+        if (!uid) {
+          ElMessage.warning('请输入有效的台账账户名称或标识');
+          return;
+        }
+        window.WenjinAPI.setUserId(uid);
+        currentUserId.value = window.WenjinAPI.getUserId();
+        userDialogVisible.value = false;
+        ElMessage.success(`已切换至台账账户: ${currentUserId.value}`);
+        await loadTrackRecords();
+        await loadStats();
+      };
+
+      const handleCreateNewUser = async () => {
+        const randStr = Math.random().toString(36).substring(2, 10);
+        const newUid = `user_${randStr}`;
+        window.WenjinAPI.setUserId(newUid);
+        currentUserId.value = newUid;
+        userDialogVisible.value = false;
+        ElMessage.success(`已新建独立台账账户: ${currentUserId.value}`);
+        await loadTrackRecords();
+        await loadStats();
+      };
 
       // 官方目录数据加载
       const loadCatalog = async () => {
@@ -408,13 +535,21 @@
       // ========================================================================
       const catalogModalFilter = ref('ALL');
 
+      let indexesLoaded = false;
       const loadAllIndexes = async () => {
+        if (indexesLoaded) return;
         try {
           const data = await window.WenjinAPI.getAllIndexes();
           if (data) {
             if (data.gzucms) Object.assign(allIndexes.gzucms, data.gzucms);
-            if (data.chinese_core) Object.assign(allIndexes.chinese_core, data.chinese_core);
+            if (data.chinese_core) {
+              allIndexes.chinese_core.meta = data.chinese_core.meta || {};
+              allIndexes.chinese_core.journals = (window.Vue && window.Vue.markRaw)
+                ? window.Vue.markRaw(data.chinese_core.journals || [])
+                : (data.chinese_core.journals || []);
+            }
             if (data.cas_warning) Object.assign(allIndexes.cas_warning, data.cas_warning);
+            indexesLoaded = true;
           }
         } catch (e) {
           console.warn('[App] 权威索引库全景数据加载异常:', e);
@@ -455,6 +590,7 @@
       };
 
       const openCatalogModal = async (tab = 'gzucms', targetName = '', levelFilter = 'ALL', wosType = '') => {
+        loadAllIndexes(); // 弹窗展开时按需加载
         catalogModalVisible.value = true;
         activeIndexTab.value = tab;
         if (levelFilter) {
@@ -505,18 +641,27 @@
         handleSearch();
       };
 
-      // 辅助判断某一行是否在当前匹配结果中
-      const isRowLocated = (row, catalogKey) => {
-        if (!locatorResult.value || !locatorResult.value.matches) return false;
-        const matches = locatorResult.value.matches[catalogKey] || [];
-        if (!matches.length) return false;
-        const rowName = (row.name || '').trim().toLowerCase();
-        const rowIssn = (row.issn || '').replace(/[^0-9Xx]/g, '').toUpperCase();
-        return matches.some(m => {
+      // 辅助判断某一行是否在当前匹配结果中 (O(1) 哈希索引优化)
+      const locatedMatchesSet = computed(() => {
+        if (!locatorResult.value || !locatorResult.value.matches) return new Set();
+        let key = activeIndexTab.value;
+        if (key === 'chinese_core') key = 'cscd';
+        const matches = locatorResult.value.matches[key] || [];
+        const s = new Set();
+        matches.forEach((m) => {
           const mName = (m.name || '').trim().toLowerCase();
           const mIssn = (m.issn || '').replace(/[^0-9Xx]/g, '').toUpperCase();
-          return (rowName && mName && rowName === mName) || (rowIssn && mIssn && rowIssn === mIssn);
+          if (mName) s.add(mName);
+          if (mIssn) s.add(mIssn);
         });
+        return s;
+      });
+
+      const isRowLocated = (row, catalogKey) => {
+        if (!locatedMatchesSet.value.size) return false;
+        const rowName = (row.name || '').trim().toLowerCase();
+        const rowIssn = (row.issn || '').replace(/[^0-9Xx]/g, '').toUpperCase();
+        return (rowName && locatedMatchesSet.value.has(rowName)) || (rowIssn && locatedMatchesSet.value.has(rowIssn));
       };
 
       const catalogTableRowClass = ({ row }) => {
@@ -552,6 +697,15 @@
           );
         }
         return list;
+      });
+
+      watch(catalogModalFilter, () => {
+        gzucmsPage.value = 1;
+      });
+
+      const pagedGzucmsFlat = computed(() => {
+        const start = (gzucmsPage.value - 1) * gzucmsPageSize.value;
+        return filteredGzucmsFlat.value.slice(start, start + gzucmsPageSize.value);
       });
 
       // CSCD 核心与扩展库列表
@@ -674,8 +828,12 @@
         loadFilterRecords();
         loadTrackRecords();
         loadCatalog();
-        loadAllIndexes();
         fetchCasCategories();
+
+        // 异步空闲加载全量索引库，避免阻塞首屏渲染与检索
+        setTimeout(() => {
+          loadAllIndexes();
+        }, 150);
 
         // 支持 URL 路由参数驱动自动化与外链直达
         const params = new URLSearchParams(window.location.search);
@@ -710,10 +868,27 @@
         filterScope,
         filterRecords,
         filterLoading,
+        filterPage,
+        filterPageSize,
+        pagedFilterRecords,
+        debouncedLoadFilterRecords,
+        currentUserId,
+        userDialogVisible,
+        newUserIdInput,
         trackRecords,
         trackSearch,
         trackLoading,
+        trackPage,
+        trackPageSize,
+        pagedTrackRecords,
         filteredTrackRecords,
+        handleDeleteTrack,
+        handleClearTrack,
+        isJournalInTrack,
+        handleToggleTrack,
+        openUserDialog,
+        handleSwitchUser,
+        handleCreateNewUser,
         catalogCategories,
         catalogLevelFilter,
         catalogSearch,
@@ -731,6 +906,9 @@
         allIndexes,
         catalogModalFilter,
         filteredGzucmsFlat,
+        pagedGzucmsFlat,
+        gzucmsPage,
+        gzucmsPageSize,
         filteredCscdList,
         pagedCscdList,
         cscdPage,
@@ -783,7 +961,7 @@
         catalogTableRowClass,
         isRowLocated,
         openDocs: () => window.open('/docs', '_blank'),
-        exportUrl: window.WenjinAPI.getExportTrackUrl(),
+        exportUrl: computed(() => window.WenjinAPI.getExportTrackUrl()),
 
         // 格式化与渲染适配器 (安全取值器)
         getLevelTagType: window.WenjinFormatters.getLevelTagType,
@@ -849,7 +1027,10 @@
         Close: ElementPlusIconsVue.Close,
         View: ElementPlusIconsVue.View,
         Compass: ElementPlusIconsVue.Compass,
-        Location: ElementPlusIconsVue.Location
+        Location: ElementPlusIconsVue.Location,
+        Delete: ElementPlusIconsVue.Delete,
+        Edit: ElementPlusIconsVue.Edit,
+        Plus: ElementPlusIconsVue.Plus
       };
     }
   });

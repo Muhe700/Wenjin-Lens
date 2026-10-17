@@ -62,14 +62,37 @@ def get_kb_json_path():
     return primary
 
 
-def get_track_csv_path():
-    """获取追踪表 CSV 路径（统一存放在 data/track/）。"""
-    return os.path.join(TRACK_DATA_DIR, "journal_track.csv")
+import re
+
+def sanitize_user_id(user_id=None):
+    """清理并校验 user_id，防范路径穿越攻击。"""
+    if not user_id:
+        return "default"
+    s = str(user_id).strip()
+    cleaned = re.sub(r"[^\w\-\u4e00-\u9fa5]", "_", s)
+    cleaned = cleaned.strip("_")
+    cleaned = cleaned[:64]
+    return cleaned if cleaned else "default"
 
 
-def get_track_xlsx_path():
-    """获取追踪表 Excel 路径（统一存放在 data/track/）。"""
-    return os.path.join(TRACK_DATA_DIR, "journal_track.xlsx")
+def get_track_csv_path(user_id=None):
+    """获取追踪表 CSV 路径（统一存放在 data/track/ 或 data/track/users/{user_id}/）。"""
+    uid = sanitize_user_id(user_id)
+    if uid == "default":
+        return os.path.join(TRACK_DATA_DIR, "journal_track.csv")
+    user_dir = os.path.join(TRACK_DATA_DIR, "users", uid)
+    os.makedirs(user_dir, exist_ok=True)
+    return os.path.join(user_dir, "journal_track.csv")
+
+
+def get_track_xlsx_path(user_id=None):
+    """获取追踪表 Excel 路径（统一存放在 data/track/ 或 data/track/users/{user_id}/）。"""
+    uid = sanitize_user_id(user_id)
+    if uid == "default":
+        return os.path.join(TRACK_DATA_DIR, "journal_track.xlsx")
+    user_dir = os.path.join(TRACK_DATA_DIR, "users", uid)
+    os.makedirs(user_dir, exist_ok=True)
+    return os.path.join(user_dir, "journal_track.xlsx")
 
 
 def get_config_json_path():
