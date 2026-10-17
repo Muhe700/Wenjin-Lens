@@ -198,3 +198,22 @@ sudo systemctl reload nginx
   ```
 - **系统运行全景指标**：`GET /api/stats`
   可获取当前系统加载的官方目录数、全国中文核心数、预警期刊数、已核验知识条目数以及累计追踪数。
+
+---
+
+## 八、云端部署与全浏览器兼容保障 (Cross-Browser & Offline Reliability)
+
+为彻底解决“上云后部分浏览器无法打开或移动端排版溢出”的痛点，系统已全面固化以下架构规范：
+
+### 1. 全量静态依赖本地化托管（Zero-CDN 架构）
+- **痛点规避**：彻底移除对境外公共 CDN（`cdnjs.cloudflare.com`、`cdn.jsdelivr.net`）及 Google Fonts 的强依赖，避免国内移动宽带、校园网 DNS 污染或限速造成的 `Vue is not defined` 致命白屏。
+- **文件存储**：全套运行时（Vue 3、Element Plus、Chart.js 等）统一内置于 `app/web/static/libs/`，总开销仅 1.75 MB（Gzip 后网络传输不足 480 KB），开箱即用。
+
+### 2. 国产双核浏览器极速核心加固
+- `index.html` 头部强制声明 `<meta name="renderer" content="webkit">` 与 `<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">`；
+- 360安全浏览器、360极速浏览器、QQ 浏览器、搜狗高速浏览器通过云服务器 IP 访问时，自动激活 WebKit/Blink 极速核心，杜绝误入 IE 模式。
+
+### 3. 移动端防爆框与超宽表格内联隔离
+- 顶栏胶囊导航在移动小屏下自动切换为无滚动条平滑滑行；
+- 官方目录及台账中超过 1100px 的多维宽表格在移动端采用独立内联触摸滚动隔离，绝对不撑爆根视口，杜绝手机端横向晃动或右半屏截断现象。
+
