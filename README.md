@@ -6,7 +6,7 @@
 [![Vue: 3.3.4](https://img.shields.io/badge/Vue-3.3.4-4FC08D.svg)](https://vuejs.org/)
 [![Element Plus: 2.4.4](https://img.shields.io/badge/Element%20Plus-2.4.4-409EFF.svg)](https://element-plus.org/)
 [![Offline: 100% Ready](https://img.shields.io/badge/Offline-100%25%20Ready-orange.svg)](#)
-[![Tests: 27 Passed](https://img.shields.io/badge/Tests-27%20Passed-success.svg)](tests/)
+[![Tests: 32 Passed](https://img.shields.io/badge/Tests-32%20Passed%20(1.5s)-success.svg)](tests/)
 
 面向学术研究者与高校教师的智能选刊与期刊等级核验工具。输入期刊名称、ISSN / CN 刊号或收录索引关键词，即可一键检索并输出 **9 项核心选刊维度**：
 
@@ -35,7 +35,7 @@
 
 ## 版本迭代历程与演进里程碑 (Version Iteration Milestones)
 
-文津·选刊助手（Wenjin-Lens）经历了 **5 次重大架构演进与版本迭代**，从最初的轻量终端脚本逐步成长为企业级、模块化、高内聚的学术决策工作台：
+文津·选刊助手（Wenjin-Lens）经历了 **6 次重大架构演进与版本迭代**，从最初的轻量终端脚本逐步成长为企业级、模块化、高内聚的学术决策工作台：
 
 | 版本 | 阶段定位 | 核心技术升级与突破 | 标志性能力 |
 |:---:|---|---|---|
@@ -43,7 +43,8 @@
 | **v1.5 / v2.0** | **双模驱动·开放生态与 AI** | • 免注册免 Key 深度集成 OpenAlex 与 DOAJ 开放学术 API<br>• 接入 Google AI Studio (Gemini) 进行办刊语义提炼<br>• 建立中科院文献情报中心《国际期刊预警名单》离线排查库<br>• 建立全国中文核心期刊与 CSCD 核心库离线数据库（中医药期刊高被引全量覆盖） | • 杜绝大模型数值幻觉：APC、主页、审稿周期由权威事实源直出<br>• 毫秒级阻断论文工厂、引用操纵与学术治理风险<br>• 支持“本地离线秒查 + 联网深度核验”双模平滑流转 |
 | **v2.1** | **工作台化·现代学术 Web 单页** | • 引入 FastAPI 异步微内核驱动本地 Web 服务<br>• 践行 `DESIGN.md` 与 `academic-ui-craft` 学术级 UI 规范<br>• 集成 Element Plus、Chart.js 环形分布图与 Canvas Confetti 微动效 | • 现代化单页学术工作台（选刊检索/多维筛选/台账管理/官方目录全览）<br>• 宣纸温润白与深墨雅夜明暗模式无闪切换<br>• 3 刊横向多维对比矩阵与一键规范化决策简报复制 |
 | **v2.2** | **工程重塑·全模块化与接口解耦** | • **前端 UI 独立分离**：彻底拆分模板、设计系统与功能逻辑<br>• **标准接口数据传输**：前端封装 `WenjinAPI` 服务层，后端定义 Pydantic DTO 强契约<br>• **领域服务下沉**：抽取 `JournalService` 统一领域门面<br>• **模块化子路由**：FastAPI 解耦为检索、台账、目录独立路由器 | • 前端架构解耦为 `tokens` + `layout` + `components` + `modules` + `services`<br>• 杜绝散落直接 fetch，UI 仅通过接口进行数据传输<br>• CLI 命令行与 Web 端全量共享标准服务门面，消除重复判定逻辑 |
-| **v2.3 (当前)** | **纯净离线化·全端自适应与多端全兼容** | • **100% 静态资源本地化托管 (Zero-CDN)**：Vue 3、Element Plus、Chart.js 全量本地化，彻底隔绝外部 CDN（cdnjs/jsdelivr）断流与丢包白屏<br>• **国产双核浏览器强制极速核心**：声明 WebKit/Blink 渲染引擎，杜绝 360安全浏览器、QQ、搜狗误入 IE 模式<br>• **语法向后防御兼容**：重构 ES2020 可选链为防御性语法，杜绝旧版 iOS Safari / 微信旧版 WebView 语法报错<br>• **移动端全端防爆框容器体系**：顶栏胶囊导航平滑横滑，1100px 超宽数据表格局部内联独立滚动隔离，全组件防溢出 | • 彻底实现纯离线/云端内网即启即用，首屏无外部 DNS/TLS 握手延时<br>• PC 端（Chrome/Edge/Firefox/360/QQ）、移动端（iOS Safari/Android Chrome/微信内置/夸克/UC）全浏览器完美渲染<br>• 移动端体验大幅跃升：无横向抖动，超宽学术多维表格触控流畅 |
+| **v2.3** | **纯净离线化·全端自适应与多端全兼容** | • **100% 静态资源本地化托管 (Zero-CDN)**：Vue 3、Element Plus、Chart.js 全量本地化，彻底隔绝外部 CDN（cdnjs/jsdelivr）断流与丢包白屏<br>• **国产双核浏览器强制极速核心**：声明 WebKit/Blink 渲染引擎，杜绝 360安全浏览器、QQ、搜狗误入 IE 模式<br>• **语法向后防御兼容**：重构 ES2020 可选链为防御性语法，杜绝旧版 iOS Safari / 微信旧版 WebView 语法报错<br>• **移动端全端防爆框容器体系**：顶栏胶囊导航平滑横滑，1100px 超宽数据表格局部内联独立滚动隔离，全组件防溢出 | • 彻底实现纯离线/云端内网即启即用，首屏无外部 DNS/TLS 握手延时<br>• PC 端（Chrome/Edge/Firefox/360/QQ）、移动端（iOS Safari/Android Chrome/微信内置/夸克/UC）全浏览器完美渲染<br>• 移动端体验大幅跃升：无横向抖动，超宽学术多维表格触控流畅 |
+| **v2.4 (当前)** | **零卡顿性能重构·多微服务网关与免翻 AI 代理** | • **官方目录虚拟分页机制 (PageSize 50)**：彻底根除 3,200+ 行全量 DOM 节点渲染导致的严重卡顿，首屏毫秒级呈现<br>• **Vue 3 响应式浅层代理重构**：规避海量列表数据深层 Proxy 递归劫持带来的显著性能开销，内存大幅降低<br>• **实时检索 280ms 弹性防抖节流**：阻断无意义的中间态级联计算，打字输入零延迟<br>• **后端 SQLite 索引优化与 $O(1)$ 哈希去重**：建立复合查询索引，全套集成测试由 51s 缩短至 1.5s（提速 34 倍）<br>• **云端多微服务网关深度适配**：对齐宿主机 8001 端口规范，支持 Nginx 子路径（`/wenjin/`）自动剥离与前端 API 环境自感知<br>• **Cloudflare Worker 边缘免翻反代**：内置 Google Gemini API 反代脚本，国内云主机免装代理客户端即可低延迟直连 | • 3,200+ 篇官方期刊全览滑动极其丝滑，零丢帧、零假死<br>• 32 个自动化测试 1.5 秒全量通过，开发与 CI/CD 效能倍增<br>• 云服务器多服务统一网关开箱即用，支持多微服务端口安全隔离 |
 
 
 ---
@@ -97,6 +98,10 @@ Wenjin-Lens/
 │               │   ├── chart.js      # 目录分布甜甜圈图表封装
 │               │   └── comparison.js # 多维横向对比矩阵状态管理
 │               └── app.js        # Vue 3 核心应用调度器与视图装配
+├── cloudflare-worker/    # Cloudflare Worker 免翻反代 Google Gemini API 脚本与配置
+│   ├── README.md         # Worker 部署与自定义域名绑定指引
+│   ├── worker.js         # Cloudflare Worker 核心边缘代理脚本 (CORS 透传与 Host 重写)
+│   └── wrangler.toml     # Cloudflare 官方 CLI 部署配置文件
 ├── config/               # 配置文件目录
 │   ├── config.example.json # 配置模板
 │   └── config.json       # 本地私有配置（受 .gitignore 严密保护）
@@ -106,9 +111,9 @@ Wenjin-Lens/
 │   ├── kb/               # 动态知识库（journal_kb.json）
 │   ├── risk/             # 中科院国际预警期刊数据库（cas_warning_journals.json）
 │   └── track/            # 选刊追踪台账（journal_track.csv / .xlsx）
-├── deploy/               # 生产部署与守护进程模板
-│   ├── nginx.conf        # Nginx 反向代理、Gzip 与 SSL 优化配置
-│   └── wenjin-lens.service # Linux Systemd 守护进程单元
+├── deploy/               # 生产部署与多微服务统一网关配置
+│   ├── nginx.conf        # Nginx 多服务集成网关 (/wenjin/ 子路径) 与独立域名双模式配置
+│   └── wenjin-lens.service # Linux Systemd 守护进程单元 (标准端口 8001)
 ├── scripts/              # 离线维护与构建脚本（详见 scripts/README.md）
 │   ├── build_cas_jcr.py  # 中科院 1~4 区 SQLite 离线数据库构建
 │   ├── build_catalog.py  # 从 docx 重建 catalog 的自动化脚本
@@ -451,10 +456,17 @@ python web_app.py
   * 本地交互界面：`http://127.0.0.1:8000`
   * 交互式 OpenAPI 文档：`http://127.0.0.1:8000/docs`
 
-### 方式二：Docker 容器化部署
-一键编排并挂载持久化台账数据：
+### 方式二：Docker Compose 容器化部署（生产标准）
+云端标准映射宿主机 `8001` 端口，自动持久化台账数据与配置：
 ```bash
+# 复制并配置环境变量模板
+cp .env.example .env
+
+# 一键编排并后台启动容器
 docker compose up -d --build
+
+# 健康检查验证
+curl -s http://127.0.0.1:8001/api/health
 ```
 
 ### 方式三：终端 CLI 命令行直接使用
@@ -464,7 +476,7 @@ python xuankan.py "中华中医药杂志"
 ```
 
 ### 方式四：自动化测试与回归核验
-系统提供覆盖规则判定、目录服务、风险预警与 RESTful API 的完整测试套件：
+系统提供覆盖规则判定、目录服务、风险预警与 RESTful API 的完整测试套件（经 SQLite 索引与算法优化，全量 **32 个测试仅需 1.5 秒** 极速通过）：
 ```bash
 pytest tests -v
 ```
@@ -473,7 +485,7 @@ pytest tests -v
 
 ## 生产部署与运维指南
 
-有关在 Ubuntu/CentOS 服务器配置 Systemd 守护进程、Nginx 反向代理、SSL 证书以及持久化容灾备份，请参阅专门的生产运维手册：
+有关在 Ubuntu/Debian/CentOS 服务器配置 Systemd 守护进程、Nginx 多微服务网关（子路径 `/wenjin/` 自动剥离）、Cloudflare Worker 免翻反代 Google Gemini API、全量静态 Zero-CDN 架构以及自动化持久化备份，请参阅专门的生产运维手册：
 👉 **[DEPLOYMENT.md](DEPLOYMENT.md)**
 
 ---
