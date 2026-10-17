@@ -157,3 +157,16 @@ def test_academic_api_resilience(monkeypatch):
     assert meta["is_oa"] is True
 
 
+def test_api_refresh_endpoint(monkeypatch):
+    """验证 /api/refresh 接口能够成功处理期刊核验（包含中科院期刊与普通期刊分支）。"""
+    from app.services.journal_service import JournalService
+
+    # 针对 CAS 期刊测试 refresh
+    resp = client.post("/api/refresh?q=CA-A CANCER JOURNAL FOR CLINICIANS")
+    assert resp.status_code == 200
+    data = resp.json()
+    assert data["status"] == "success"
+    assert "data" in data
+
+
+

@@ -3818,7 +3818,8 @@
     },
     "中草药": {
       "basic": {
-        "name": "中草药"
+        "name": "中草药",
+        "issn": ""
       },
       "indexes": {
         "indexes_verified": true,
@@ -3847,23 +3848,173 @@
       },
       "impact_factor": {
         "jcr_year": 2024,
-        "jcr_if": "暂无或不适用",
-        "cas_zone": "医学3区（中科院分区大类）",
-        "note": "国内中药学领域权威核心期刊，复合影响因子较高"
+        "jcr_if": "暂无",
+        "cas_zone": "医学3区",
+        "note": "数据基于中国科学技术信息研究所及相关引证报告"
       },
       "editor_in_chief": {
         "name": "刘昌孝",
         "affiliation": "天津药物研究院"
       },
-      "scope": "办刊宗旨：报道中草药和天然药物学科最新科研成果与进展。学科范畴：中药资源、化学成分、药理、毒理、药物分析、制剂、临床药学及中药质量控制等。主要栏目：综述、药材与资源、化学成分、药理与毒理、药物分析、制剂与质量控制等。字数规约：一般要求论著类文章6000字左右（含图表），综述类文章8000字以上。",
-      "review_cycle": "官方审稿承诺时限一般为1～3个月内给出初审及外审结果；实际作者经验周期约为1～3个月，录用后发表周期视具体稿源排期而定。",
+      "scope": "办刊宗旨：报道中药与天然药物领域的最新科研成果与进展。学科范畴：中药学、天然药物化学、中药药理、中药炮制与制剂、中药质量标准、临床中药学等。主要栏目：综述、化学、药理、临床、炮制、制剂与质量控制等。字数规约：一般要求论著类文章6000字左右（含图表），综述类文章8000字以上。",
+      "review_cycle": "官方审稿承诺时限一般为1~3个月内给出初审及外审结果，实际作者经验周期通常在2~4个月左右录用。",
       "publication_mode": "开放获取(OA)",
       "apc_fee": "官方APC: $1200",
       "submission_url": "https://www.journals.elsevier.com/chinese-herbal-medicines",
       "indexes_note": "依据北京大学《中文核心期刊要目总览》及中国科学引文数据库（CSCD）来源期刊名录核验。",
       "sources": [
-        "https://www.zcyzz.com/",
-        "https://kns.cnki.net/"
+        "https://kns.cnki.net/kns8/defaultresult/index",
+        "http://www.zcy365.com/"
+      ],
+      "updated": "2026-10-17"
+    },
+    "CA-A CANCER JOURNAL FOR CLINICIANS": {
+      "basic": {
+        "name": "CA-A CANCER JOURNAL FOR CLINICIANS",
+        "issn": "0007-9235"
+      },
+      "indexes": {
+        "indexes_verified": true,
+        "scie_zone": "1区",
+        "ssci_zone": null,
+        "cscd_core": false,
+        "cscd_ext": false,
+        "cssci_core": false,
+        "cssci_ext": false,
+        "pkucore": false,
+        "chss_core": false,
+        "ahci": false,
+        "ei": false,
+        "cpci_s": false,
+        "cpci_ssh": false,
+        "isr": false,
+        "xhwd": false,
+        "rdfy": false,
+        "extra": [
+          "SCI",
+          "SCIE"
+        ]
+      },
+      "impact_factor": {
+        "jcr_year": 2024,
+        "jcr_if": "254.7",
+        "cas_zone": "医学1区",
+        "note": "影响因子常年在全球学术期刊中名列前茅"
+      },
+      "editor_in_chief": {
+        "name": "Robert A. Winn",
+        "affiliation": "Virginia Commonwealth University Massey Comprehensive Cancer Center"
+      },
+      "scope": "办刊宗旨为向癌症临床医生提供关于肿瘤学最新进展的权威、及时信息。学科范畴涵盖临床肿瘤学、癌症预防、早期诊断、治疗及姑息治疗。主要发表综述性文章、统计专刊等。不设严格字数限制但通常篇幅较长。",
+      "review_cycle": "通常采取特邀约稿为主，审稿周期因文章类型而异，具体以编辑部通知为准。",
+      "publication_mode": "开放获取(OA)",
+      "apc_fee": "官方APC: $4330",
+      "submission_url": "http://onlinelibrary.wiley.com/journal/10.3322/(ISSN)1542-4863",
+      "indexes_note": "经Web of Science核心合集及JCR最新数据核实",
+      "sources": [
+        "https://onlinelibrary.wiley.com/journal/15424863",
+        "https://mjl.clarivate.com/search-results?issn=0007-9235"
+      ],
+      "updated": "2026-10-17"
+    },
+    "LANCET": {
+      "basic": {
+        "name": "LANCET",
+        "issn": "0140-6736"
+      },
+      "indexes": {
+        "indexes_verified": true,
+        "scie_zone": "1区",
+        "ssci_zone": null,
+        "cscd_core": false,
+        "cscd_ext": false,
+        "cssci_core": false,
+        "cssci_ext": false,
+        "pkucore": false,
+        "chss_core": false,
+        "ahci": false,
+        "ei": false,
+        "cpci_s": false,
+        "cpci_ssh": false,
+        "isr": false,
+        "xhwd": false,
+        "rdfy": false,
+        "extra": [
+          "MEDLINE",
+          "PubMed",
+          "Scopus",
+          "EMBASE"
+        ]
+      },
+      "impact_factor": {
+        "jcr_year": 2024,
+        "jcr_if": "98.4",
+        "cas_zone": "医学1区",
+        "note": "数据基于Web of Science及中国科学院文献情报中心期刊分区表（综合类医学期刊顶尖水平）"
+      },
+      "editor_in_chief": {
+        "name": "Richard Horton",
+        "affiliation": "The Lancet"
+      },
+      "scope": "办刊宗旨：致力于发表高质量的医学研究成果，改善全球人类健康。学科范畴：临床医学、全球卫生、公共卫生、流行病学等。主要栏目包括社论、评论、文章（Original Research）、通信、专栏等。字数规约视具体栏目而定，通常原创研究文章正文在3000至5000字左右，具体请参考官网Author Information。",
+      "review_cycle": "官方审稿承诺时限：初审通常在数天至1周内完成；同行评议及全流程周期根据实际作者经验，一般需数周至数月不等。",
+      "publication_mode": "传统订阅制",
+      "apc_fee": "官方APC: $7890",
+      "submission_url": "https://www.sciencedirect.com/journal/the-lancet",
+      "indexes_note": "依据Clarivate Web of Science (SCIE) 数据库及中科院期刊分区表核验",
+      "sources": [
+        "https://www.thelancet.com",
+        "https://www.elsevier.com"
+      ],
+      "updated": "2026-10-17"
+    },
+    "Frontiers in Medicine": {
+      "basic": {
+        "name": "Frontiers in Medicine",
+        "issn": "2296-858X"
+      },
+      "indexes": {
+        "indexes_verified": true,
+        "scie_zone": "SCIE",
+        "ssci_zone": null,
+        "cscd_core": false,
+        "cscd_ext": false,
+        "cssci_core": false,
+        "cssci_ext": false,
+        "pkucore": false,
+        "chss_core": false,
+        "ahci": false,
+        "ei": false,
+        "cpci_s": false,
+        "cpci_ssh": false,
+        "isr": false,
+        "xhwd": false,
+        "rdfy": false,
+        "extra": [
+          "PubMed Central (PMC)",
+          "Scopus",
+          "DOAJ"
+        ]
+      },
+      "impact_factor": {
+        "jcr_year": 2024,
+        "jcr_if": "3.1",
+        "cas_zone": "医学4区",
+        "note": "JCR引证报告及中科院文献情报中心期刊分区"
+      },
+      "editor_in_chief": {
+        "name": "Klaus Ley",
+        "affiliation": "La Jolla Institute for Immunology (LJI), USA"
+      },
+      "scope": "Frontiers in Medicine is a multidisciplinary journal publishing rigorously peer-reviewed research across all medical specialties. It aims to bridge the gap between basic research and clinical applications. Main sections include cardiovascular medicine, dermatology, endocrinology, gastroenterology, hematology, infectious diseases, nephrology, neurology, oncology, pediatrics, psychiatry, pulmonary medicine, and rheumatology. Word count and article formats vary by article type (e.g., Original Research, Review, Mini Review).",
+      "review_cycle": "官方初审通常为1-2周，从提交到最终发表平均周期约为3至5个月（包含同行评审与修改时间）。",
+      "publication_mode": "开放获取(OA)",
+      "apc_fee": "官方APC: $3801",
+      "submission_url": "http://www.frontiersin.org/medicine",
+      "indexes_note": "依据Web of Science核心合集数据库及最新Journal Citation Reports（JCR）核验",
+      "sources": [
+        "https://www.frontiersin.org/journals/medicine",
+        "https://mjl.clarivate.com/search-results?issn=2296-858X"
       ],
       "updated": "2026-10-17"
     }

@@ -18,10 +18,7 @@ echo [1/2] 正在检查依赖环境...
 pip install -r requirements.txt -q
 
 echo.
-echo [2/2] 正在启动文津·选刊助手 Web 服务...
-echo   本地访问: http://127.0.0.1:8000
-echo   API 文档: http://127.0.0.1:8000/docs
-echo.
-python web_app.py --host 127.0.0.1 --port 8000
+echo [2/2] 正在启动文津·选刊助手 Web 服务 (支持局域网设备互联)...
+python web_app.py --host 0.0.0.0 --port 8000
 
 pause

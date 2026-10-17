@@ -272,13 +272,18 @@ class JournalService:
             local_issn = q
         else:
             cat = load_catalog()
-            j_rec, _, _ = find_journal(cat, q)
-            if j_rec and j_rec.get("issn"):
-                local_issn = j_rec["issn"]
-            else:
-                cas_rec = find_cas_journal(q)
-                if cas_rec and (cas_rec.get("issn") or cas_rec.get("eissn")):
-                    local_issn = cas_rec.get("issn") or cas_rec.get("eissn")
+            j_res = find_journal(cat, q)
+            if isinstance(j_res, tuple) and len(j_res) > 0 and isinstance(j_res[0], dict):
+                local_issn = j_res[0].get("issn")
+            elif isinstance(j_res, dict):
+                local_issn = j_res.get("issn")
+
+            if not local_issn:
+                cas_res = find_cas_journal(q)
+                if isinstance(cas_res, tuple) and len(cas_res) > 0 and isinstance(cas_res[0], dict):
+                    local_issn = cas_res[0].get("issn") or cas_res[0].get("eissn")
+                elif isinstance(cas_res, dict):
+                    local_issn = cas_res.get("issn") or cas_res.get("eissn")
 
         # 1. 抓取 OpenAlex / DOAJ 权威学术元数据（防御性隔离外部网络抖动）
         try:
